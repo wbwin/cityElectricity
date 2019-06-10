@@ -1,0 +1,77 @@
+<import src="../template/noDatas/noDatas.wxml"/>
+
+<!--index.wxml-->
+<view class='page'>
+  <view class='page__hd'>
+    <swiper indicator-dots="{{indicatorDots}}" indicator-color="rgba(255,255,255,0.5)" indicator-active-color="#ffffff" class="slide_image" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <block wx:for="{{imgUrls}}" wx:key='*this'>
+        <swiper-item>
+          <image src="{{item}}" class="slide_image" />
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <view class='page__bd'>
+    <view class='weui-tab'>
+      <view class='weui-navbar'>
+        <block wx:for='{{tabs}}' wx:key='*this'>
+          <view id='{{index}}' class='weui-navbar__item {{activeIndex==index?"weui-bar__item_on":""}}' bindtap="tabClick">
+            <view class="weui-navbar__title">{{item}}</view>
+          </view>
+        </block>
+        <view class="weui-navbar__slider" style="width:12.5%;left:19%!important; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+      </view>
+      <view class="weui-tab__panel">
+        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+          <view wx:if="{{true}}">
+            <block wx:for="{{fansNumber}}" wx:key='*this'>
+              <view class='shop_poster_item'>
+                <navigator url="/pages/shop/shop?id=12" class='shop_poster'>
+                  <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='shop_poster_img'></image>
+                  <view class='flex_row shop_poster_content'>
+                    <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='head_portrait'></image>
+                    <view class='flex_row ai_flex_end weui-flex__item'>
+                      <view class='flex_column weui-flex__item'>
+                        <view class='poster_item_shopName'>店铺名称</view>
+                        <view class='poster_item_shopMsg'>一句话介绍介绍介绍介绍介绍</view>
+                      </view>
+                      <view class='flex_column ai_flex_end shop_poster_tip'>
+                        <view>越秀区先烈中路000号</view>
+                        <view>距离：550m</view>
+                      </view>
+                    </view>
+                  </view>
+                  <view class='shop_poster_classfly'>新品</view>
+                </navigator>
+                <navigator url='/pages/followNumb/followNumb' class='flex_row fans'>
+                  <view class='flex_column fans_numb'>
+                    <view class='fans_numb_text'>54</view>
+                    <view>个粉丝</view>
+                  </view>
+                  <view class='flex_row weui-flex__item fans_numb_img'>
+                    <block wx:for="{{fansNumber}}" wx:key='*this'>
+                      <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='fans_img'></image>
+                    </block>
+                    <image src='../../images/shop_list_more.png' class='fans_img'></image>
+                  </view>
+                </navigator>
+              </view>
+            </block>
+          </view>
+          <template is="noDatas" data="{{paddingTop: '102rpx',text1:'暂无关注的店铺',text2:'点击下方发现，查看更多的店铺的内容'}}" wx:else/>
+
+          <!-- <view class='flex_column ai_flex_center no_datas' wx:else>
+            <image src='../../images/no_datas_icon.png' class='no_datas_image'></image>
+            <text>暂无关注的店铺</text>
+            <text>点击下方发现，查看更多的店铺的内容</text>
+          </view> -->
+        </view>
+        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+          
+<include src="../template/dynamicList/dynamicList.wxml"/>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>

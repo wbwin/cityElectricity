@@ -1,0 +1,60 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/find/find",
+    "pages/my/my",
+    "pages/my/applicationMerchant/applicationMerchant",
+    "pages/my/applicationMerchant/shopApplication/shopApplication",
+    "pages/my/applicationMerchant/supplierApplication/supplierApplication",
+    "pages/my/applicationMerchant/auditResults/auditResults",
+    "pages/my/orderManagement/orderManagement",
+    "pages/my/orderManagement/orderDetail/orderDetail",
+    "pages/my/orderManagement/applyForRefund/applyForRefund",
+    "pages/my/afterSaleManagement/afterSaleManagement",
+    "pages/my/regiment/regiment",
+    "pages/my/wallet/wallet",
+    "pages/my/wallet/detailsOfAmount/detailsOfAmount",
+    "pages/my/wallet/cashWithdrawal/cashWithdrawal",
+    "pages/my/commodityCollection/commodityCollection",
+    "pages/my/aboutUs/aboutUs",
+    "pages/shop/shop",
+    "pages/shop/commodityClassification/commodityClassification",
+    "pages/goods/goods",
+    "pages/goods/assembleGoods/assembleGoods",
+    "pages/goods/confirmationOrder/confirmationOrder",
+    "pages/followNumb/followNumb",
+    "pages/dynamicDetails/dynamicDetails",
+    "pages/logs/logs"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "店铺",
+        "iconPath": "./images/shop_default.png",
+        "selectedIconPath": "./images/shop.png"
+      },
+      {
+        "pagePath": "pages/find/find",
+        "text": "发现",
+        "iconPath": "./images/find_default.png",
+        "selectedIconPath": "./images/find.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "./images/my_default.png",
+        "selectedIconPath": "./images/my.png"
+      }
+    ],
+    "color":"#999999",
+    "selectedColor": "#FF7F00",
+    "borderStyle": "white"
+  },
+  "sitemapLocation": "sitemap.json"
+}

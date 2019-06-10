@@ -1,0 +1,251 @@
+/* pages/goods/goods.wxss */
+.page{
+  margin-bottom: 98rpx;
+}
+.page_hd{
+  position: relative
+}
+.weui-tab__panel{
+  padding-top: 0
+}
+.slide_image {
+  width: 100%;
+  height: 750rpx;
+  position: relative;
+}
+.slide_image_indicator{
+  position: absolute;
+  right: 32rpx;
+  bottom:32rpx;
+  width: 74rpx;
+  text-align: center;
+  background:rgba(0,0,0,0.3);
+border-radius:22rpx;
+padding:4rpx 0;
+font-size:24rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(255,255,255,1);
+}
+.goods_top_content{
+  padding: 24rpx 32rpx;
+}
+.goods_content {
+  
+}
+
+.goods_price {
+  font-size:48rpx;
+font-family:PingFangSC-Medium;
+font-weight:500;
+color:rgba(255,132,27,1);
+}
+
+.goods_originalPrice {
+  font-size:26rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(153,153,153,1);
+margin-left: 32rpx;
+text-decoration: line-through;
+}
+
+.goods_content_image {
+  width: 40rpx;
+  height: 40rpx;
+  margin-bottom: 4rpx;
+}
+.ml30{
+  margin-left: 60rpx;
+}
+.goods_button_text{
+  font-size:20rpx;
+font-family:PingFangSC-Medium;
+font-weight:500;
+color:rgba(153,153,153,1);
+margin-top: 2rpx;
+}
+.goods_name {
+  font-size:30rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(51,51,51,1);
+line-height:42rpx;
+margin-top: 20rpx;
+}
+
+.goods_saleNumb {
+  margin-top: 16rpx;
+  font-size:24rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(153,153,153,1);
+}
+.goods_fans{
+  padding: 24rpx 32rpx;
+}
+.head_portrait {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  margin-right: 24rpx;
+}
+.comment_item{
+  padding: 32rpx 0;
+  margin: 0 32rpx;
+  font-size:28rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(51,51,51,1);
+border-bottom: 2rpx solid #f7f7f7;
+}
+.comment_content {
+}
+
+.comment_name {
+}
+
+.comment_time {
+  font-size:24rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(153,153,153,1);
+}
+
+.comment_msg {
+  margin-top: 16rpx;
+}
+
+.goods_show_buy {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #FF841B;
+  height: 98rpx;
+  line-height: 98rpx;
+  color: #fff;
+  text-align: center;
+  font-size:36rpx;
+  z-index: 501
+}
+
+
+.buy_frame {
+  position: fixed;
+  background: #fff;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 748rpx;
+  z-index: 999;
+  transform:translateY(846rpx);
+  padding-bottom: 98rpx
+}
+
+.buy_frame_content {
+  padding: 32rpx;
+}
+.buy_frame_content_text{
+  height: 160rpx;
+  font-size:24rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(153,153,153,1);
+margin-left: 32rpx;
+}
+
+.goods_image {
+  width:160rpx;
+  height: 160rpx;
+  border-radius: 8rpx;
+}
+
+.buy_frame_price {
+  font-size:48rpx;
+font-family:PingFangSC-Medium;
+font-weight:500;
+color:rgba(255,132,27,1);
+margin-bottom: 32rpx;
+}
+
+.buy_frame_spec {
+  padding: 0 20rpx;
+  margin-bottom: 48rpx;
+}
+.buy_frame_spec_title{
+  margin-left: 12rpx;
+}
+.buy_frame_specContent {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.specContent_item {
+  padding: 8rpx 28rpx;
+  background: #f7f7f7;
+  border-radius: 8rpx;
+  margin: 24rpx 12rpx 0 12rpx
+  }
+.specContent_item_active{
+  background-color: #FF841B;
+  color: #fff;
+}
+.buy_frame_numb {
+  padding: 24rpx 32rpx;
+  font-size:30rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(51,51,51,1);
+}
+
+.numb_reduce {
+  width: 56rpx;
+  height: 56rpx;
+}
+
+.numb_input {
+  width: 80rpx;
+  height: 56rpx;
+  background: #F7F7F7;
+  text-align: center;
+}
+
+.numb_plus {
+  width: 56rpx;
+  height: 56rpx;
+}
+.buy_frame_sure{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #FF841B;
+  height: 98rpx;
+  line-height: 98rpx;
+  color: #fff;
+  text-align: center;
+  font-size:36rpx;
+}
+.hide_buy_frame{
+  width: 50rpx;
+  height: 50rpx;
+  position: absolute;
+  right: 48rpx;
+  top: 48rpx;
+}
+.contact_shop_owner{
+  position: fixed;
+  right: 0;
+  bottom: 50%;
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #000;
+}
+.contact_image{
+  width: 40rpx;
+  height: 40rpx;
+}

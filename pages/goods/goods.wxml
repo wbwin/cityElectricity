@@ -1,0 +1,127 @@
+<!--pages/goods/goods.wxml-->
+<view class='page'>
+
+  <view class='page_hd'>
+    <swiper indicator-dots="{{indicatorDots}}" bindchange="slideImageChange" class="slide_image" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <block wx:for="{{imgUrls}}">
+        <swiper-item>
+          <image src="{{item}}" class="slide_image" />
+        </swiper-item>
+      </block>
+
+    </swiper>
+    <view class='slide_image_indicator'>{{slideImageIndex+1}}/{{imgUrls.length}}</view>
+  </view>
+  <view class='flex_column ai_flex_center contact_shop_owner'>
+    <image class='contact_image' src='../../images/name.png'></image>
+    <view>联系店主</view>
+  </view>
+  <view class='page_bd'>
+    <view class='goods_top_content'>
+      <view class='flex_row jc_flex_sb goods_content'>
+        <view class='flex_row '>
+          <view class='goods_price'>￥159</view>
+          <view class='goods_originalPrice'>￥666</view>
+        </view>
+        <view class='flex_row'>
+          <view class='flex_column ai_flex_center'>
+            <image class='goods_content_image' src='/images/{{true?"goods_collect":"goods_collect_pre"}}.png'></image>
+            <view class='goods_button_text'>收藏</view>
+          </view>
+          <view class='flex_column ai_flex_center ml30'>
+            <image class='goods_content_image' src='/images/goods_share.png'></image>
+            <view class='goods_button_text'>分享</view>
+          </view>
+        </view>
+      </view>
+      <view class='goods_name'>2019春装新款商品名称名称名称名称名称名称名称名称名称名称名称名称名称名</view>
+      <view class='flex_row goods_saleNumb'>已售70件</view>
+    </view>
+    <view class='line_border'></view>
+    <navigator url='/pages/followNumb/followNumb' class='flex_row goods_fans'>
+      <view class='flex_column fans_numb'>
+        <view class='fans_numb_text'>54</view>
+        <view class='fs10'>围观人数</view>
+      </view>
+      <view class='flex_row weui-flex__item fans_numb_img' style='margin-left:24rpx;'>
+        <block wx:for="{{10}}" wx:key='*this'>
+          <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='fans_img' style='margin-left:2rpx;'></image>
+        </block>
+        <image src='../../images/shop_list_more.png' class='fans_img'></image>
+      </view>
+    </navigator>
+    <view class='line_border'></view>
+    <view class='weui-tab'>
+      <view class='weui-navbar'>
+        <view data-index='0' class='weui-navbar__item {{activeIndex==0?"weui-bar__item_on":""}}' bindtap="tabClick">
+          <view class="weui-navbar__title">详情</view>
+        </view>
+        <view data-index='1' class='weui-navbar__item {{activeIndex==1?"weui-bar__item_on":""}}' bindtap="tabClick">
+          <view class="weui-navbar__title">评论（2）</view>
+        </view>
+
+        <view class="weui-navbar__slider" style="width:9.5%;left:{{activeIndex==0?'20.3%':'14.8%'}}!important; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+      </view>
+      <view class="weui-tab__panel">
+        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+          <image class='' src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'></image>
+        </view>
+        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+          <block wx:for='{{8}}' wx:key='*this'>
+            <view class='flex_row ai_flex_start comment_item'>
+              <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='head_portrait'></image>
+              <view class='flex_column comment_content weui-flex__item'>
+                <view class='flex_row jc_flex_sb'>
+                  <view class='comment_name'>用户名</view>
+                  <view class='comment_time'>05-05 23:45</view>
+                </view>
+                <view class='comment_msg fs13'>很好，不错~</view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='goods_show_buy' bindtap='showBuyFram'>立即购买</view>
+  <view class='mask' bindtap='hideBuyFram' wx:if='{{showBuyFram}}'></view>
+  <view class='buy_frame' animation='{{animationData}}'>
+    <view class='flex_row buy_frame_content'>
+      <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='goods_image'></image>
+      <view class='flex_column jc_flex_start buy_frame_content_text'>
+        <view class='buy_frame_price'>￥5.5-7.7</view>
+        <view>请选择 颜色</view>
+      </view>
+    </view>
+    <scroll-view scroll-y style='height:420rpx;'>
+      <block wx:for='{{2}}' wx:key='*this'>
+        <view class='buy_frame_spec'>
+          <view class='buy_frame_spec_title'>颜色</view>
+          <view class='buy_frame_specContent'>
+            <block wx:for='{{10}}' wx:key='*this' wx:for-index='i'>
+              <view class='specContent_item {{true?"specContent_item_active":""}}'>【单面吸盘车载框】金色</view>
+            </block>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+    <view class='flex_row jc_flex_sb buy_frame_numb'>
+      <text>购买数量</text>
+      <view class='flex_row'>
+        <image class='numb_reduce' src='/images/goods_sub.png'></image>
+        <input type='number' class='numb_input' value='1'></input>
+        <image class='numb_plus' src='/images/goods_add.png'></image>
+      </view>
+    </view>
+    <view class='buy_frame_sure' bindtap='sure'>确定</view>
+    <image class='hide_frame_image' src='/images/mask_close.png' bindtap='hideBuyFram'></image>
+  </view>
+</view>
+<view class='flex_column show_shop_contact'>
+    <image class='shop_phone {{showShopContact!==0?showShopContact?"shop_phone_animation":"hide_phone_animation":""}}' src='/images/shop_phone.png'></image>
+    <image class='shop_wx {{showShopContact!==0?showShopContact?"shop_wx_animation":"hide_wx_animation":""}}'  src='/images/shop_wx.png'></image>
+  </view>
+  <view class='flex_column ai_flex_center contact_shop_owner' bindtap='showShopContact'>
+    <image class='contact_image' src='/images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'></image>
+    <view class='contact_shop_text'>联系店主</view>
+  </view>

@@ -1,0 +1,60 @@
+<!--pages/my/applicationMerchant/supplierApplication/supplierApplication.wxml-->
+<view class='page'>
+  <view class='page_hd flex_row jc_flex_center'>
+    <text>填写供应商信息</text>
+  </view>
+  <view class='page_bd'>
+    <view class='flex_row default_input_list'>
+      <text class='default_input_text'>供应商名称</text>
+      <input class='default_input weui-flex__item' type='text' placeholder='请输入供应商名称（2-10个字）'></input>
+    </view>
+    <view class='flex_row default_input_list' bindtap='chooseLocation'>
+      <text class='default_input_text'>供应商地址</text>
+      <input class='default_input weui-flex__item' disabled='true' type='text' value='{{locationName}}' placeholder='请选择供应商地址'></input>
+      <image class='default_input_icon' src='../../../../images/city.png'></image>
+    </view>
+    <view class='line_border'></view>
+    <view class='flex_row default_input_list'>
+      <text class='default_input_text'>联系人姓名</text>
+      <input class='default_input weui-flex__item' type='text' placeholder='请输入联系人姓名'></input>
+    </view>
+    <view class='flex_row default_input_list'>
+      <text class='default_input_text'>联系人电话</text>
+      <input class='default_input weui-flex__item' type='text' placeholder='请输入联系人电话'></input>
+    </view>
+    <view class='line_border'></view>
+    <view class='flex_row  default_input_list '>
+      <text class='default_input_text'>供应商介绍</text>
+      <input class='default_input weui-flex__item' type='text' placeholder='请输入供应商介绍'></input>
+    </view>
+    <view class='line_border'></view>
+    <view class='flex_column ai_flex_start default_input_list'>
+      <text class='default_input_text'>图片上传</text>
+      <view class='flex_column'>
+        <text class='upload_text'>请上传您的展示图片及营业执照图片</text>
+        <view class='shop_images_list'>
+          <block wx:for='{{shopImages}}' wx:key='*this'>
+            <view class='upload_image_view'>
+              <image class='upload_image' src='{{item}}'></image>
+              <image class='image_del' src='/images/image_del.png' data-index="{{index}}" bindtap='delShopImages'></image>
+            </view>
+          </block>
+          <view class='upload_image_view' wx:if='{{shopImages.length<5}}' bindtap='chooseShopImages'>
+            <image class='upload_image' src='/images/add_image.png'></image>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='line_border'></view>
+    <view class='pdtb8'>
+      <view class='flex_row ai_flex_start check_box_mg'>
+        <image class='checkbox_image' src='/images/{{true?"check_box_pre":"check_box"}}.png'></image>
+        <view class='flex_row checkbox_view weui-flex__item'>
+          <text class='checkbox_text'>我已阅读并同意</text>
+          <text class='checkbox_text_click'>《平台用户服务协议》</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <button  class='bottom_button'>提交</button>
+</view>

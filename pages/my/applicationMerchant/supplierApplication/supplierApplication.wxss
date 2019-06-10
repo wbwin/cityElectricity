@@ -1,0 +1,60 @@
+/* pages/my/applicationMerchant/supplierApplication/supplierApplication.wxss */
+.page{
+  position: inherit;
+}
+.page_hd{
+  padding: 24rpx 0;
+  background: #f7f7f7;
+  font-size:24rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(153,153,153,1);
+}
+.page_bd{
+  padding-bottom: 98rpx;
+}
+
+.shop_head{
+  width: 200rpx;
+  height: 200rpx;
+}
+.mr16{
+  margin-right: 32rpx;
+}
+.ml16{
+  margin-left: 32rpx;
+}
+.colorC{
+  color: #ccc
+}
+.upload_text{
+  font-size:24rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(153,153,153,1);
+margin: 4rpx 0 16rpx 0
+}
+.shop_images_list{
+  display: flex;
+  flex-wrap: wrap;
+}
+.upload_image_view{
+  position: relative;
+  margin-right: 16rpx;
+  width: 160rpx;
+  margin-top: 16rpx;
+}
+.upload_image{
+  width: 160rpx;
+  height: 160rpx;
+}
+.image_del{
+  width: 44rpx;
+  height: 44rpx;
+  position: absolute;
+  right: 8rpx;
+  top: 8rpx;
+}
+.pdtb8{
+  padding: 16rpx 0;
+}

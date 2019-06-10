@@ -1,0 +1,221 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": true,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"autoAudits": false
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.7.0",
+	"appid": "wx73b6d038132a4f12",
+	"projectname": "toncheng",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 24,
+			"list": [
+				{
+					"id": -1,
+					"name": "实打实的",
+					"pathName": "pages/find/find",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的",
+					"pathName": "pages/my/my",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "确认订单",
+					"pathName": "pages/goods/confirmationOrder/confirmationOrder",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "添加地址",
+					"pathName": "pages/my/addAddress/addAddress",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "动态详情",
+					"pathName": "pages/dynamicDetails/dynamicDetails",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的收藏",
+					"pathName": "pages/my/commodityCollection/commodityCollection",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "关于我们",
+					"pathName": "pages/my/aboutUs/aboutUs",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的钱包",
+					"pathName": "pages/my/wallet/wallet",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "金额明细",
+					"pathName": "pages/my/wallet/detailsOfAmount/detailsOfAmount",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "提现",
+					"pathName": "pages/my/wallet/cashWithdrawal/cashWithdrawal",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "申请商家",
+					"pathName": "pages/my/applicationMerchant/applicationMerchant",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "店铺申请",
+					"pathName": "pages/my/applicationMerchant/shopApplication/shopApplication",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "供应商申请",
+					"pathName": "pages/my/applicationMerchant/supplierApplication/supplierApplication",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "审核结果",
+					"pathName": "pages/my/applicationMerchant/auditResults/auditResults",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的订单",
+					"pathName": "pages/my/orderManagement/orderManagement",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "订单详情",
+					"pathName": "pages/my/orderManagement/orderDetail/orderDetail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "申请退款",
+					"pathName": "pages/my/orderManagement/applyForRefund/applyForRefund",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "售后管理",
+					"pathName": "pages/my/afterSaleManagement/afterSaleManagement",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的拼团",
+					"pathName": "pages/my/regiment/regiment",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "粉丝数量",
+					"pathName": "pages/followNumb/followNumb",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "店铺",
+					"pathName": "pages/shop/shop",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "分类",
+					"pathName": "pages/shop/commodityClassification/commodityClassification",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "商品详情",
+					"pathName": "pages/goods/goods",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "拼团商品详情",
+					"pathName": "pages/goods/assembleGoods/assembleGoods",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "发现",
+					"pathName": "pages/find/find",
+					"scene": null
+				}
+			]
+		}
+	}
+}

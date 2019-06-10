@@ -1,0 +1,12 @@
+<!--pages/my/wallet/cashWithdrawal/cashWithdrawal.wxml-->
+<view class='page'>
+  <view class='page_bd'>
+      <text class='cashWithdrawal_text'>提现金额：</text>
+      <view class='flex_row cashWithdrawal'>
+        <text class='cashWithdrawal_symbol'>￥</text>
+        <input class='cashWithdrawal_input' placeholder='还可以提现×××元' type='text'></input>
+      </view>
+      <view class='cashWithdrawal_tip'>金额满100元即可提现，提现后金额将进入您的微信钱包</view>
+      <button  class='bottom_button'>提现</button>
+  </view>
+</view>

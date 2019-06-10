@@ -1,0 +1,75 @@
+<!--index.wxml-->
+<view class='page'>
+  <view class='page__hd'>
+    <view class="flex_row weui-search-bar">
+      <image src='/images/search_icon.png' class='search_icon'></image>
+      <input type="text" class="search_input weui-flex__item" placeholder="搜索" value="{{inputVal}}" />
+
+    </view>
+  </view>
+  <view class='page__bd'>
+    <view class='weui-tab'>
+      <view class='weui-navbar'>
+        <block wx:for='{{tabs}}' wx:key='*this'>
+          <view id='{{index}}' class='weui-navbar__item {{activeIndex==index?"weui-bar__item_on":""}}' bindtap="tabClick">
+            <view class="weui-navbar__title">{{item}}</view>
+          </view>
+        </block>
+        <view class="weui-navbar__slider" style="width:12.5%;left:19%!important; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+      </view>
+      <view class="weui-tab__panel">
+        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+          <block wx:for="{{fansNumber}}" wx:key='*this'>
+          <view class='shop_poster_item'>
+                <navigator url="/pages/shop/shop?id=12" class='shop_poster'>
+                  <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='shop_poster_img'></image>
+                  <view class='flex_row shop_poster_content'>
+                    <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='head_portrait'></image>
+                    <view class='flex_row ai_flex_end weui-flex__item'>
+                      <view class='flex_column weui-flex__item'>
+                        <view class='poster_item_shopName'>店铺名称</view>
+                        <view class='poster_item_shopMsg'>一句话介绍介绍介绍介绍介绍</view>
+                      </view>
+                      <view class='flex_column ai_flex_end shop_poster_tip'>
+                        <view>越秀区先烈中路000号</view>
+                        <view>距离：550m</view>
+                      </view>
+                    </view>
+                  </view>
+                  <view class='shop_poster_classfly'>新品</view>
+                </navigator>
+                <navigator url='/pages/followNumb/followNumb' class='flex_row fans'>
+                  <view class='flex_column fans_numb'>
+                    <view class='fans_numb_text'>54</view>
+                    <view>个粉丝</view>
+                  </view>
+                  <view class='flex_row weui-flex__item fans_numb_img'>
+                    <block wx:for="{{fansNumber}}" wx:key='*this'>
+                      <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='fans_img'></image>
+                    </block>
+                    <image src='../../images/shop_list_more.png' class='fans_img'></image>
+                  </view>
+                </navigator>
+                  <view class='shop_recommend_title'>店主推荐</view>
+
+              <view class='flex_row shop_recommend'>
+                <block wx:for="{{3}}" wx:key="*this">
+                  <view class='shop_recommend_content'>
+                    <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='shop_recommend_image'></image>
+                    <view class='shop_recommend_name'>2019春装新款商品名称名称名称名称2019春装新款商品名称名称名称名称</view>
+                    <view class='colorMain'>￥129</view>
+                  </view>
+                </block>
+              </view>
+              </view>
+           
+          </block>
+        </view>
+        <view class="flex_row weui-tab__content" hidden="{{activeIndex != 1}}">
+          <include src="../template/dynamicList/dynamicList.wxml"/>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>

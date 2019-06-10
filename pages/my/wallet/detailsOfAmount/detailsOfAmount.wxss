@@ -1,0 +1,40 @@
+/* pages/my/wallet/detailsOfAmount/detailsOfAmount.wxss */
+.page{
+  background: #f7f7f7
+}
+.amout_list{
+
+}
+.amout_list_item{
+  padding: 32rpx 32rpx 32rpx 0;
+  margin-left: 32rpx;
+  border-bottom: 2rpx solid #f7f7f7
+}
+.amout_item_content{
+
+}
+.amout_item_name{
+font-size:26rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(51,51,51,1);
+margin-bottom: 16rpx;
+}
+.amout_item_time{
+font-size:24rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(153,153,153,1);
+}
+.amout_item_price{
+font-size:36rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(255,132,27,1);
+}
+.settled_color{
+  color:rgba(255,132,27,1);
+}
+.unsettled_color{
+  color:#E34747
+}

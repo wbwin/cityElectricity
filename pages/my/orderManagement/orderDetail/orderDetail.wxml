@@ -1,0 +1,94 @@
+<!--pages/my/orderManagement/orderDetail/orderDetail.wxml-->
+<view class='page'>
+  <view class='page_bd'>
+    <view class='flex_row jc_flex_sb order_item_state'>
+      <text>交易状态</text>
+      <text class='order_goods_state'>待付款</text>
+    </view>
+
+    <view class='flex_row  order_goods'>
+      <image class='order_goods_image' src='/images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'></image>
+      <view class='flex_column jc_flex_sb weui-flex__item order_goods_content'>
+        <view class=' flex_column order_goods_contentTop'>
+          <view class='flex_row ai_flex_start'>
+            <text class='order_goods_name weui-flex__item'>商品名称名称名称名称名称名称名称名称名称名称名...</text>
+
+          </view>
+
+          <text class='order_goods_spec'>橙红色，XL码</text>
+        </view>
+        <view class='flex_row jc_flex_sb'>
+          <text>¥200</text>
+          <text class='order_goods_numb'>x1</text>
+        </view>
+      </view>
+    </view>
+    <view class='flex_row jc_flex_end order_goods_msg'>
+      <text class=''>共1件商品  合计：</text>
+      <text class='order_goods_price'>¥200</text>
+      <text class=''>（含运费¥0.00）</text>
+    </view>
+    <view class='line_border'></view>
+    <view class='group_message'>
+      <text>待分享，还差2人</text>
+      <scroll-view scroll-x="true" class='group_message_scroll'>
+        <block wx:for='{{3}}' wx:key='*this'>
+          <image class='group_message_image' style='margin-right:{{index==4?"0":"32rpx"}}'  src='/images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'></image>
+        </block>
+        <block wx:for='{{2}}' wx:key='*this'>
+          <image class='group_message_image' style='margin-right:{{index==1?"0":"32rpx"}}'  src='/images/not_joined.png'></image>
+        </block>
+        <text class='group_message_tip'>拼主</text>
+      </scroll-view>
+    </view>
+    <view class='line_border'></view>
+    <view class='flex_row  addressee_message'>
+      <image class='shop_address_image' src='/images/city.png'></image>
+      <view class='flex_column ai_flex_start addressee_main'>
+        <view class='flex_row'>
+          <text>斌爸</text>
+          <text class='addressee_main_phone'>13172853048</text>
+        </view>
+        <text class='addressee_main_msg'>广东省广州市越秀区先烈中路汇华大厦1910</text>
+      </view>
+    </view>
+    <view class='line_border'></view>
+    <view class='flex_column refund_message'>
+      <view class='flex_row ai_flex_start'>
+        <text>退款原因：</text>
+        <text class='weui-flex__item'>内容说明内容说明内容说明内容说明内容说明内容说明内容说明</text>
+      </view>
+      <view class='flex_row ai_flex_start mt12'>
+        <text >退款凭证：</text>
+        <view class='flex_row refund_image_view weui-flex__item'>
+        <block wx:for="{{3}}" wx:key="*this">
+        <image class='refund_image' style='margin-right:{{index==2?"0":"24rpx"}}' src='/images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'></image>
+        </block>
+        </view>
+      </view>
+    </view>
+    <view class='line_border'></view>
+    <!-- <view class='flex_row shop_address' bindtap='openLocation'>
+      <view class='flex_row weui-flex__item ai_flex_start'>
+        <text>店家地址：</text>
+        <text class='weui-flex__item'>地址信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息</text>
+      </view>
+      <image class='shop_address_image' src='../../../../images/city.png'></image>
+    </view> -->
+    <view class='flex_column order_detail_otherMsg'>
+      <text class='detail_otherMsg_text'>订单编号：3216546515216564165</text>
+      <text class='detail_otherMsg_text'>创建时间：2019-04-27  15:24:15</text>
+      <text class='detail_otherMsg_text'>付款时间：2019-04-27  15:24:15</text>
+    </view>
+    <view class='flex_column order_detail_buttonView'>
+    <text>卖家已发货</text>
+    <text>还剩6天20小时自动确认</text>
+    <view class='flex_row jc_flex_end mt16'>
+      <button bindtap='toApplyForRefund' class='button_main'>确认收货</button>
+    </view>
+    </view>
+    <!-- <view class='flex_row jc_flex_end order_detail_button'>
+      <button bindtap='toApplyForRefund' class='button_default'>订单退款</button>
+    </view> -->
+  </view>
+</view>

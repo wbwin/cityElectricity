@@ -1,0 +1,47 @@
+/* pages/find/find.wxss */
+.shop_poster_item{
+  padding: 32rpx;
+}
+.weui-navbar{
+  position: sticky;
+  background: #fff;
+}
+/*店铺推荐*/
+.shop_recommend{
+  justify-content: space-between;
+  margin-top: 24rpx;
+}
+.shop_recommend_title{
+  font-size:26rpx;
+font-family:PingFangSC-Medium;
+font-weight:500;
+color:rgba(51,51,51,1);
+margin-top: 32rpx;
+}
+.shop_recommend_content{
+  width: 218rpx;
+  font-size:24rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(51,51,51,1);
+}
+.shop_recommend_image{
+  width:100%;
+  height: 218rpx;
+  margin-bottom: 16rpx;
+}
+.shop_recommend_name{
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp:2;
+  margin-bottom: 8rpx;
+  height: 72rpx;
+}
+.colorMain{
+  color:rgba(255,132,27,1);
+}
+/*店铺推荐*/

@@ -1,0 +1,87 @@
+/* pages/my/my.wxss */
+.global_cell{
+  font-size: 30rpx;
+  font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(51,51,51,1);
+}
+.page_hd{
+  font-size: 28rpx;
+}
+.personal_center_hd{
+  padding: 48rpx 32rpx 48rpx 48rpx;
+}
+.mt8{
+  margin-top: 16rpx;
+}
+.personal_image{
+  width: 128rpx;
+  height: 128rpx;
+  border-radius: 50%;
+}
+.personal_name{
+  margin-left: 20rpx;
+  font-size:32rpx;
+font-family:PingFangSC-Medium;
+font-weight:500;
+color:rgba(51,51,51,1);
+}
+.personal_address_view{
+  padding:8rpx 12rpx;
+  font-size:26rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(153,153,153,1);
+background-color: #f7f7f7;
+border-radius: 8rpx;
+}
+.personal_address{
+  width: 24rpx;
+  height: 24rpx;
+}
+.personal_address_name{
+  margin-left: 10rpx;
+  margin-left: 8rpx;
+}
+.line_border{
+  display: block;
+  width: 100%;
+  height: 8px;
+  background: #f7f7f7;
+}
+.personal_money{
+  padding: 32rpx 0;
+  background-color: #f7f7f7;
+  font-size:20rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(51,51,51,1);
+}
+.my_wallet{
+  width:72rpx;
+  height: 72rpx;
+}
+.personal_money_image{
+  width: 48rpx;
+  height:48rpx;
+  margin-bottom: 12rpx;
+}
+.personal_money_detail{
+  margin-right: 30rpx;
+}
+.personal_money_msg{
+  margin: 0 48rpx;
+}
+.balance_detail{
+  border-left: 2rpx solid #DDDDDD;
+  justify-content: center;
+  height: 84rpx;
+  margin-left: 54rpx;
+  font-size:28rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(153,153,153,1);
+}
+.order_category{
+  padding:40rpx 32rpx;
+}

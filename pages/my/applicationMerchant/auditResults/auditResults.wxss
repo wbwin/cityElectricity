@@ -1,0 +1,24 @@
+/* pages/my/applicationMerchant/auditResults/auditResults.wxss */
+.audit_content{
+
+}
+.audit_image{
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 50%;
+}
+.audit_text{
+
+}
+.audit_msg{
+  width: 100%
+}
+.shop_admin_text{
+
+}
+.collect_text{
+
+}
+.collect_button{
+  
+}

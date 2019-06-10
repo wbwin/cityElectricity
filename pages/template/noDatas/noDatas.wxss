@@ -1,0 +1,10 @@
+.no_datas{
+  font-size:26rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(153,153,153,1);
+}
+.no_datas_image{
+  width: 240rpx;
+  height: 240rpx;
+}

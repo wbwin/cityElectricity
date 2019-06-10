@@ -1,0 +1,17 @@
+<!--pages/my/applicationMerchant/auditResults/auditResults.wxml-->
+<view class='page'>
+  <view class='page_bd'>
+    <view class='flex_column ai_flex_center audit_content'>
+      <image class='audit_image' src='../../../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'></image>
+      <text class='audit_text'>审核结果：审核通过</text>
+      <view class='flex_column audit_msg'>
+        <text>1、</text>
+        <text>1、</text>
+        <text>1、</text>
+      </view>
+      <text class='shop_admin_text'>商家后台</text>
+      <text class='collect_text'>3、</text>
+      <text class='collect_button'>立即关注</text>
+    </view>
+  </view>
+</view>

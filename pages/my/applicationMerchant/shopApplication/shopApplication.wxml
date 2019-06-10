@@ -1,0 +1,88 @@
+<!--pages/my/applicationMerchant/shopApplication/shopApplication.wxml-->
+<view class='page'>
+  <view class='page_hd flex_row jc_flex_center'>
+    <text>店铺申请</text>
+  </view>
+  <view class='page_bd'>
+    <view class='flex_row ai_flex_start default_input_list'>
+      <text class='default_input_text'>店铺头像</text>
+      <image class='shop_head' bindtap='chooseShopHead' src='{{shopHead}}'></image>
+    </view>
+    <view class='flex_row default_input_list'>
+      <text class='default_input_text'>店铺名称</text>
+      <input class='default_input weui-flex__item' type='text' placeholder='请输入店铺名称（2-10个字）'></input>
+    </view>
+    <view class='flex_row default_input_list'>
+      <text class='default_input_text'>一句话介绍</text>
+      <input class='default_input weui-flex__item' type='text' placeholder='请输入店铺简介（不超过20个字）'></input>
+    </view>
+    <view class='flex_row default_input_list' bindtap='chooseLocation'>
+      <text class='default_input_text'>店铺地址</text>
+      <input class='default_input weui-flex__item' disabled='true' type='text' value='{{locationName}}' placeholder='请选择店铺地址'></input>
+      <image class='default_input_icon' src='/images/city.png'></image>
+    </view>
+    <view class='line_border'></view>
+    <view class='flex_row default_input_list'>
+      <text class='default_input_text'>店主姓名</text>
+      <input class='default_input weui-flex__item' type='text' placeholder='请输入店主姓名'></input>
+    </view>
+    <view class='flex_row default_input_list'>
+      <text class='default_input_text'>店主电话</text>
+      <input class='default_input weui-flex__item' type='text' placeholder='请输入店主电话'></input>
+    </view>
+    <view class='flex_row default_input_list'>
+      <text class='default_input_text'>店主微信号</text>
+      <input class='default_input weui-flex__item' type='text' placeholder='请输入店主微信号'></input>
+    </view>
+    <view class='flex_row default_input_list'>
+      <text class='default_input_text'>营业时间</text>
+      <picker mode="time" value="{{startTime}}" class='mr16 {{startTime=="请选择"?"colorC":""}}' bindchange="bindStartTimeChange">
+        <view class="picker">{{startTime}}</view>
+      </picker>
+      <text>至</text>
+      <picker mode="time" value="{{endTime}}" class='ml16 {{endTime=="请选择"?"colorC":""}}' start="{{startTime}}" end="" bindchange="bindEndTimeChange">
+        <view class="picker">{{endTime}}</view>
+      </picker>
+    </view>
+    <!-- <view class='line_border'></view>
+    <view class='flex_row ai_flex_start default_input_list '>
+      <text class='default_input_text'>店铺介绍</text>
+      <textarea class='default_textarea weui-flex__item' type='text' placeholder='请输入店铺简介'></textarea>
+    </view> -->
+    <view class='line_border'></view>
+    <view class='flex_column ai_flex_start default_input_list'>
+      <text class='default_input_text'>店铺图片</text>
+      <view class='flex_column'>
+        <text class='upload_text'>为保证效果，建议上传3张以上图片</text>
+        <view class='shop_images_list'>
+          <block wx:for='{{shopImages}}' wx:key='*this'>
+            <view class='upload_image_view'>
+              <image class='upload_image' src='{{item}}'></image>
+              <image class='image_del' src='/images/image_del.png' data-index="{{index}}" bindtap='delShopImages'></image>
+            </view>
+          </block>
+          <view class='upload_image_view' wx:if='{{shopImages.length<5}}' bindtap='chooseShopImages'>
+            <image class='upload_image' src='/images/add_image.png'></image>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='line_border'></view>
+    <view class='pdtb8'>
+    <view class='flex_row ai_flex_start check_box_mg'>
+      <image class='checkbox_image' src='/images/{{false?"check_box_pre":"check_box"}}.png'></image>
+      <view class='flex_column checkbox_view weui-flex__item'>
+        <text class='checkbox_text'>同时申请成为供应商</text>
+        <text class='checkbox_tip'>（非供应商用户不能上传自己的商品；只能代理其他供应商的商品）</text>
+      </view>
+    </view>
+    <view class='flex_row ai_flex_start check_box_mg'>
+      <image class='checkbox_image' src='/images/{{true?"check_box_pre":"check_box"}}.png'></image>
+      <view class='flex_row checkbox_view weui-flex__item'>
+        <text class='checkbox_text'>我已阅读并同意</text><text class='checkbox_text_click'>《平台用户服务协议》</text>
+      </view>
+    </view>
+    </view>
+  </view>
+  <button class='bottom_button'>提交</button>
+</view>

@@ -1,0 +1,53 @@
+<!--pages/my/orderManagement/orderManagement.wxml-->
+<import src="/pages/template/noDatas/noDatas.wxml"/>
+<view class='page'>
+  <view class='page_bd'>
+    <view class='weui-tab'>
+      <view class='weui-navbar'>
+        <block wx:for='{{tabs}}' wx:key='*this'>
+          <view id='{{index}}' class='weui-navbar__item {{activeIndex==index?"weui-bar__item_on":""}}' bindtap="tabClick">
+            <view class="weui-navbar__title {{activeIndex==index?'mainColor':''}}">{{item}}</view>
+          </view>
+        </block>
+        <!-- <view class="weui-navbar__slider" style="width:12.5%;left:6.5%!important; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view> -->
+      </view>
+      <view class="weui-tab__panel">
+        <view class="weui-tab__content" wx:if="{{true}}">
+          <block wx:for='{{8}}' wx:key='*this'>
+            <navigator url='./orderDetail/orderDetail' class='order_item'>
+            <view class='flex_row jc_flex_end order_item_state'><text class='order_goods_state'>待付款</text></view>
+            
+              <view class='flex_row  order_goods'>
+                <image class='order_goods_image' src='../../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'></image>
+                <view class='flex_column jc_flex_sb weui-flex__item order_goods_content'>
+                  <view class=' flex_column order_goods_contentTop'>
+                    <view class='flex_row ai_flex_start'>
+                      <text class='order_goods_name weui-flex__item'>商品名称名称名称名称名称名称名称名称名称名称名...</text>
+                      
+                    </view>
+
+                    <text class='order_goods_spec'>橙红色，XL码</text>
+                  </view>
+                  <view class='flex_row jc_flex_sb'>
+                    <text>¥200</text>
+                    <text class='order_goods_numb'>x1</text>
+                  </view>
+                </view>
+              </view>
+              <view class='flex_row jc_flex_end order_goods_msg'>
+                <text class=''>共1件商品  合计：</text>
+                <text class='order_goods_price'>¥200</text>
+                <text class=''>（含运费¥0.00）</text>
+              </view>
+              <view class='flex_row jc_flex_end order_goods_button'>
+                <button class='button_main'>确认收货</button>
+              </view>
+              <view class='line_border'></view>
+            </navigator>
+          </block>
+        </view>
+        <template is="noDatas" data="{{paddingTop:'272rpx',text1:'暂无订单'}}" wx:else/>
+      </view>
+    </view>
+  </view>
+</view>

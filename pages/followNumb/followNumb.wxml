@@ -1,0 +1,16 @@
+<view class='page'>
+  <view class='page_bd'>
+    <view class='flex_column ai_flex_center follow_content'>
+      <text class='follow_numb'>共220人</text>
+      <view class='follow_list'>
+      <block wx:for='{{220}}' wx:key='*this'>
+        <image class='follow_image' style="margin-right:{{(index+1)%6?'22rpx':'0'}}" wx:if='{{index<30||(index>=30&&openOther)}}' src='../../images/shop_list_more.png'></image>
+        </block>
+      </view>
+      <view class='flex_row jc_flex_center open_content' bindtap='openOther' wx:if='{{!openOther}}'>
+        <text>点击展开</text>
+        <image class='open_image' src='../../images/pull_down.png'></image>
+      </view>
+    </view>
+  </view>
+</view>

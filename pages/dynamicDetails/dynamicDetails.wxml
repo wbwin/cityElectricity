@@ -1,0 +1,96 @@
+<!--pages/dynamicDetails/dynamicDetails.wxml-->
+<view class='page'>
+  <view class='page_bd'>
+    <view class='flex_row dynamic'>
+      <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='dynamic_image'></image>
+      <view class='flex_column weui-flex__item dynamic_content'>
+        <text class='dynamic_shop_name'>店铺名称</text>
+        <text>一句话介绍介绍</text>
+      </view>
+      <button class='share_button'>分享</button>
+    </view>
+    <view class='line_border'></view>
+    <view class='dynamicDetail_shop_content'>动态文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案</view>
+    <view class='dynamic_shop_image flex_column'>
+      <block wx:for="{{6}}" wx:key="*this">
+        <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='dynamic_shop_image_item'></image>
+      </block>
+    </view>
+    <view class='dynamicDetail_content'>
+      <view class='flex_row dynamic_shop_address'>
+        <image src='../../images/address_icon.png' class='dynamic_shop_address_image'></image>
+        <text>店铺地址地址地址地址地址地址地址地址</text>
+      </view>
+      <block wx:for="{{2}}" wx:key="*this">
+        <view class='flex_row dynamic_goods_list'>
+          <image class='dynamic_goods_image ' src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'></image>
+          <view class='flex_column jc_flex_sb weui-flex__item'>
+            <text class='textEllipsisTwo dynamic_goods_name'>2019新款女装春秋装纯棉咖啡色收腰长袖衬衣潮流限量正品</text>
+            <text class='dynamic_goods_price'>¥564</text>
+          </view>
+        </view>
+      </block>
+      <view class='flex_row jc_flex_sb dynamic_time'>
+        <view>1小时前</view>
+        <view class='dynamic_chat_triangle flex_row' style="transform:{{triangleShow?'scaleX(1)':'scaleX(0)'}}">
+          <view class='chat_triangle_content flex_row'>
+            <view class='flex_row chat_triangle_item'>
+              <image src='../../images/{{false?"collect_red.png":"collect_default.png"}}' class='small_image'></image>
+              <view>赞</view>
+            </view>
+            <view class='chat_triangle_line'></view>
+            <view class='flex_row chat_triangle_item' bindtap='showInput'>
+              <image src='../../images/comment_default.png' class='small_image'></image>
+              <view>评论</view>
+            </view>
+          </view>
+          <view class="chat-right_triangle"></view>
+        </view>
+        <image src='../../images/comments.png' catchtap='triangleClick' class='dynamic_more_image'></image>
+      </view>
+      <view class='flex_row ai_flex_start dynamic_fabulous'>
+        <view class='flex_column'>
+          <image src='../../images/collect_black.png' class='dynamic_fabulous_logo dynamic_fabulous_collect'></image>
+          <!-- <text>99+</text> -->
+        </view>
+        <view class='flex_column'>
+          <view class='dynamic_fabulous_imageList'>
+            <block wx:for="{{30}}" wx:key="*this">
+              <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='dynamic_fabulous_image' style='margin-right:{{(index+1)%10?"14rpx":"0"}}'></image>
+
+            </block>
+          </view>
+          <view class='flex_row jc_flex_center open_content' bindtap='openOther' wx:if='{{!openOther}}'>
+            <text>展开</text>
+            <image class='open_image' src='../../images/pull_down.png'></image>
+          </view>
+        </view>
+
+        <view class='dynamic_fabulous_numb'>99+</view>
+      </view>
+      <view class='fabulous_comment'>
+        <view class='flex_row dynamic_comment ai_flex_start'>
+          <image src='../../images/comment_black.png' class='dynamic_fabulous_logo comment_icon'></image>
+          <view class='flex_column weui-flex__item'>
+            <block wx:for="{{6}}" wx:key="*this">
+              <view class="flex_row ai_flex_start dynamic_comment_content">
+                <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='dynamic_comment_image'></image>
+                <view class='flex_column weui-flex__item'>
+                  <view class='flex_row jc_flex_sb'>
+                    <view class='dynamic_comment_name'>王小斌</view>
+                    <view class='dynamic_comment_time'>9分钟</view>
+                  </view>
+                  <view class='dynamic_comment_Msg'>店铺地址地址地址地址地址地址地址地址</view>
+                </view>
+              </view>
+            </block>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='flex_row comment_input' wx:if="{{commentInputShow}}">
+      <input class='comment_input_class weui-flex__item' focus='{{commentInputShow}}' bindinput='commentInput' placeholder='评论'></input>
+      <view class='comment_input_send {{commentValue.length>0?"comment_input_sendActive":""}}'>发送</view>
+    </view>
+  </view>
+</view>

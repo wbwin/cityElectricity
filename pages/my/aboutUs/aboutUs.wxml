@@ -1,0 +1,9 @@
+<!--pages/my/aboutUs/aboutUs.wxml-->
+<view class='page'>
+  <view class='page_bd'>
+    <view class="global_cell">
+      <view class="weui-cell__bd textEllipsis">关于新店入驻的规则</view>
+      <image class='more_right' src='/images/content_more_right.png'></image>
+    </view>
+  </view>
+</view>

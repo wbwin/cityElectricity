@@ -1,0 +1,183 @@
+/* pages/goods/confirmationOrder/confirmationOrder.wxss */
+/*订单商品信息*/
+page{
+  margin-bottom: 98rpx;
+}
+.weui-navbar__item{
+  padding: 28rpx 0;
+}
+.weui-tab__panel{
+  padding-top: 0
+}
+.order_goods{
+  height: 200rpx;
+  padding: 32rpx;
+  border-bottom: 2rpx solid #eee;
+}
+.order_goods_image{
+  width: 200rpx;
+  height: 200rpx;
+}
+.order_goods_content{
+  height: 100%;
+  margin-left: 24rpx;
+}
+.address_content{
+
+}
+.order_goods_name{
+  font-size:30rpx;
+  font-family:PingFangSC-Regular;
+  font-weight:400;
+  color:rgba(51,51,51,1);
+}
+.order_goods_spec{
+font-size:24rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(153,153,153,1);
+margin-top: 16rpx;
+}
+.order_goods_price{
+  font-size:32rpx;
+font-family:PingFangSC-Medium;
+font-weight:500;
+color:rgba(255,132,27,1);
+}
+.order_goods_originalPrice{
+
+}
+.order_goods_numb{
+font-size:24rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(153,153,153,1);
+}
+/*订单商品信息*/
+.message_to_business{
+  padding: 32rpx;
+  font-size:30rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:#333;
+}
+/*配送信息*/
+.dividing_line{
+  width: 100%;
+  height: 12rpx;
+}
+.choose_address{
+  padding: 32rpx;
+  font-size:28rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(51,51,51,1);
+}
+.address_icon{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 24rpx;
+}
+.address_name{
+  margin-right: 32rpx;
+}
+.address_phone{
+
+}
+.wx_icon{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 16rpx;
+}
+.payment_method{
+  padding: 32rpx;
+  font-size:28rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(51,51,51,1);
+}
+.self_taking_symbol{
+font-size:28rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(255,132,27,1);
+margin-right:8rpx;
+}
+.self_taking{
+  margin: 0 32rpx;
+  padding: 32rpx 0;
+}
+.self_taking_text{
+font-size:28rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(51,51,51,1);
+width: 160rpx;
+}
+.self_taking_input{
+font-size:28rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:#333
+}
+.shop_address{
+  padding: 32rpx;
+  font-size:28rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(51,51,51,1);
+
+}
+.shop_address_title{
+  margin-right: 48rpx;
+}
+.shop_address_msg{
+  
+}
+.address_icon_main{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 8rpx;
+  margin-left: 48rpx;
+}
+/*配送信息*/
+.total_detail{
+  padding: 32rpx;
+  font-size:28rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(51,51,51,1);
+}
+.mt12{
+  margin-top: 24rpx
+}
+.page_fb{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 98rpx;
+  padding-left: 32rpx;
+  background: #fff;
+}
+.need_pay{
+  font-size:28rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(51,51,51,1);
+}
+.need_pay_money{
+  font-size:32rpx;
+font-family:PingFangSC-Medium;
+font-weight:500;
+color:rgba(255,132,27,1);
+}
+.need_pay_button{
+  margin: 0;
+  border-radius: 0;
+  padding: 0 80rpx;
+  height: 100%;
+  background-color:rgba(255,132,27,1);
+  color: #fff;
+  line-height: 98rpx;
+}

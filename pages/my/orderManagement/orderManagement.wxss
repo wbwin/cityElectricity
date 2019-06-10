@@ -1,0 +1,7 @@
+/* pages/my/orderManagement/orderManagement.wxss */
+.weui-navbar__title{
+  font-size: 28rpx;
+}
+.order_item{
+
+}

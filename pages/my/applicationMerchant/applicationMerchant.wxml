@@ -1,0 +1,12 @@
+<!--pages/my/applicationMerchant/applicationMerchant.wxml-->
+<view class='page'>
+  <view class='flex_column page_bd  ai_flex_center' >
+      <navigator url='./shopApplication/shopApplication' class='flex_row jc_flex_center application_card'>
+        店铺申请
+      </navigator>
+      <text class='application_tip'>如果您想开店，销售自己或供应商的商品，由此进</text>
+      <navigator url='./supplierApplication/supplierApplication' class='flex_row jc_flex_center application_card'>供应商申请
+      </navigator>
+      <text class='application_tip'>如果您有商品，想寻求店主分销，由此进</text>
+  </view>
+</view>

@@ -1,0 +1,7 @@
+/* pages/my/regiment/regiment.wxss */
+.weui-navbar{
+  border-bottom: 16rpx solid #f7f7f7
+}
+.order_item{
+
+}

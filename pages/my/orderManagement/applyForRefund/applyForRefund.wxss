@@ -1,0 +1,8 @@
+/* pages/my/orderManagement/applyForRefund/applyForRefund.wxss */
+.voucher_image{
+  width: 140rpx;
+  height: 140rpx;
+}
+.order_detail_otherMsg{
+  
+}

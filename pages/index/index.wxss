@@ -1,0 +1,25 @@
+/**index.wxss**/
+.slide_image{
+  width: 100%;
+  height: 320rpx;
+}
+.advertisement_img{
+  width: 680rpx;
+  height: 400rpx;
+  margin: 24rpx auto;
+  display: block;
+}
+
+.weui-tab__panel{
+  padding-top: 0;
+}
+
+.slide_image .wx-swiper-dot-active{
+  width:20rpx;
+  height: 20rpx;   
+}
+.slide_image .wx-swiper-dots.wx-swiper-dots-horizontal{
+  display: flex;
+  flex-direction: row;
+     align-items: center;
+}

@@ -1,0 +1,8 @@
+<template name="noDatas">
+<view class='flex_column ai_flex_center no_datas' style="padding-top:{{paddingTop?paddingTop:'0'}};padding-bottom:{{paddingBottom?paddingBottom:'0'}}" >
+  <image src='/images/no_datas_icon.png' class='no_datas_image'></image>
+  <text>{{text1}}</text>
+  <text>{{text2}}</text>
+  <navigator class='no_datas_botton' wx:if="{{buttonText}}">{{buttonText}}</navigator>
+</view>
+</template>

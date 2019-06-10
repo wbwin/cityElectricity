@@ -1,0 +1,301 @@
+/* pages/shop/shop.wxss */
+
+.page_hd {
+  padding: 10rpx 0;
+}
+.weui-navbar__item{
+  position: relative
+}
+.circle_red{
+  width:16rpx;
+height:16rpx;
+background:rgba(225,28,28,1);
+border-radius: 50%;
+position: absolute;
+right: 85rpx;
+top: 30rpx;
+}
+.slide_image {
+  width: 100%;
+  height: 394rpx;
+}
+
+.shop_image {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  margin-right: 16rpx;
+}
+
+.shop_introduction {
+  padding: 24rpx 32rpx;
+  font-size: 26rpx;
+}
+.shop_name{
+  font-size:28rpx;
+font-family:PingFangSC-Medium;
+font-weight:bold;
+color:rgba(51,51,51,1);
+}
+.shop_msg{
+  font-size:24rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(153,153,153,1);
+line-height:34rpx;
+}
+.shop_introduction_button {
+  padding: 10rpx 0;
+  width: 108rpx;
+  text-align: center;
+  background:rgba(255,132,27,1);
+  border-radius:34rpx;
+  font-size:24rpx;
+  font-family:PingFangSC-Regular;
+  font-weight:400;
+  color:rgba(255,255,255,1);
+}
+.button_unCollect{
+  background:rgba(222,222,222,1);
+  color: #fff
+}
+.share_button{
+  border:2rpx solid rgba(255,132,27,1);
+  background: #fff;
+  color:rgba(255,132,27,1);
+  margin-left: 24rpx;
+}
+
+.fans_list {
+  padding: 24rpx 32rpx 24rpx 24rpx;
+}
+.fans_numb_img{
+  margin-left: 32rpx;
+}
+.weui-navbar{
+  margin: 15rpx 0;
+}
+.weui-tab__panel{
+  padding-top: 0
+}
+/*商品*/
+.goods_classify_list{
+  flex-wrap: wrap;
+  padding: 32rpx 35rpx;
+
+}
+.goods_classify_item{
+  margin: 16rpx 24rpx;
+}
+.classifly_icon {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+}
+
+.classifly_icon_text {
+  margin-top: 10rpx;
+  font-size:22rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(51,51,51,1);
+}
+
+.classifly_goods {
+}
+.classifly_goods_top{
+  position: relative;
+  padding: 48rpx 0;
+  font-size:36rpx;
+font-family:PingFangSC-Light;
+font-weight:300;
+color:rgba(51,51,51,1);
+width: 100%;
+}
+.classifly_goods_title {
+}
+
+.classifly_goods_titleEn {
+}
+
+.classifly_goods_titleMore {
+  position: absolute;
+  right: 32rpx;
+  bottom: 49rpx;
+  font-size:24rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(153,153,153,1);
+}
+.classifly_goods_fans{
+  margin: 16rpx 24rpx;
+  padding: 8rpx 0 8rpx 16rpx;
+  background-color: #f7f7f7;
+  border-radius: 8rpx;
+}
+.titleMore_image{
+  width: 20rpx;
+  height: 20rpx;
+  margin-left: 4rpx;
+}
+
+.classifly_goods_bigList {
+  width: 100%;
+}
+
+.classifly_goods_bigImg {
+  width: 100%;
+  height: 750rpx;
+  position: relative;
+}
+
+.classifly_goods_tip {
+  position: absolute;
+  right: 16rpx;
+  top: 16rpx;
+  padding: 6rpx 24rpx;
+  background:rgba(255,132,27,1);
+border-radius:24rpx;
+font-size:24rpx;
+font-family:PingFangSC-Medium;
+font-weight:500;
+color:rgba(255,255,255,1);
+}
+
+.goods_bigImg_class {
+  width: 100%;
+  height: 100%;
+}
+
+.goods_bigImg_content {
+  position: absolute;
+  bottom: 16rpx;
+  right: 16rpx;
+}
+
+.activity_endTime {
+  font-size:24rpx;
+font-family:PingFangSC-Medium;
+font-weight:500;
+color:rgba(255,255,255,1);
+}
+
+.goods_browse {
+  height: 70rpx;
+  background: #fff;
+}
+
+.goods_content_name {
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  font-size:26rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(51,51,51,1);
+}
+
+.goods_content_price {
+  font-size:28rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(255,132,27,1);
+margin-top: 8rpx;
+}
+
+.goods_content_collectionNum {
+  margin-top: 8rpx;
+  font-size:24rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(153,153,153,1);
+}
+
+.goods_content_collectioText {
+}
+
+.classifly_goods_smallWrap {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 24rpx 32rpx;
+  border-bottom: 2rpx solid #f7f7f7;
+}
+
+.classifly_goods_smallList {
+  display: flex;
+  flex-wrap: wrap;
+  width: 330rpx;
+  margin-right: 26rpx;
+  margin-bottom: 32rpx;
+}
+
+.classifly_goods_smallImg {
+  width: 100%;
+  height: 330rpx;
+  position: relative;
+}
+.classifly_goods_bigContent{
+  margin: 8rpx 32rpx 24rpx 32rpx
+}
+/*商品*/
+
+/*介绍*/
+
+.shop_introduce_content {
+}
+.qr_code{
+  padding: 128rpx 0;
+}
+.qr_code_image {
+  width: 400rpx;
+  height: 400rpx;
+}
+
+.qr_code_text {
+  font-size:24rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(102,102,102,1);
+margin-top: 32rpx;
+}
+
+.shop_introduce_image {
+  width: 100%;
+}
+
+/*介绍*/
+
+.slide_image .wx-swiper-dot {
+  width: 16rpx;
+  height: 16rpx;
+}
+
+.slide_image .wx-swiper-dot-active {
+  width: 16rpx;
+  height: 16rpx;
+}
+.slide_image .wx-swiper-dots.wx-swiper-dots-horizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  width: 690rpx;
+  bottom: 16rpx;
+  /* margin-left: 300rpx; */
+}
+.slide_tip_content{
+  font-size:26rpx;
+  font-family:PingFangSC-Regular;
+  font-weight:400;
+  color:rgba(255,255,255,1);
+  line-height:36rpx;
+  text-shadow:0px 0px 4rpx rgba(0,0,0,0.6);
+  position: absolute;
+  left: 16rpx;
+  bottom: 8rpx;
+  width: 560rpx;
+}

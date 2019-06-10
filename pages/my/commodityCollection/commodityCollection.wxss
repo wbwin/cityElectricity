@@ -1,0 +1,58 @@
+/* pages/commodityCollection/commodityCollection.wxss */
+.collection_item{
+}
+.collection_goods{
+  height: 240rpx;
+  padding: 0 32rpx 32rpx 32rpx;
+  position: relative;
+}
+.goods_image{
+  width: 240rpx;
+  height: 240rpx;
+  margin-right: 24rpx;
+
+}
+.goods_content{
+  height: 100%
+}
+.goods_name{
+  font-size:28rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(51,51,51,1);
+line-height:20px;
+}
+.goods_price{
+font-size:28rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(255,132,27,1);
+}
+.collection_image{
+  width: 40rpx;
+  height: 40rpx;
+}
+.collection_shop{
+  padding: 24rpx 32rpx;
+}
+.shop_image{
+  width: 52rpx;
+  height: 52rpx;
+  border-radius: 50%;
+  margin-right: 16rpx;
+}
+.shop_content{
+
+}
+.shop_name{
+  font-size:24rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(51,51,51,1);
+}
+.shop_msg{
+  font-size:20rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(153,153,153,1);
+}
