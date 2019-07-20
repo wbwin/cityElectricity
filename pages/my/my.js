@@ -62,5 +62,18 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  // 联系客服
+  handleContact: function (e) {
+    console.log(e.path);
+    console.log(e.query);
+  },
+  //收获地址
+  chooseAdress:function(){
+    wx.chooseAddress({
+      success:function(res){
+        console.log(res)
+      }
+    })
   }
 })

@@ -63,9 +63,25 @@ Page({
   onShareAppMessage: function () {
 
   },
-  cashWithdrawal:function(e){
+  cashWithdrawal: function (e) {
     wx.navigateTo({
-      url: './cashWithdrawal/cashWithdrawal',
+      url: './cashWithdrawal/cashWithdrawal?money=200',
     })
+  },
+  //查看明细 已结算金额和未结算金额
+  record: function (e) {
+    console.log(e)
+    const id = e.currentTarget.dataset.id
+    if (id == 1) {
+      wx.navigateTo({
+        url: '/pages/my/wallet/detailsOfAmount/detailsOfAmount?title=已结算金额明细'
+      })
+    }
+    if (id == 2) {
+      wx.navigateTo({
+        url: '/pages/my/wallet/detailsOfAmount/detailsOfAmount?title=未结算金额明细'
+      })
+    }
+
   }
 })

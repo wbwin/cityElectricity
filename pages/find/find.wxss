@@ -1,3 +1,6 @@
+page{
+  background-color:#FFF;
+}
 /* pages/find/find.wxss */
 .shop_poster_item{
   padding: 32rpx;

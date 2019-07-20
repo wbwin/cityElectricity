@@ -5,7 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    apply_success:'/images/apply-success.png',
+    apply_fail:'/images/apply-fail.png',
+    apply_state:false
   },
 
   /**
@@ -62,5 +64,11 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+  // 提交申请失败，重新提交信息
+  submitInfo:function () {
+    wx.redirectTo({
+      url: '/pages/my/applicationMerchant/applicationMerchant'
+    })
+  }  
 })

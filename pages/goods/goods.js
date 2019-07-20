@@ -16,7 +16,7 @@ Page({
     autoplay: true,
     interval: 5000,
     duration: 1000,
-    slideImageIndex:0,
+    slideImageIndex: 0,
     /*轮播*/
     /*切换*/
     activeIndex: 1,
@@ -24,12 +24,15 @@ Page({
     sliderLeft: 0,
     /*切换*/
     /*显示弹出层*/
-    showBuyFram:false,
+    showBuyFram: false,
     animationData: {},
     /*显示弹出层*/
-     /*联系店主*/
-    showShopContact: 0,
     /*联系店主*/
+    showShopContact: 0,
+    /*初始购买数量*/
+    shopNumber: '1',
+    /*选择规格*/
+    isSelect:''
   },
 
   /**
@@ -41,10 +44,10 @@ Page({
     wx.getSystemInfo({
       success: function (res) {
         /**
-        * sliderLeft 选中览的位置
-        * sliderOffset 偏移多少
-        * sliderWidth 导航栏的宽度
-        */
+         * sliderLeft 选中览的位置
+         * sliderOffset 偏移多少
+         * sliderWidth 导航栏的宽度
+         */
         that.setData({
           sliderLeft: (res.windowWidth / 2 - sliderWidth) / 2,
           sliderOffset: res.windowWidth / 2 * that.data.activeIndex
@@ -103,7 +106,7 @@ Page({
 
   },
   //图片轮播
-  slideImageChange:function(e){
+  slideImageChange: function (e) {
     this.setData({
       slideImageIndex: e.detail.current
     })
@@ -118,7 +121,7 @@ Page({
   },
   //切换tab
   /*弹出层*/
-  showBuyFram:function(){
+  showBuyFram: function () {
     var that = this;
     // 创建一个动画实例
     var animation = wx.createAnimation({
@@ -149,27 +152,27 @@ Page({
   hideBuyFram: function (e) {
     var that = this;
     var animation = wx.createAnimation({
-      duration: 300,
+      duration: 500,
       timingFunction: 'linear'
     })
     that.animation = animation
-    animation.translateY(423).step()
+    animation.translateY(846).step()
     that.setData({
       animationData: animation.export()
 
     })
     setTimeout(function () {
-      animation.translateY(423).step()
+      animation.translateY(846).step()
       that.setData({
         animationData: animation.export(),
         showBuyFram: false
       })
-    }, 200)
+    }, 500)
   },
   /*弹出层*/
   /*确定*/
-  sure:function(e){
-    wx.redirectTo({
+  sure: function (e) {
+    wx.navigateTo({
       url: '/pages/goods/confirmationOrder/confirmationOrder',
     })
   },
@@ -178,6 +181,59 @@ Page({
     this.setData({
       showShopContact: !this.data.showShopContact
     })
+  },
+  /*拨打电话*/
+  phoneCall: function () {
+    wx.makePhoneCall({
+      phoneNumber: '10086',
+      success: function (res) {
+
+      }
+    })
+  },
+  /*复制微信号*/
+  setClipboardData: function () {
+    wx.setClipboardData({
+      data: 'wx10086',
+      success: function () {
+        wx.showToast({
+          icon: 'none',
+          title: '复制成功'
+        })
+      }
+    })
+  },
+  /*减少购买数量*/
+  reduceShopNumber: function () {
+    const that = this
+    let shopNumber = that.data.shopNumber
+    if (shopNumber <= 1) {
+      wx.showToast({
+        icon: 'none',
+        title: '购买数量不能小于1'
+      })
+      return false
+    }
+    shopNumber = --shopNumber
+    that.setData({
+      shopNumber: shopNumber
+    })
+  },
+  /*增加购买数量*/
+  addShopNumber: function () {
+    const that = this
+    const shopNumber = ++that.data.shopNumber
+    that.setData({
+      shopNumber: shopNumber
+    })
+  },
+  /*选择不同的规格*/
+  select: function (e) {
+    console.log(e)
+    const that = this
+    const index = e.currentTarget.dataset.index
+    that.setData({
+      isSelect:index
+    })
   }
-  /*联系店主*/
 })

@@ -8,10 +8,22 @@
       <text class='default_input_text'>供应商名称</text>
       <input class='default_input weui-flex__item' type='text' placeholder='请输入供应商名称（2-10个字）'></input>
     </view>
-    <view class='flex_row default_input_list' bindtap='chooseLocation'>
+    <!-- <view class='flex_row default_input_list' bindtap='chooseLocation'>
       <text class='default_input_text'>供应商地址</text>
       <input class='default_input weui-flex__item' disabled='true' type='text' value='{{locationName}}' placeholder='请选择供应商地址'></input>
       <image class='default_input_icon' src='../../../../images/city.png'></image>
+    </view> -->
+    <view class='flex_row default_input_list' style="align-items:flex-start;">
+      <text class='default_input_text'>供应商地址</text>
+      <textarea class='default_input weui-flex__item default_input_2row' rows="2" disabled value=''
+        placeholder='{{locationName?locationName:"请定位供应商地址"}}'></textarea>
+      <!-- <image class='default_input_icon' src='/images/city.png' bindtap='chooseLocation'></image> -->
+      <text class="default_set_location" bindtap='chooseLocation'>设置定位</text>
+    </view>
+    <view class='flex_row default_input_list' style="align-items:flex-start;">
+      <text class='default_input_text'>详细地址</text>
+      <textarea class='default_input weui-flex__item default_input_2row' rows="2"
+        placeholder='如道路、门牌号、小区、楼栋号、单元室等'></textarea>
     </view>
     <view class='line_border'></view>
     <view class='flex_row default_input_list'>
@@ -20,12 +32,17 @@
     </view>
     <view class='flex_row default_input_list'>
       <text class='default_input_text'>联系人电话</text>
-      <input class='default_input weui-flex__item' type='text' placeholder='请输入联系人电话'></input>
+      <input class='default_input weui-flex__item' type='number' placeholder='请输入联系人电话'></input>
     </view>
     <view class='line_border'></view>
-    <view class='flex_row  default_input_list '>
+    <!-- <view class='flex_row  default_input_list '>
       <text class='default_input_text'>供应商介绍</text>
       <input class='default_input weui-flex__item' type='text' placeholder='请输入供应商介绍'></input>
+    </view> -->
+    <view class='flex_row default_input_list' style="align-items:flex-start;">
+      <text class='default_input_text'>供应商介绍</text>
+      <!-- <input class='default_input weui-flex__item' type='text' placeholder='请输入店铺简介'></input> -->
+      <textarea name="" id="" rows="4" class="default_input weui-flex__item" placeholder="请输入供应商介绍"></textarea>
     </view>
     <view class='line_border'></view>
     <view class='flex_column ai_flex_start default_input_list'>
@@ -36,7 +53,8 @@
           <block wx:for='{{shopImages}}' wx:key='*this'>
             <view class='upload_image_view'>
               <image class='upload_image' src='{{item}}'></image>
-              <image class='image_del' src='/images/image_del.png' data-index="{{index}}" bindtap='delShopImages'></image>
+              <image class='image_del' src='/images/image_del.png' data-index="{{index}}" bindtap='delShopImages'>
+              </image>
             </view>
           </block>
           <view class='upload_image_view' wx:if='{{shopImages.length<5}}' bindtap='chooseShopImages'>
@@ -48,13 +66,13 @@
     <view class='line_border'></view>
     <view class='pdtb8'>
       <view class='flex_row ai_flex_start check_box_mg'>
-        <image class='checkbox_image' src='/images/{{true?"check_box_pre":"check_box"}}.png'></image>
+        <image class='checkbox_image' src='/images/{{is_agreement?"check_box_pre":"check_box"}}.png' bindtap="read_agreement"></image>
         <view class='flex_row checkbox_view weui-flex__item'>
           <text class='checkbox_text'>我已阅读并同意</text>
-          <text class='checkbox_text_click'>《平台用户服务协议》</text>
+          <text class='checkbox_text_click' bindtap="agreement">《平台用户服务协议》</text>
         </view>
       </view>
     </view>
   </view>
-  <button  class='bottom_button'>提交</button>
+  <button class='bottom_button'>提交</button>
 </view>

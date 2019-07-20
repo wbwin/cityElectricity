@@ -1,0 +1,16 @@
+<!--pages/my/wallet/discountRecord/discountRecord.wxml-->
+<view class='page'>
+    <view class='page_bd'>
+        <view class='amout_list'>
+            <block wx:for='{{3}}' wx:key='*this'>
+                <view class='flex_row amout_list_item '>
+                    <view class='flex_column weui-flex__item amout_item_content'>
+                        <text class='amout_item_name'>提现金额：<text class="amout_item_price">50</text></text>
+                        <text class='amout_item_time'>2019-05-03 11:11:11</text>
+                    </view>
+                    <text class='amout_item_price'>审核中</text>
+                </view>
+            </block>
+        </view>
+    </view>
+</view>

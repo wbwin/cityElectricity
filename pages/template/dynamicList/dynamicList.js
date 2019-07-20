@@ -10,6 +10,6 @@ Page({
   },
   onLoad: function () {
    
-  },
+  }
   
 })

@@ -2,7 +2,7 @@
 <view class='page'>
   <view class='page_bd'>
     <view class='flex_column settled_price'>
-    <view  class='price_detailed flex_row jc_flex_end'>
+    <view  class='price_detailed flex_row jc_flex_end' data-id='1' bindtap="record">
     <image class='detail_image' src='/images/wallet_detail.png'></image>
     明细
     </view>
@@ -15,7 +15,7 @@
       
     </view>
     <view class='flex_column settled_price pd40'>
-    <view  class='price_detailed flex_row jc_flex_end'>
+    <view  class='price_detailed flex_row jc_flex_end' data-id='2' bindtap="record">
     <image class='detail_image' src='/images/wallet_detail.png'></image>
     明细
     </view>

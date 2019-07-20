@@ -30,10 +30,6 @@
                         <view class='poster_item_shopName'>店铺名称</view>
                         <view class='poster_item_shopMsg'>一句话介绍介绍介绍介绍介绍</view>
                       </view>
-                      <view class='flex_column ai_flex_end shop_poster_tip'>
-                        <view>越秀区先烈中路000号</view>
-                        <view>距离：550m</view>
-                      </view>
                     </view>
                   </view>
                   <view class='shop_poster_classfly'>新品</view>

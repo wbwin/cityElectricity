@@ -6,15 +6,19 @@ Page({
    */
   data: {
     shopImages: [],
-    items: [
-      { value: '同时申请成为供应商' }
-    ],
-    agreeItems: [
-      { value: '我已阅读并同意' }
-    ],
+    items: [{
+      value: '同时申请成为供应商'
+    }],
+    agreeItems: [{
+      value: '我已阅读并同意'
+    }],
     startTime: '请选择',
     endTime: '请选择',
     locationName: '',
+    locationName:'',
+    latitude:'',
+    longitude:'',
+    is_agreement:true//初始状态，未勾选已读协议
   },
 
   /**
@@ -111,6 +115,20 @@ Page({
     })
 
   },
+  chooseLocation(e) {
+    console.log(e)
+    var that = this
+    wx.chooseLocation({
+      success: function (res) {
+        console.log(res)
+        that.setData({
+          locationName: res.address,
+          latitude: res.latitude,
+          longitude: res.longitude
+        })
+      },
+    })
+  },
   //选择开始时间
   bindStartTimeChange(e) {
     if (this.data.endTime != '请选择' && e.detail.value > this.data.endTime) {
@@ -140,6 +158,18 @@ Page({
         })
       },
     })
+  },
+  //勾选阅读同意协议
+  read_agreement:function(){
+    const that = this
+    that.setData({
+      is_agreement:!that.data.is_agreement
+    })
+  },
+  //前往协议
+  agreement:function(){
+    wx.navigateTo({
+      url: '/pages/my/applicationMerchant/agreement/agreement',
+    })
   }
-  //选择地址
 })

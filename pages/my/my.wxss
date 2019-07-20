@@ -1,4 +1,13 @@
 /* pages/my/my.wxss */
+.contact-kefu{
+  position:relative;
+}
+.contact-kefu-btn{
+  position:absolute;
+  height:104rpx;
+  width:95%;
+  opacity:0;
+}
 .global_cell{
   font-size: 30rpx;
   font-family:PingFangSC-Regular;

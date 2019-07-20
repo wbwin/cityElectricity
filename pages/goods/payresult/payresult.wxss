@@ -1,0 +1,43 @@
+/* pages/goods/payresult/payresult.wxss */
+page{
+    background-color:#fff;
+}
+.view-logo {
+    text-align: center;
+    margin: 140rpx 0 50rpx 0;
+}
+
+.logo {
+    width: 280rpx;
+    height: 280rpx;
+}
+
+.default {
+    text-align: center;
+    display: block;
+    font-size: 32rpx;
+    font-family: PingFangSC-Regular;
+    font-weight: 400;
+    color: rgba(51, 51, 51, 1);
+    line-height: 66rpx;
+}
+
+.default-price {
+    font-weight: 500;
+    font-size:40rpx;
+    margin-top: 20rpx;
+    color: rgba(255, 132, 27, 1);
+}
+
+.checkOrder {
+    margin:50rpx 20rpx 0rpx 20rpx;
+    text-align:center;
+    line-height:80rpx;
+    height: 80rpx;
+    background: rgba(255, 132, 27, 1);
+    border-radius: 40rpx;
+    font-size: 32rpx;
+    font-family: PingFangSC-Regular;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 1);
+}

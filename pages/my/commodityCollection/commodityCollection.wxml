@@ -2,7 +2,7 @@
 <import src="/pages/template/noDatas/noDatas.wxml"/>
 <view class='page'>
   <view class='page_bd'>
-  <view wx:if="{{false}}">
+  <view wx:if="{{true}}">
     <block wx:for='{{5}}' wx:key='*this'>
       <view class='flex_column collection_item'>
         <view class='flex_row collection_shop'>
@@ -19,7 +19,7 @@
             <text class='goods_name'>2019新款女装春秋装纯棉咖啡色收腰长袖衬衣潮流限量正品</text>
             <view class='flex_row jc_flex_sb'>
             <text class='goods_price'>￥200</text>
-            <image class='collection_image' src='/images/goods_collect_pre.png'></image>
+            <image class='collection_image' src='/images/goods-collect.png'></image>
             </view>
           </view>
           

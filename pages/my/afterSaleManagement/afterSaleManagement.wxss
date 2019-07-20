@@ -1,10 +1,28 @@
 /* pages/my/afterSaleManagement/afterSaleManagement.wxss */
-.weui-navbar{
+.weui-navbar {
   border-bottom: 16rpx solid #f7f7f7
 }
-.weui-navbar{
-  border-bottom: 16rpx solid #f7f7f7
-}
-.order_item{
 
+.weui-navbar {
+  border-bottom: 16rpx solid #f7f7f7
+}
+
+.order_item {}
+
+.shopIcon {
+  border-radius: 100%;
+  width: 48rpx;
+  height: 48rpx;
+  margin-right: 20rpx;
+}
+
+.rightIcon {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.regiment_order_goods_state {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
 }

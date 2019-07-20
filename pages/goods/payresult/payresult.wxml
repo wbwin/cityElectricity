@@ -1,0 +1,11 @@
+<!--pages/goods/payresult/payresult.wxml-->
+<view class="view-logo">
+    <image class="logo" src="{{logo}}"/>
+</view>
+<text class="default">恭喜你</text>
+<text class="default">本次交易支付成功</text>
+<text class="default default-price">￥100.00</text>
+<view class="checkOrder">查看订单</view>
+
+    
+  

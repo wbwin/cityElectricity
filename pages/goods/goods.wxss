@@ -2,6 +2,12 @@
 .page{
   margin-bottom: 98rpx;
 }
+.share{
+  position:absolute;
+  width:40rpx;
+  height:66rpx;
+  opacity:0;
+}
 .page_hd{
   position: relative
 }
@@ -235,7 +241,7 @@ color:rgba(51,51,51,1);
   right: 48rpx;
   top: 48rpx;
 }
-.contact_shop_owner{
+/* .contact_shop_owner{
   position: fixed;
   right: 0;
   bottom: 50%;
@@ -248,4 +254,4 @@ color:rgba(51,51,51,1);
 .contact_image{
   width: 40rpx;
   height: 40rpx;
-}
+} */

@@ -1,17 +1,23 @@
 <!--pages/my/applicationMerchant/auditResults/auditResults.wxml-->
-<view class='page'>
-  <view class='page_bd'>
-    <view class='flex_column ai_flex_center audit_content'>
-      <image class='audit_image' src='../../../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'></image>
-      <text class='audit_text'>审核结果：审核通过</text>
-      <view class='flex_column audit_msg'>
-        <text>1、</text>
-        <text>1、</text>
-        <text>1、</text>
-      </view>
-      <text class='shop_admin_text'>商家后台</text>
-      <text class='collect_text'>3、</text>
-      <text class='collect_button'>立即关注</text>
-    </view>
+<block wx:if="{{apply_state}}">
+  <view class="apply-state">
+    <image class="apply-icon" src="{{apply_success}}" lazy-load="true" />
+    <view class="apply-success-text">审核通过</view>
   </view>
-</view>
+  <view class="apply-return-info">
+    <view>1.您提交的信息已通过审核</view>
+    <view>登录账号：XXXX</view>
+    <view>初始密码：XXXX<text class="defalt-txt">（首次登录后请及时更改）</text></view>
+    <view>2.商家后台地址：wwww.XXX</view>
+  </view>
+</block>
+<block wx:else>
+  <view class="apply-state">
+    <image class="apply-icon" src="{{apply_fail}}" lazy-load="true" />
+    <view class="apply-fail-text">审核失败</view>
+  </view>
+  <view class="apply-return-info">
+    <view>您提交的信息未通过审核，请重新提交资料。</view>
+  </view>
+  <button class="submit-info-btn" bindtap="submitInfo">提交信息</button>
+</block>

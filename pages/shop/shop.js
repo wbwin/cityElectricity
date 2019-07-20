@@ -45,13 +45,34 @@ Page({
     /*联系店主*/
     showShopContact: 0,
     /*联系店主*/
+    src:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this;
+    const that = this
+    wx.request({
+      url: 'https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=23_EdrgUS7MxtR7ajHPBGMszqihc0dmik7RLs6Gaot3cLnGywN35cv9Y4ohZSPQtiLBLQjW2AGZr4yFP3bZq6HoWppDs6jE6UwTMNS1kvq2SasS7mQJqGTU5VmMp19cYgAMvuOWAIivsuu0iQ3SLYJbACAREP',
+      data:{
+        scene:'000',
+        page:'/pages/index/index'
+      },
+      method: 'POST',
+      responseType:'arraybuffer',//设置相应类型
+      success(res){
+        console.log(res)
+        var src = wx.arrayBufferToBase64(res.data);
+        that.setData({
+          src:that.data.src
+        })
+
+      },
+      fail: function() {
+        // fail
+      }
+    })
     /*列表切换*/
     wx.getSystemInfo({
       success: function (res) {
@@ -155,6 +176,12 @@ Page({
   showShopContact() {
     this.setData({
       showShopContact: !this.data.showShopContact
+    })
+  },
+  // 动态详情
+  dynamicDetails:function () {
+    wx.navigateTo({
+      url: '/pages/dynamicDetails/dynamicDetails'
     })
   }
   /*联系店主*/

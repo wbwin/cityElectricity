@@ -5,13 +5,27 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    money: '', //可提现的金额
+    if_withdrawal: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options.money)
+    const that = this
+    const money = options.money
+    if (money > 100) {
+      that.setData({
+        money: money,
+        if_withdrawal: true
+      })
+    } else {
+      that.setData({
+        money: money
+      })
+    }
 
   },
 
@@ -62,5 +76,11 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  //提现记录
+  record:function(){
+    wx.navigateTo({
+      url: '/pages/my/wallet/discountRecord/discountRecord'
+    })
   }
 })

@@ -10,6 +10,8 @@ Page({
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
+    rightIcon:'../../../images/content_more_right.png',
+    shopIcon:'../../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'
   },
 
   /**
@@ -66,7 +68,10 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    wx.showToast({
+      icon:'none',
+      title:'刷新成功'
+    })
   },
 
   /**
@@ -88,6 +93,5 @@ Page({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id
     });
-  },
-  //切换tab
+  }
 })

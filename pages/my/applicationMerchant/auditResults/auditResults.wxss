@@ -1,24 +1,59 @@
 /* pages/my/applicationMerchant/auditResults/auditResults.wxss */
-.audit_content{
-
+page {
+  background-color: #FFF;
 }
-.audit_image{
+
+.apply-state {
+  text-align: center;
+  padding: 100rpx 0rpx;
+}
+
+.apply-icon {
   width: 200rpx;
   height: 200rpx;
-  border-radius: 50%;
+  margin-bottom: 50rpx;
 }
-.audit_text{
 
+.apply-success-text {
+  font-size: 36rpx;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: rgba(255, 132, 27, 1);
+  line-height: 50rpx;
 }
-.audit_msg{
-  width: 100%
-}
-.shop_admin_text{
 
+.apply-fail-text {
+  font-size: 36rpx;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: rgba(227, 71, 71, 1);
+  line-height: 50rpx;
 }
-.collect_text{
 
+.apply-return-info {
+  margin: 20rpx 20rpx 0rpx 20rpx;
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  line-height: 56rpx;
 }
-.collect_button{
-  
+
+.defalt-txt {
+  color: rgba(153, 153, 153, 1);
+}
+
+.submit-info-btn {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 98rpx;
+  line-height:98rpx;
+  border-radius:0;
+  background: rgba(255, 132, 27, 1);
+  font-size: 36rpx;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
 }

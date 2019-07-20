@@ -92,6 +92,11 @@ Page({
         commentInputShow: false,
       })
     }
-  }
+  },
   // 动态
+  dynamicDetails: function () {
+    wx.navigateTo({
+      url: '/pages/dynamicDetails/dynamicDetails'
+    })
+  }
 })

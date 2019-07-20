@@ -5,14 +5,14 @@ var sliderWidth = 26;
 Page({
   data: {
     tabs: ["列表", "动态"],
-    activeIndex: 1,
+    activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
-    fansNumber:10,
+    fansNumber: 10,
     // 动态
-    triangleShow:false,
-    commentInputShow:false,
-    commentValue:'',
+    triangleShow: false,
+    commentInputShow: false,
+    commentValue: '',
     // 动态
     /*轮播*/
     imgUrls: [
@@ -25,12 +25,14 @@ Page({
     interval: 5000,
     duration: 1000,
     /*轮播*/
+    actionSheetHidden:false,
+    previewImageArray:['../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg']
   },
   onLoad: function () {
     var that = this;
     wx.getSystemInfo({
       success: function (res) {
-         /**
+        /**
          * sliderLeft 选中览的位置
          * sliderOffset 偏移多少
          * sliderWidth 导航栏的宽度
@@ -49,31 +51,67 @@ Page({
     });
   },
   // 动态
-  triangleClick:function(){
+  triangleClick: function () {
     var triangleShow = !this.data.triangleShow
     this.setData({
       triangleShow: triangleShow
     })
     console.log(this.data.triangleShow)
   },
-  showInput:function(){
+  showInput: function () {
     this.setData({
       commentInputShow: !this.data.commentInputShow,
-      triangleShow:false,
+      triangleShow: false,
     })
-    
+
   },
-  commentInput:function(e){
+  commentInput: function (e) {
     this.setData({
       commentValue: e.detail.value
     })
   },
   onPageScroll: function (e) {
-    if (this.data.commentInputShow){
+    if (this.data.commentInputShow) {
       this.setData({
         commentInputShow: false,
       })
     }
-  }
+  },
   // 动态
+  // 动态详情
+  dynamicDetails: function () {
+    wx.navigateTo({
+      url: '/pages/dynamicDetails/dynamicDetails'
+    })
+  },
+  actionSheetChange: function () {
+    const that = this;
+    that.setData({
+      actionSheetHidden:true
+    })
+  },
+  onShareAppMessage: function () {
+    return {
+      title: '同橙电商',
+      path: '/images/template/dynamicList/dynamicList'
+    }
+  },
+  //查看动态 放大图片
+  previewImage:function(){
+    const that = this
+    wx.previewImage({
+      // current: 'String', // 当前显示图片的链接，不填则默认为 urls 的第一张
+      urls: that.data.previewImageArray,
+      success: function(res){
+        console.log(res)
+      },
+      fail: function() {
+        
+      },
+      complete: function() {
+        // complete
+      }
+    })
+  }
+
 })

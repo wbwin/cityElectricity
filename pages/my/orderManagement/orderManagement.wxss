@@ -1,7 +1,24 @@
 /* pages/my/orderManagement/orderManagement.wxss */
-.weui-navbar__title{
+.weui-navbar__title {
   font-size: 28rpx;
 }
-.order_item{
 
+.order_item {}
+
+.shopIcon {
+  border-radius: 100%;
+  width: 48rpx;
+  height: 48rpx;
+  margin-right: 20rpx;
+}
+
+.rightIcon {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.regiment_order_goods_state {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
 }

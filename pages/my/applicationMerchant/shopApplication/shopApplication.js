@@ -10,6 +10,10 @@ Page({
     startTime:'请选择',
     endTime:'请选择',
     locationName:'',
+    latitude:'',//店铺申请的纬度
+    longitude:'',//店铺申请的经度
+    is_agreement:true,//初始状态，未勾选已读协议
+    is_supplier:false//初始状态，未勾选申请成为供应商
   },
 
   /**
@@ -68,17 +72,17 @@ Page({
 
   },
   //选择店铺头像
-  chooseShopHead:function(e){
-    var that=this
-    wx.chooseImage({
-      count:1,
-      success: function(res) {
-        that.setData({
-          shopHead: res.tempFilePaths[0]
-        })
-      },
-    })
-  },
+  // chooseShopHead:function(e){
+  //   var that=this
+  //   wx.chooseImage({
+  //     count:1,
+  //     success: function(res) {
+  //       that.setData({
+  //         shopHead: res.tempFilePaths[0]
+  //       })
+  //     },
+  //   })
+  // },
   //选择店铺头像
   //选择店铺图片
   chooseShopImages:function(e){
@@ -127,14 +131,37 @@ Page({
   //选择结束时间
   //选择地址
   chooseLocation(e){
+    console.log(e)
     var that=this
     wx.chooseLocation({
       success: function(res) {
+        console.log(res)
         that.setData({
-          locationName: res.address+res.name
+          locationName: res.address,
+          latitude: res.latitude,
+          longitude: res.longitude
         })
       },
     })
+  },
+  //申请成为供应商
+  apply_supplier:function () {
+    const that = this
+    that.setData({
+      is_supplier:!that.data.is_supplier
+    })
+  },
+  //阅读并同意协议
+  read_agreement:function () {
+    const that = this
+    that.setData({
+      is_agreement:!that.data.is_agreement
+    })
+  },
+  //点击阅读协议
+  agreement:function () {
+    wx.navigateTo({
+      url: '/pages/my/applicationMerchant/agreement/agreement'
+    })
   }
-  //选择地址
 })

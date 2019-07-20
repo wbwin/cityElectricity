@@ -5,7 +5,7 @@
     <swiper indicator-dots="{{indicatorDots}}" bindchange="slideImageChange" class="slide_image" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
       <block wx:for="{{imgUrls}}">
         <swiper-item>
-          <image src="{{item}}" class="slide_image" />
+          <image src="{{item}}" class="slide_image" mode="aspectFill"/>
         </swiper-item>
       </block>
 
@@ -13,8 +13,8 @@
     <view class='slide_image_indicator'>{{slideImageIndex+1}}/{{imgUrls.length}}</view>
   </view>
   <view class='flex_column show_shop_contact'>
-    <image class='shop_phone {{showShopContact!==0?showShopContact?"shop_phone_animation":"hide_phone_animation":""}}' src='/images/shop_phone.png'></image>
-    <image class='shop_wx {{showShopContact!==0?showShopContact?"shop_wx_animation":"hide_wx_animation":""}}'  src='/images/shop_wx.png'></image>
+    <image bindtap="phoneCall" class='shop_phone {{showShopContact!==0?showShopContact?"shop_phone_animation":"hide_phone_animation":""}}' src='/images/shop_phone.png'></image>
+    <image bindtap="setClipboardData" class='shop_wx {{showShopContact!==0?showShopContact?"shop_wx_animation":"hide_wx_animation":""}}'  src='/images/shop_wx.png'></image>
   </view>
   <view class='flex_column ai_flex_center contact_shop_owner' bindtap='showShopContact'>
     <image class='contact_image' src='/images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'></image>
@@ -25,14 +25,15 @@
       <view class='flex_row jc_flex_sb goods_content'>
         <view class='flex_row '>
           <view class='goods_price'>拼团价:￥159</view>
-          <view class='goods_originalPrice'>￥666</view>
+          <view class='goods_originalPrice'>原价:￥666</view>
         </view>
         <view class='flex_row'>
           <view class='flex_column ai_flex_center'>
             <image class='goods_content_image' src='/images/{{true?"goods_collect":"goods_collect_pre"}}.png'></image>
-            <view class='goods_button_text'>收藏</view>
+            <view class='goods_button_text'>{{true?"已收藏":"收藏"}}</view>
           </view>
           <view class='flex_column ai_flex_center ml30'>
+            <button open-type="share" class=""></button>
             <image class='goods_content_image' src='/images/goods_share.png'></image>
             <view class='goods_button_text'>分享</view>
           </view>
@@ -58,7 +59,7 @@
       </view>
     </navigator>
     <view class='line_border'></view>
-    <view class='assemble_content'>
+    <!-- <view class='assemble_content'>
       <view class='flex_row jc_flex_sb assemble_content_title'>
         <text class='assemble_content_numb'>50人正在拼团，可直接参与</text>
         <view class='flex_row assemble_content_more'>
@@ -78,7 +79,7 @@
           <text class='assemble_item_button'>去拼团</text>
         </view>
       </block>
-    </view>
+    </view> -->
     <view class='line_border'></view>
     <view class='weui-tab'>
       <view class='weui-navbar'>
@@ -127,8 +128,8 @@
         <view class='buy_frame_spec'>
           <view class='buy_frame_spec_title'>颜色</view>
           <view class='buy_frame_specContent'>
-            <block wx:for='{{10}}' wx:key='*this' wx:for-index='i'>
-              <view class='specContent_item {{true?"specContent_item_active":""}}'>【单面吸盘车载框】金色</view>
+            <block wx:for='{{10}}' wx:key='{{index}}' wx:for-index='index'>
+              <view bindtap="select" data-index="{{index}}" class='specContent_item {{isSelect==index?"specContent_item_active":""}}'>【单面吸盘车载框】金色</view>
             </block>
           </view>
         </view>
@@ -137,16 +138,16 @@
     <view class='flex_row jc_flex_sb buy_frame_numb'>
       <text>购买数量</text>
       <view class='flex_row'>
-        <image class='numb_reduce' src='/images/goods_sub.png'></image>
-        <input type='number' class='numb_input' value='1'></input>
-        <image class='numb_plus' src='/images/goods_add.png'></image>
+        <image bindtap="reduceShopNumber" class='numb_reduce' src='/images/goods_sub.png'></image>
+        <input type='number' class='numb_input' value='{{shopNumber}}' disabled="true"></input>
+        <image bindtap="addShopNumber" class='numb_plus' src='/images/goods_add.png'></image>
       </view>
     </view>
     <view class='buy_frame_sure' bindtap='sure'>确定</view>
     <image class='hide_frame_image' src='/images/mask_close.png' bindtap='hideBuyFram'></image>
   </view>
   <!-- 拼团弹出层 -->
-  <view class='mask' bindtap='hideAssembleFrame' wx:if='{{showAssembleFrame}}'></view>
+  <!-- <view class='mask' bindtap='hideAssembleFrame' wx:if='{{showAssembleFrame}}'></view>
   <view class='flex_row jc_flex_center assemble_frame_view' wx:if='{{showAssembleFrame}}'>
     <view class='assemble_frame' >
       <view class='flex_column ai_flex_center' wx:if='{{assembleFrame==0}}'>
@@ -180,5 +181,5 @@
       <image class='hide_frame_image' src='/images/mask_close.png' bindtap='hideAssembleFrame'></image>
       <view class='showdow'></view>
     </view>
-  </view>
+  </view> -->
 </view>

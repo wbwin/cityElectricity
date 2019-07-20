@@ -14,10 +14,16 @@
       <view class="weui-tab__panel">
         <view class="weui-tab__content" wx:if="{{true}}">
           <block wx:for='{{8}}' wx:key='*this'>
-            <navigator url='./orderDetail/orderDetail' class='order_item'>
-            <view class='flex_row jc_flex_end order_item_state'><text class='order_goods_state'>待付款</text></view>
+            <view class="order_item">
+            <!-- <navigator url='./orderDetail/orderDetail' class='order_item'> -->
+            <view class='flex_row jc_flex_end order_item_state'>
+                <image class="shopIcon" src="{{shopIcon}}" mode="aspectFill"/>
+                <text>店铺名</text>
+                <image class="rightIcon" src="{{rightIcon}}" />
+              <text class='order_goods_state regiment_order_goods_state'>待付款</text>
+            </view>
             
-              <view class='flex_row  order_goods'>
+              <view class='flex_row  order_goods' bindtap="checkOrderDtail" data-state="processing">
                 <image class='order_goods_image' src='../../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'></image>
                 <view class='flex_column jc_flex_sb weui-flex__item order_goods_content'>
                   <view class=' flex_column order_goods_contentTop'>
@@ -39,11 +45,12 @@
                 <text class='order_goods_price'>¥200</text>
                 <text class=''>（含运费¥0.00）</text>
               </view>
-              <view class='flex_row jc_flex_end order_goods_button'>
+              <!-- <view class='flex_row jc_flex_end order_goods_button'>
                 <button class='button_main'>确认收货</button>
-              </view>
+              </view> -->
               <view class='line_border'></view>
-            </navigator>
+            <!-- </navigator> -->
+            </view>
           </block>
         </view>
         <template is="noDatas" data="{{paddingTop:'272rpx',text1:'暂无订单'}}" wx:else/>

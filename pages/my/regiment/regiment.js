@@ -10,6 +10,9 @@ Page({
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
+    rightIcon:'../../../images/content_more_right.png',
+    shopIcon:'../../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'
+    
   },
 
   /**

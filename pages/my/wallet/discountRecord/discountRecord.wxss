@@ -1,0 +1,61 @@
+/* pages/my/wallet/discountRecord/discountRecord.wxss */
+.page_bd {
+    padding: 32rpx;
+}
+.flex_row{
+    min-height:150rpx;
+}
+.cashWithdrawal_text {
+    font-size: 26rpx;
+    font-family: PingFangSC-Regular;
+    font-weight: 400;
+    color: rgba(51, 51, 51, 1);
+}
+
+.cashWithdrawal_money {
+    font-size: 32rpx;
+    font-family: PingFangSC-Regular;
+    font-weight: 400;
+    color: rgba(51, 51, 51, 1);
+}
+
+.cashWithdrawal {
+    padding-bottom: 24rpx;
+    border-bottom: 2rpx solid #f7f7f7;
+    margin-top: 64rpx;
+}
+
+.cashWithdrawal_symbol {
+    font-size: 48rpx;
+    font-family: PingFangSC-Regular;
+    font-weight: 400;
+    color: rgba(51, 51, 51, 1);
+    margin-right: 24rpx;
+}
+
+.cashWithdrawal_input {
+    font-size: 48rpx;
+    font-family: PingFangSC-Regular;
+    font-weight: 400;
+    color: #333
+}
+
+.cashWithdrawal_tip {
+    font-size: 22rpx;
+    font-family: PingFangSC-Regular;
+    font-weight: 400;
+    color: rgba(153, 153, 153, 1);
+    margin-top: 32rpx;
+}
+.amout_item_price{
+    color:#FF841B;
+}
+.examine{
+    color:#FF841B;
+}
+.adopt{
+    color:#E34747;
+}
+.failedpass{
+    color:#999999;
+}

@@ -1,5 +1,9 @@
 // pages/goods/confirmationOrder/confirmationOrder.js
 var sliderWidth = 26;
+var QQMapWX = require('../../../utils/qqmap-wx-jssdk.min.js');
+var qqmapsdk = new QQMapWX({
+  key:'d5679d4896ac80baf4dd98c63f247f5f'//必填 暂时用了其他的项目密码
+})
 Page({
 
   /**
@@ -16,6 +20,7 @@ Page({
     addressName:'',
     addressPhone:'',
     addressMsg:'',
+    addressTransformation:''
   },
 
   /**
@@ -107,8 +112,11 @@ Page({
           that.setData({
             addressName: res.userName,
             addressPhone: res.telNumber,
-            addressMsg: res.provinceName + ' ' + res.cityName + ' ' + res.countyName + ' ' + res.detailInfo
+            addressMsg: res.provinceName + ' ' + res.cityName + ' ' + res.countyName + ' ' + res.detailInfo,
+            addressTransformation:res.provinceName + res.cityName + res.countyName + res.detailInfo,
           })
+          //将chooseAddress返回的详细地址转为经纬度
+          that.getCoder(that.data.addressTransformation)
         },
         fail: function (err) {
           if (that.data.addressName===''){
@@ -127,6 +135,15 @@ Page({
       latitude: 23.136571,
       longitude: 113.295512,
       name:'绘画商贸大厦'
+    })
+  },
+  // 调用微信sdk将地址转为经纬度
+  getCoder(e) {
+    qqmapsdk.geocoder({
+      address:e,
+      success:function(res){
+        console.log(res)
+      }
     })
   }
 })

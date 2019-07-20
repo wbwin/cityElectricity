@@ -2,34 +2,36 @@
 <view class='page'>
   <view class='page_hd'>
     <view class='personal_center_hd flex_row ai_flex_start'>
-      <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='personal_image'></image>
+      <image src='../../images/default-avatar.png' class='personal_image'></image>
       <view class='flex_row weui-flex__item mt8'>
-      <view class='weui-flex__item personal_name'>黄老板</view>
-      <view class='flex_row personal_address_view'>
-        <image src='/images/address_icon.png' class='personal_address'></image>
-        <view class='personal_address_name'>收货地址</view>
-      </view>
+        <view class='weui-flex__item personal_name'>黄老板</view>
+        <view class='flex_row personal_address_view' bindtap="chooseAdress">
+          <image src='/images/address_icon.png' class='personal_address'></image>
+          <view class='personal_address_name'>收货地址</view>
+        </view>
       </view>
     </view>
     <view class='line_border'></view>
-    <view class='personal_money flex_row'>
-      <navigator url='/pages/my/wallet/wallet' class='flex_column ai_flex_center personal_money_msg' >
-        <image src='/images/my_wallet.png' class='my_wallet'></image>
-        <view>我的钱包</view>
-      </navigator>
-      <view class='flex_column ai_flex_center personal_money_msg'>
-        <view class='fs18'>0.00</view>
-        <view>未结算</view>
+    <navigator url='/pages/my/wallet/wallet'>
+      <view class='personal_money flex_row'>
+
+        <view class="flex_colum ai_flex_center personal_money_msg">
+          <image src='/images/my_wallet.png' class='my_wallet'></image>
+          <view>我的钱包</view>
+        </view>
+        <view class='flex_column ai_flex_center personal_money_msg'>
+          <view class='fs18'>0.00</view>
+          <view>未结算</view>
+        </view>
+        <view class='flex_column ai_flex_center personal_money_msg'>
+          <view class='fs18'>0.00</view>
+          <view>已结算</view>
+        </view>
+        <view class='balance_detail weui-flex__item flex_row'>余额详情</view>
       </view>
-      <view class='flex_column ai_flex_center personal_money_msg'>
-        <view class='fs18'>0.00</view>
-        <view>已结算</view>
-      </view>
-      <view class='balance_detail weui-flex__item flex_row'>余额详情</view>
-    </view>
-    
-    <navigator url='/pages/my/applicationMerchant/applicationMerchant' class="global_cell border_none">
-        <image src="/images/business_portal.png" class='global_cell_image'></image>
+    </navigator>
+    <navigator url='/pages/my/applicationMerchant/applicationMerchant' class="global_cell border_none" hover-class="none">
+      <image src="/images/business_portal.png" class='global_cell_image'></image>
       <view class="weui-cell__bd">商家入口</view>
       <image class='more_right' src='/images/content_more_right.png'></image>
     </navigator>
@@ -45,7 +47,7 @@
     </view> -->
     <view class='line_border'></view>
     <view>
-      <navigator url='./orderManagement/orderManagement' class="global_cell">
+      <navigator url='./orderManagement/orderManagement' class="global_cell" hover-class="none">
         <image src="/images/my_order.png" class='global_cell_image'></image>
         <view class="weui-cell__bd flex_row">我的订单</view>
       </navigator>
@@ -62,30 +64,31 @@
           <image src='/images/completed.png' class='personal_money_image'></image>
           <view>已完成</view>
         </view>
-        <navigator url='./afterSaleManagement/afterSaleManagement' class='flex_column ai_flex_center weui-flex__item'>
+        <navigator url='./afterSaleManagement/afterSaleManagement' class='flex_column ai_flex_center weui-flex__item' hover-class="none">
           <image src='/images/after_sale.png' class='personal_money_image'></image>
           <view>售后</view>
         </navigator>
       </view>
     </view>
     <view class='line_border'></view>
-    <navigator url='./regiment/regiment' class="global_cell">
-        <image src="/images/my_regiment.png" class='global_cell_image'></image>
+    <navigator url='./regiment/regiment' class="global_cell" hover-class="none">
+      <image src="/images/my_regiment.png" class='global_cell_image'></image>
       <view class="weui-cell__bd">我的拼团</view>
       <image class='more_right' src='/images/content_more_right.png'></image>
     </navigator>
-    <navigator url='/pages/my/commodityCollection/commodityCollection' class="global_cell">
-        <image src="/images/my_collection.png" class='global_cell_image'></image>
+    <navigator url='/pages/my/commodityCollection/commodityCollection' class="global_cell" hover-class="none">
+      <image src="/images/my_collection.png" class='global_cell_image'></image>
       <view class="weui-cell__bd">我的收藏</view>
       <image class='more_right' src='/images/content_more_right.png'></image>
     </navigator>
-    <view class="global_cell">
-        <image src="/images/my_ccs.png" class='global_cell_image'></image>
+    <view class="global_cell contact-kefu">
+      <button class='contact-kefu-btn' open-type='contact' bindtap='handleContact'></button>
+      <image src="/images/my_ccs.png" class='global_cell_image'></image>
       <view class="weui-cell__bd">联系客服</view>
       <image class='more_right' src='/images/content_more_right.png'></image>
     </view>
-    <navigator url='/pages/my/aboutUs/aboutUs' class="global_cell border_none">
-        <image src="/images/my_aboutUs.png" class='global_cell_image'></image>
+    <navigator url='/pages/my/aboutUs/aboutUs' class="global_cell border_none" hover-class="none">
+      <image src="/images/my_aboutUs.png" class='global_cell_image'></image>
       <view class="weui-cell__bd">关于我们</view>
       <image class='more_right' src='/images/content_more_right.png'></image>
     </navigator>
