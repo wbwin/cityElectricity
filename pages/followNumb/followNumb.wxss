@@ -23,6 +23,7 @@ text-align: center;
   margin: 0 32rpx 0 32rpx;
   /* justify-content: center; */
   border-bottom: 2rpx solid rgba(238,238,238,1);
+  width: 100%;
 }
 .follow_image{
   width: 96rpx;

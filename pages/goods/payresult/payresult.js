@@ -5,14 +5,22 @@ Page({
    * 页面的初始数据
    */
   data: {
-    logo:'../../../images/payresult.png'
+    logo:'../../../images/payresult.png',
+    price:0,
+    order_type:2,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var that=this
+    
+    that.setData({
+      price:options.price,
+      order_type:options.order_type
+    })
+    console.log(options.price)
   },
 
   /**
@@ -60,7 +68,30 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage: function (res) {
+    var that=this
+    if(res.from=="button"){
+      
+    }else{
+      return {
+        title: '同橙电商',
+        path: '/pages/my/my',
+        imageUrl:'/images/logo.png',
+      }
+    }
+  },
+  //去订单列表
+  toOrderList(){
+    var that=this
+    if(that.data.order_type==1){
+      wx.navigateTo({
+        url:"/pages/my/regiment/regiment?type=1"
+      }) 
+    }else{
+      wx.navigateTo({
+        url:"/pages/my/orderManagement/orderManagement?type=1"
+      })
+    }
+    
   }
 })

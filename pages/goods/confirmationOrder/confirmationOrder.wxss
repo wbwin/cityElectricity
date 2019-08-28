@@ -1,7 +1,21 @@
 /* pages/goods/confirmationOrder/confirmationOrder.wxss */
 /*订单商品信息*/
+.page{
+  height: auto;
+}
 page{
   margin-bottom: 98rpx;
+}
+.shopIcon {
+  border-radius: 100%;
+  width: 48rpx;
+  height: 48rpx;
+  margin-right: 20rpx;
+}
+
+.rightIcon {
+  width: 48rpx;
+  height: 48rpx;
 }
 .weui-navbar__item{
   padding: 28rpx 0;

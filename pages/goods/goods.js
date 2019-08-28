@@ -1,4 +1,6 @@
 // pages/goods/goods.js
+import api from "../../utils/api"
+import utils from "../../utils/utils"
 var sliderWidth = 26;
 Page({
 
@@ -6,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    goodsDetail:'',
     /*轮播*/
     imgUrls: [
       'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
@@ -19,27 +22,47 @@ Page({
     slideImageIndex: 0,
     /*轮播*/
     /*切换*/
-    activeIndex: 1,
+    activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
     /*切换*/
     /*显示弹出层*/
     showBuyFram: false,
     animationData: {},
-    /*显示弹出层*/
     /*联系店主*/
     showShopContact: 0,
     /*初始购买数量*/
     shopNumber: '1',
     /*选择规格*/
-    isSelect:''
+    isSelect:'',
+    //图片地址访问路径
+    osscdn:'',
+    token:wx.getStorageSync('token'),
+    //商品id
+    goods_id:'',
+    shop_id:'',
+    spec_json:"",//规格
+    order_goods_spec:[],//选择的规格
+    collectType:0,//收藏状态
+    stock:0,//选择的商品库存
+    goods_video:'',//商品视频
+    goods_cover:'',//商品图片
+    goods_price:'',//规格商品价格
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this;
+    const that = this;
+    const goods_id = options.goods_id;//商品id
+    const shop_id=options.shop_id
+    that.setData({
+      goods_id: goods_id,
+      shop_id:shop_id,
+    });
+    
+    
     /*切换*/
     wx.getSystemInfo({
       success: function (res) {
@@ -55,6 +78,10 @@ Page({
       }
     });
     /*切换*/
+    that.setData({
+      token:wx.getStorageSync('token')
+    })
+    that.goodsDetail(that.data.goods_id);//商品详情
   },
 
   /**
@@ -68,7 +95,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var that=this
+    // that.setData({
+    //   token:wx.getStorageSync('token')
+    // })
+    // that.goodsDetail(that.data.goods_id);//商品详情
   },
 
   /**
@@ -89,7 +120,8 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    var that=this
+    that.goodsDetail(that.data.goods_id);//商品详情
   },
 
   /**
@@ -103,11 +135,67 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    var that=this
+    return {
+      title: that.data.goodsDetail.goods_name,
+      path: '/pages/goods/goods?goods_id='+that.data.goods_id+'&shop_id='+that.data.shop_id,
+      imageUrl:that.data.osscdn+that.data.goodsDetail.goods_cover
+    }
+  },
+  goodsDetail:function(goods_id){
+    console.log(11)
+    const that = this;
+    utils.util.post(api.goodsDetail,{
+      goods_id:goods_id,
+      token:wx.getStorageSync('token'),
+      shop_id:that.data.shop_id,
+    },res=>{
+      //判断商品是否有视频
+      var banner_img_json=JSON.parse(res.data.banner_img_json)
+      var goods_video='';
+      for(var i=banner_img_json.length-1;i>=0;i--){
+        if(banner_img_json[i].indexOf('.mp4')!=-1){
+          goods_video=banner_img_json[i]
+          banner_img_json.splice(i,1)
+        }
+      }
+      //显示商品的价格
+      var spec_json=JSON.parse(res.data.spec_json)
+      var spec_stock_price=[]
+      var goods_price=''
+      if(spec_json){
+        for(var i in res.data.spec_stock){
+          spec_stock_price.push(res.data.spec_stock[i].price)
+        }
+        spec_stock_price.sort();
+        if(spec_stock_price[0]==spec_stock_price[spec_stock_price.length-1]){
+          goods_price=spec_stock_price[0]
+        }else{
+          goods_price=spec_stock_price[0]+'-'+spec_stock_price[spec_stock_price.length-1]
+        }
+      }else{
+        goods_price=res.data.price
+      }
+      that.setData({
+        goodsDetail:res.data,
+        imgUrls:banner_img_json,
+        goods_video:goods_video,
+        osscdn:res.osscdn,
+        spec_json:spec_json,
+        collectType:res.data.is_collect,
+        goods_price:goods_price,
+        goods_cover:res.data.goods_cover,
+      })
+    })
   },
   //图片轮播
   slideImageChange: function (e) {
-    this.setData({
+    var that=this
+    if(that.data.goods_video){
+      var videoContext = wx.createVideoContext('myVideo')
+      videoContext.pause()
+    }
+    that.setData({
       slideImageIndex: e.detail.current
     })
   },
@@ -172,8 +260,43 @@ Page({
   /*弹出层*/
   /*确定*/
   sure: function (e) {
+    var that=this
+    var spec_json=that.data.spec_json
+    var stock=that.data.stock
+    var shopNumber=that.data.shopNumber
+    var shop_id=that.data.shop_id
+    var goods_id=that.data.goods_id
+    var spec=that.data.order_goods_spec.join(',')
+    var num=that.data.shopNumber
+    var order_type=that.data.goodsDetail.label==2?'1':'2'
+    
+    //判断是否选择了规格
+    if(that.data.order_goods_spec.length!=spec_json.length){
+      wx.showToast({
+        icon:'none',
+        title:'请先选择规格'
+      })
+      return false;
+    }
+    //判断是否超过库存
+    if(shopNumber>=stock){
+      wx.showToast({
+        icon:'none',
+        title:'购买数量不能超过库存数',
+      })
+      return false
+    }
+    var orderMsg={
+      shop_id:shop_id,
+      goods_id:goods_id,
+      spec:spec,
+      num:num,
+      order_type:order_type
+    }
+    
+    console.log(JSON.stringify(orderMsg))
     wx.navigateTo({
-      url: '/pages/goods/confirmationOrder/confirmationOrder',
+      url: '/pages/goods/confirmationOrder/confirmationOrder?orderMsg='+JSON.stringify(orderMsg),
     })
   },
   /*联系店主*/
@@ -184,24 +307,44 @@ Page({
   },
   /*拨打电话*/
   phoneCall: function () {
-    wx.makePhoneCall({
-      phoneNumber: '10086',
-      success: function (res) {
-
-      }
-    })
+    const that = this;
+    const phone = that.data.goodsDetail.shop_leader.leader_tel;
+    if(phone){
+      wx.makePhoneCall({
+        phoneNumber:phone
+      })
+    }else{
+      wx.showModal({
+        title:'提示',
+        content:'店主很懒，没有留下手机号码',
+        showCancel:false,
+        confirmText:'确定',
+        confirmColor:"#646981"
+      })
+    }
   },
   /*复制微信号*/
   setClipboardData: function () {
-    wx.setClipboardData({
-      data: 'wx10086',
-      success: function () {
-        wx.showToast({
-          icon: 'none',
-          title: '复制成功'
-        })
-      }
-    })
+    const that = this;
+    const wechat = that.data.goodsDetail.shop_leader.leader_wechat;
+    if(wechat){
+      wx.setClipboardData({
+        data:wechat,
+        success(res){
+          wx.showToast({
+            title:'复制成功'
+          })
+        }
+      })
+    }else{
+      wx.showModal({
+        title:'提示',
+        content:'店主很懒，没有留下微信号码',
+        showCancel:false,
+        confirmText:'确定',
+        confirmColor:"#646981"
+      })
+    }
   },
   /*减少购买数量*/
   reduceShopNumber: function () {
@@ -222,7 +365,17 @@ Page({
   /*增加购买数量*/
   addShopNumber: function () {
     const that = this
+    //判断是否超过库存
+    var stock=that.data.stock
+    if(that.data.shopNumber>=stock){
+      wx.showToast({
+        icon:'none',
+        title:'购买数量不能超过库存数',
+      })
+      return false
+    }
     const shopNumber = ++that.data.shopNumber
+    
     that.setData({
       shopNumber: shopNumber
     })
@@ -231,9 +384,77 @@ Page({
   select: function (e) {
     console.log(e)
     const that = this
-    const index = e.currentTarget.dataset.index
+    const spec_index = e.currentTarget.dataset.spec_index
+    const spec_children_index=e.currentTarget.dataset.spec_children_index
+    var spec_stock=that.data.goodsDetail.spec_stock
+    var spec_json=that.data.spec_json
+    spec_json[spec_index].isSelect=spec_children_index
+    var order_goods_spec=that.data.order_goods_spec
+    order_goods_spec[spec_index]=spec_json[spec_index].children[spec_children_index]
+    //不同商品规格显示不同价格和图片
+    var spec=order_goods_spec.join(',')
+    for(var i in spec_stock){
+      if(spec==spec_stock[i].spec){
+        that.setData({
+          goods_price:spec_stock[i].price,
+          goods_cover:spec_stock[i].image,
+          stock:spec_stock[i].stock,
+        })
+        break;
+      }
+    }
     that.setData({
-      isSelect:index
+      spec_json:spec_json,
+      order_goods_spec:order_goods_spec
     })
-  }
+    console.log(that.data.order_goods_spec)
+  },
+  //修改收藏状态
+  changeCollect:function(e){
+    var that=this
+    var collectType=that.data.collectType
+    var collect_status=collectType==0?'1':'0'
+    utils.util.post(api.setGoodsCollect,{
+      token:that.data.token,
+      goods_id:that.data.goods_id,
+      shop_id:that.data.shop_id,
+      collect_status:collect_status
+    },res=>{
+      if(collect_status==0){
+        wx.showToast({
+          title: '取消收藏成功',
+          icon: 'success',
+          duration: 2000
+        })
+      }else{
+        wx.showToast({
+          title: '收藏成功',
+          icon: 'success',
+          duration: 2000
+        })
+      }
+      that.setData({
+        collectType:collect_status
+      })
+    })
+  },
+  //视频处理
+  bindplay:function(e){
+    var that=this
+    that.setData({
+      autoplay:false,
+    })
+  },
+  bindpause:function(e){
+    var that=this
+    that.setData({
+      autoplay:true,
+    })
+  },
+  bindended:function(e){
+    var that=this
+    that.setData({
+      autoplay:true,
+    })
+  },
 })

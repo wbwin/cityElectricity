@@ -8,10 +8,22 @@
         type='text'></input>
       <text class="cashWithdrawal_money">￥{{money}}</text>
     </view>
-    <view class='cashWithdrawal_tip'>金额满100元即可提现，提现后金额将进入您的微信钱包</view>
+    <view class='cashWithdrawal_tip'>金额满100元即可提现</view>
+  </view>
+  <view class='flex_row default_input_list'>
+    <text class='default_input_text'>银行名称</text>
+    <input class='default_input weui-flex__item' type='text' bindinput="shopName" placeholder='请输入银行名称'></input>
+  </view>
+  <view class='flex_row default_input_list'>
+    <text class='default_input_text'>银行卡号</text>
+    <input class='default_input weui-flex__item' type='text' bindinput="shopName" placeholder='请输入银行卡号'></input>
+  </view>
+  <view class='flex_row default_input_list'>
+    <text class='default_input_text'>姓名</text>
+    <input class='default_input weui-flex__item' type='text' bindinput="shopName" placeholder='请输入姓名'></input>
   </view>
   <view class="default-bottom-button">
     <button class="default-bottom-button-1" bindtap="record">提现记录</button>
-    <button class='default-bottom-button-2' botton-ho>提现</button>
+    <button class='default-bottom-button-2' >提现</button>
   </view>
 </view>

@@ -1,4 +1,6 @@
 // pages/my/regiment/regiment.js
+import api from "../../../utils/api"
+import utils from "../../../utils/utils"
 var sliderWidth = 26;
 Page({
 
@@ -11,8 +13,11 @@ Page({
     sliderOffset: 0,
     sliderLeft: 0,
     rightIcon:'../../../images/content_more_right.png',
-    shopIcon:'../../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'
-    
+    shopIcon:'../../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg',
+    token:'',
+    osscdn:'',
+    page:1,
+    groupList:[],
   },
 
   /**
@@ -35,6 +40,12 @@ Page({
       }
     });
     /*切换*/
+    that.setData({
+      token:wx.getStorageSync('token'),
+      page:1,
+      groupList:[],
+    })
+    that.getUserGroup()
   },
 
   /**
@@ -48,7 +59,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var that=this
+    // that.setData({
+    //   token:wx.getStorageSync('token'),
+    //   page:1,
+    //   groupList:[],
+    // })
+    // that.getUserGroup()
   },
 
   /**
@@ -69,28 +86,80 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    var that=this
+    that.setData({
+      token:wx.getStorageSync('token'),
+      page:1,
+      groupList:[],
+    })
+    that.getUserGroup()
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    var that=this
+    var page=Number(that.data.page)+1
+    that.setData({
+      page:page,
+    })
+    that.getUserGroup()
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage: function (res) {
+    var that=this
+    if (res.from === 'button') {
+      console.log(res.target)
+      var index=res.target.dataset.index
+    var orderData=that.data.groupList[index]
+      return {
+        title: '一起来拼团吧',
+        path: '/pages/goods/goods?shop_id='+orderData.shop_id+'&goods_id='+orderData.goods_id,
+        imageUrl:that.data.osscdn+orderData.goods_cover
+      }
+    }else{
+      return {
+        title: '同橙电商',
+        path: '/pages/my/my',
+        imageUrl:'/images/logo.png',
+      }
+    }
   },
   //切换tab
   tabClick: function (e) {
+    var that=this
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
-      activeIndex: e.currentTarget.id
+      activeIndex: e.currentTarget.id,
+      page:1,
+      groupList:[],
     });
+    that.getUserGroup()
   },
   //切换tab
+  //获取我的拼团列表
+  getUserGroup:function(){
+    var that=this
+    var groupList=that.data.groupList
+    var group_status=Number(that.data.activeIndex)+1
+    utils.util.post(api.getUserGroup,{
+      page:that.data.page,
+      limit:10,
+      group_status:group_status,
+      token:that.data.token
+    },res=>{
+      var list=res.data.list
+      if(list.length>0){
+        groupList=groupList.concat(list)
+        that.setData({
+          groupList:groupList,
+          osscdn:res.osscdn
+        })
+      }
+    })
+  },
 })

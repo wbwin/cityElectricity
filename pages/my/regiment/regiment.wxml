@@ -14,42 +14,59 @@
       </view>
       
       <view class="weui-tab__panel">
-        <view class="weui-tab__content" wx:if="{{true}}">
-          <block wx:for='{{8}}' wx:key='*this'>
+        <view class="weui-tab__content" wx:if="{{groupList.length}}">
+          <block wx:for='{{groupList}}' wx:key='*this'>
             <view class='order_item'>
             <!-- <navigator url='./orderDetail/orderDetail' class='order_item'> -->
             <view class='flex_row order_item_state'>
-              <image class="shopIcon" src="{{shopIcon}}" mode="aspectFill"/>
-              <text>店铺名</text>
+                <navigator url='/pages/shop/shop?id={{item.shop_id}}' class='order_items'>
+
+              <image class="shopIcon" src="{{osscdn}}{{item.shop_avatar}}" mode="aspectFill"/>
+              <text>{{item.shop_name}}</text>
               <image class="rightIcon" src="{{rightIcon}}" />
-              <text class='order_goods_state regiment_order_goods_state'>待付款</text>
-            </view>
+              </navigator>
+              <block wx:if="{{item.logistics_action!=2}}">
+                  <text class='order_goods_state regiment_order_goods_state'>{{item.group_status==1?'待成团':item.group_status==2&&item.order_status==2?'已成团,待发货':item.group_status==2&&item.order_status==3?'已成团,已发货':item.group_status==2&&item.order_status==4?'已成团,已完成':item.group_status==3?'拼团失败':''}}</text>
             
+                </block>
+                <block wx:else>
+                  <!-- 自提单 -->
+                    <text class='order_goods_state regiment_order_goods_state'>{{item.group_status==1?'自提单 待成团':item.group_status==2&&item.order_status==2?'自提单 已成团,待发货':item.group_status==2&&item.order_status==3?'自提单 已成团,已发货':item.group_status==2&&item.order_status==4?'自提单 已成团,已完成':item.group_status==3?'拼团失败':''}}</text>
+              
+                  </block>
+              <!-- <text class='order_goods_state regiment_order_goods_state'>{{activeIndex==0?'待成团':activeIndex==1?'已成团':'拼团失败'}}</text> -->
+            </view>
+            <navigator url='./groupOrderDetail/groupOrderDetail?order_sn={{item.order_sn}}' class='order_item'>
+
               <view class='flex_row  order_goods'>
-                <image class='order_goods_image' src='../../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'></image>
+                <image class='order_goods_image' src='{{osscdn}}{{item.goods_cover}}'></image>
                 <view class='flex_column jc_flex_sb weui-flex__item order_goods_content'>
                   <view class=' flex_column order_goods_contentTop'>
                     <view class='flex_row ai_flex_start'>
-                      <text class='order_goods_name weui-flex__item'>商品名称名称名称名称名称名称名称名称名称名称名...</text>
+                      <text class='order_goods_name weui-flex__item'>{{item.goods_name}}</text>
                       
                     </view>
 
-                    <text class='order_goods_spec'>橙红色，XL码</text>
+                    <text class='order_goods_spec'>{{item.order_goods_spec}}</text>
                   </view>
                   <view class='flex_row jc_flex_sb'>
-                    <text>¥200</text>
-                    <text class='order_goods_numb'>x1</text>
+                    <text>¥{{item.goods_price}}</text>
+                    <text class='order_goods_numb'>x{{item.order_goods_num}}</text>
                   </view>
                 </view>
               </view>
+              </navigator>
               <view class='flex_row jc_flex_end order_goods_msg'>
                 <text class=''>共1件商品  合计：</text>
-                <text class='order_goods_price'>¥200</text>
-                <text class=''>（含运费¥0.00）</text>
+                <text class='order_goods_price'>¥{{item.order_price}}</text>
+                <text class=''>（含运费¥{{item.logistics_price}}）</text>
               </view>
+              <view class="flex_row jc_flex_sb" wx:if="{{item.group_status==1}}">
+                <text class="need_num">拼团还差{{item.need_num}}人</text>
               <view class='flex_row jc_flex_end order_goods_button'>
-                <button class='button_main'>确认收货</button>
+                <button class='button_main'  open-type="share" data-index='{{index}}'>邀请好友</button>
               </view>
+            </view>
               <view class='line_border'></view>
             <!-- </navigator> -->
             </view>

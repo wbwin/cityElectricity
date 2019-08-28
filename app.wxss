@@ -13,6 +13,7 @@ page {
   font-size: 26rpx;
   color: #333;
   background: #fff;
+  height: 100vh;
 }
 
 .page_hd {
@@ -769,7 +770,9 @@ w100 {
   color: rgba(255, 132, 27, 1);
   border: 2rpx solid rgba(255, 132, 27, 1);
   border-radius: 34rpx;
-  background: transparent
+  background: transparent;
+  min-width: 172rpx;
+  margin-left: 32rpx;
 }
 
 .button_default {

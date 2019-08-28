@@ -1,6 +1,7 @@
 <!--pages/my/wallet/discountRecord/discountRecord.wxml-->
+<import src="/pages/template/noDatas/noDatas.wxml" />
 <view class='page'>
-    <view class='page_bd'>
+    <view class='page_bd' wx:if="{{false}}">
         <view class='amout_list'>
             <block wx:for='{{3}}' wx:key='*this'>
                 <view class='flex_row amout_list_item '>
@@ -13,4 +14,5 @@
             </block>
         </view>
     </view>
+    <template is="noDatas" data="{{paddingTop: '302rpx',text1:'暂无提现记录'}}" wx:else />
 </view>

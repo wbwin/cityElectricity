@@ -6,11 +6,11 @@
       class="slide_image" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
       <block wx:for="{{imgUrls}}" wx:key='*this'>
         <swiper-item>
-          <image src="{{item}}" class="slide_image" />
-          <view class='flex_column slide_tip_content'>
+          <image src="{{osscdn}}{{item}}" class="slide_image" />
+          <!-- <view class='flex_column slide_tip_content'>
             <text class='textEllipsis'>动态文字动态文字动动态文字动态文字动态文…</text>
             <text class='fs11'>05月28日 20:34</text>
-          </view>
+          </view> -->
         </swiper-item>
       </block>
     </swiper>
@@ -19,33 +19,38 @@
   <view class='page_bd'>
     <view class='flex_row jc_flex_sb shop_introduction'>
       <view class='flex_row weui-flex__item mr10'>
-        <image class='shop_image' src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' mode="aspectFill">
+        <image class='shop_image' src='{{osscdn}}{{shop.shop_avatar}}' mode="aspectFill">
         </image>
+        
         <view class='flex_column weui-flex__item'>
-          <view class='shop_name'>店铺名称</view>
-          <view class='shop_msg'>一句话介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍</view>
+          <view class='shop_name'>{{shop.shop_name}}</view>
+          <view class='shop_msg'>{{shop.shop_intro}}</view>
         </view>
       </view>
       <view class='flex_row'>
-        <view class='shop_introduction_button {{false?"button_unCollect":""}}'>关注</view>
+        <view class='shop_introduction_button {{is_fans==1?"button_unCollect":""}}' bindtap="shopFollow">{{is_fans==1?'已关注':'关注'}}</view>
         <!-- <view class='shop_introduction_button share_button'>分享</view> -->
-        <button open-type="share" class="shop_introduction_button share_button">分享</button>
+        <button open-type="share" data-type="1" class="shop_introduction_button share_button">分享</button>
       </view>
     </view>
     <view class='line_border'></view>
+    <navigator url='/pages/followNumb/followNumb?shop_id={{shop.id}}&type=0'>
     <view class='flex_row fans_list'>
       <view class='flex_column fans_numb'>
-        <view class='fans_numb_text'>54</view>
+        <view class='fans_numb_text'>{{shop.fans_count}}</view>
         <view class='fs10'>粉丝</view>
       </view>
       <view class='flex_row weui-flex__item fans_numb_img'>
-        <block wx:for="{{10}}" wx:key='*this'>
-          <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='fans_img' mode="aspectFill">
+        <block wx:for="{{shop.fans}}" wx:key='{{item}}'>
+          <image src='{{osscdn}}{{item.avatar}}' wx:if='{{index<10}}' class='fans_img' mode="aspectFill">
           </image>
         </block>
-        <image src='../../images/shop_list_more.png' class='fans_img'></image>
+        <block wx:if="{{shop.fans.length>10}}">
+          <image src='../../images/shop_list_more.png' class='fans_img'></image>
+        </block>
       </view>
     </view>
+    </navigator>
     <view class='line_border'></view>
     <view class='weui-tab'>
       <view class='weui-navbar'>
@@ -53,7 +58,7 @@
           <view id='{{index}}' class='weui-navbar__item {{activeIndex==index?"weui-bar__item_on":""}}'
             bindtap="tabClick">
             <view class="weui-navbar__title">{{item}}</view>
-            <view class='circle_red'></view>
+            <!-- <view class='circle_red'></view> -->
           </view>
         </block>
         <view class="weui-navbar__slider"
@@ -64,57 +69,62 @@
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
           <view class='flex_row goods_classify_list'>
             <block wx:for="{{goodsClassify}}" wx:key='*this'>
+            <navigator url='./commodityClassification/commodityClassification?shop_id={{shop_id}}&category_id={{item.id}}'>
               <view class='flex_column ai_flex_center goods_classify_item'>
-                <image class='classifly_icon' src='{{item.icon}}'></image>
-                <view class="weui-navbar__title classifly_icon_text">{{item.name}}</view>
+                <image class='classifly_icon' src='{{osscdn}}{{item.category_img}}'></image>
+                <view class="weui-navbar__title classifly_icon_text">{{item.category_name}}</view>
               </view>
+              </navigator>
             </block>
           </view>
           <view class='line_border'></view>
-          <block wx:for="{{3}}" wx:key="*this" wx:for-index="classifly_index">
+          <block wx:for="{{goods_datas}}" wx:key="*this" wx:for-index="classifly_index">
             <view class='flex_column ai_flex_center classifly_goods'>
-              <view class='flex_column ai_flex_center classifly_goods_top'>
-                <view class='classifly_goods_title'>{{classifly_index==0?'店长推荐':classifly_index==1?'热销榜单':'新品上市'}}
+              <view class='flex_column ai_flex_center classifly_goods_top' bindtap='toGoodsClassification' data-classifly_index="{{classifly_index}}">
+                <view class='classifly_goods_title'>{{item.name}}
                 </view>
                 <view class='classifly_goods_titleEn fs14'>
-                  {{classifly_index==0?'Selection of clothes':classifly_index==1?'Hot list':'New list'}}</view>
+                  {{item.englishName}}</view>
                 <view class='flex_row  jc_flex_end classifly_goods_titleMore'>
                   <text>更多</text>
                   <image class='titleMore_image' src='../../images/more_right.png'></image>
                 </view>
               </view>
-              <view wx:if="{{true}}">
-                <navigator url='/pages/goods/goods?storeId=1' class='classifly_goods_bigList' hover-class="btn-hover">
+              <view class="goodsClass" wx:if="{{item.data.length>0}}">
+                <navigator url='/pages/goods/goods?goods_id={{item.data[0].goods_id}}&shop_id={{shop_id}}' class='classifly_goods_bigList' hover-class="btn-hover">
                   <view class='classifly_goods_bigImg'>
-                    <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='goods_bigImg_class'
+                    <image src='{{osscdn}}{{item.data[0].goods_cover}}' class='goods_bigImg_class'
                       mode="aspectFill"></image>
-                    <view class='flex_row jc_flex_center shop_video_mask'>
+                    <!-- <view class='flex_row jc_flex_center shop_video_mask'>
                       <image src='../../images/video_play.png' class='shop_videoPlay_image'></image>
-                    </view>
-                    <view class='classifly_goods_tip'>拼团</view>
-                    <view class='flex_column jc_flex_end goods_bigImg_content'>
-                      <view class='flex_row jc_flex_end activity_endTime'>活动结束时间：2019-05-05</view>
+                    </view> -->
+                    
+                    <view class='classifly_goods_tip' wx:if='{{item.data[0].label!=1}}'>{{item.data[0].label==2?'拼团':'折扣'}}</view>
+                    <view class='flex_column jc_flex_end goods_bigImg_content' wx:if='{{item.data[0].label!=1}}'>
+                      <view class='flex_row jc_flex_end activity_endTime'>活动结束时间：{{item.data[0].activity_endtime}}</view>
 
                     </view>
                   </view>
-                  <navigator url='/pages/followNumb/followNumb' class='flex_row classifly_goods_fans'>
+                </navigator>
+                  <navigator url='/pages/followNumb/followNumb?goods_id={{item.data[0].goods_id}}&shop_id={{shop_id}}&type=1' class='flex_row classifly_goods_fans'>
                     <view class='flex_column fans_numb'>
-                      <view class='fans_numb_text'>54</view>
+                      <view class='fans_numb_text'>{{item.data[0].browse_count}}</view>
                       <view class='fs10'>围观人数</view>
                     </view>
                     <view class='flex_row weui-flex__item fans_numb_img' style='margin-left:24rpx;'>
-                      <block wx:for="{{10}}" wx:key='*this'>
-                        <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='fans_img'
-                          style='margin-left:2rpx;'></image>
+                      <block wx:for="{{item.data[0].browse}}" wx:for-item='browse_item' wx:for-index='browse_index' wx:key='*this'>
+                        <image src='{{osscdn}}{{browse_item.avatar}}' wx:if='{{browse_index<10}}' class='fans_img' style='margin-left:2rpx;'></image>
                       </block>
-                      <image src='../../images/shop_list_more.png' class='fans_img'></image>
+                      <image src='../../images/shop_list_more.png' class='fans_img' wx:if='{{item.data[0].browse.length>10}}'></image>
                     </view>
                   </navigator>
+                  <navigator url='/pages/goods/goods?goods_id={{item.data[0].goods_id}}&shop_id={{shop_id}}' class='classifly_goods_bigList' hover-class="btn-hover">
+
                   <view class='flex_column classifly_goods_bigContent'>
-                    <view class='goods_content_name' style='-webkit-line-clamp:1;'>2019春装新款商品名称名称名称名称名称名称名称名称名称名称名称名称
+                    <view class='goods_content_name' style='-webkit-line-clamp:1;'>{{item.data[0].goods_name}}
                     </view>
                     <view class='flex_row jc_flex_sb '>
-                      <view class='weui-flex__item goods_content_price'>￥469</view>
+                      <view class='weui-flex__item goods_content_price'>￥{{item.data[0].price}}</view>
                       <!-- <view class='flex_row'>
                         <view class='goods_content_collectionNum'>333</view>
                         <view class='goods_content_collectioText'>人收藏</view>
@@ -123,24 +133,24 @@
                   </view>
                 </navigator>
 
-                <view class='classifly_goods_smallWrap' wx:if='{{5>0}}'>
-                  <block wx:for="{{5}}" wx:key='*this' wx:for-index='i'>
-                    <navigator url='/pages/goods/goods?storeId=1' class='classifly_goods_smallList' wx:if="{{i!=0}}"
+                <view class='classifly_goods_smallWrap' wx:if='{{item.data.length>1}}'>
+                  <block wx:for="{{item.data}}" wx:key='*this' wx:for-item='goods_item' wx:for-index='i'>
+                    <navigator url='/pages/goods/goods?goods_id={{goods_item.goods_id}}&shop_id={{shop_id}}' class='classifly_goods_smallList' wx:if="{{i!=0}}"
                       style='margin-right:{{i%2?"26rpx":"0"}}'>
                       <view class='classifly_goods_smallImg'>
-                        <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'
+                        <image src='{{osscdn}}{{goods_item.goods_cover}}'
                           class='goods_bigImg_class' mode="aspectFill"></image>
-                        <view class='classifly_goods_tip'>拼团</view>
-                        <view class='flex_column jc_flex_end goods_bigImg_content'>
-                          <view class='flex_row jc_flex_end activity_endTime'>活动结束时间：2019-05-05</view>
+                          <view class='classifly_goods_tip' wx:if='{{goods_item.label!=1}}'>{{goods_item.label==2?'拼团':'折扣'}}</view>
+                        <view class='flex_column jc_flex_end goods_bigImg_content'  wx:if='{{goods_item.label!=1}}'>
+                          <view class='flex_row jc_flex_end activity_endTime'>活动结束时间：{{goods_item.activity_time}}</view>
                         </view>
                       </view>
                       <view class='flex_column classifly_goods_content'>
-                        <view class='goods_content_name'>2019春装新款商品名称名称名称名称名称名称名称名称名称名称名称名</view>
+                        <view class='goods_content_name'>{{goods_item.goods_name}}</view>
                         <view class='flex_row jc_flex_sb '>
-                          <view class='weui-flex__item goods_content_price'>￥469</view>
+                          <view class='weui-flex__item goods_content_price'>￥{{goods_item.price}}</view>
                           <view class='flex_row'>
-                            <view class='goods_content_collectionNum'>999人围观</view>
+                            <view class='goods_content_collectionNum'>{{goods_item.browse_count}}人围观</view>
                             <!-- <view class='goods_content_collectioText'></view> -->
                           </view>
                         </view>
@@ -154,151 +164,60 @@
           </block>
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-          <view class="flex_row dynamic">
-            <button open-type='share' class="dynamic_share_image share-btn"></button>
-            <image src='../../images/share.png' class='dynamic_share_image'></image>
-            <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='dynamic_image'></image>
-            <view class='dynamic_content'>
-              <view class='dynamic_shop_name'>店铺名称</view>
-              <view class='dynamic_shop_Msg' bindtap="dynamicDetails">
-                动态文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案</view>
-              <view class='dynamic_shop_image' wx:if="{{true}}" bindtap="dynamicDetails">
-                <block wx:for="{{6}}" wx:key="*this" wx:for-index="i">
-                  <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='dynamic_shop_image_item'
-                    style='margin-right:{{(i+1)%3?"15rpx":"0"}}'></image>
-                </block>
-              </view>
-              <view class='dynamic_shop_video' wx:else>
-                <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='shop_video_image'></image>
-                <view class='flex_row jc_flex_center shop_video_mask'>
-                  <image src='../../images/video_play.png' class='shop_videoPlay_image'></image>
-                </view>
-
-              </view>
-              <view class='flex_row dynamic_shop_address'>
-                <image src='../../images/address_icon.png' class='dynamic_shop_address_image'></image>
-                <text>店铺地址地址地址地址地址地址地址地址</text>
-              </view>
-              <block wx:for="{{2}}" wx:key="*this">
-                <view class='flex_row dynamic_goods_list'>
-                  <image class='dynamic_goods_image ' src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'>
-                  </image>
-                  <view class='flex_column jc_flex_sb weui-flex__item'>
-                    <text class='textEllipsisTwo dynamic_goods_name'>2019新款女装春秋装纯棉咖啡色收腰长袖衬衣潮流限量正品</text>
-                    <text class='dynamic_goods_price'>¥564</text>
-                  </view>
-                </view>
-              </block>
-              <view class='flex_row jc_flex_sb dynamic_time'>
-                <view>1小时前</view>
-                <view class='dynamic_chat_triangle flex_row' style="transform:{{triangleShow?'scaleX(1)':'scaleX(0)'}}">
-                  <view class='chat_triangle_content flex_row'>
-                    <view class='flex_row chat_triangle_item'>
-                      <image src='../../images/{{false?"collect_red.png":"collect_default.png"}}' class='small_image'>
-                      </image>
-                      <view>赞</view>
-                    </view>
-                    <view class='chat_triangle_line'></view>
-                    <view class='flex_row chat_triangle_item' bindtap='showInput'>
-                      <image src='../../images/comment_default.png' class='small_image'></image>
-                      <view>评论</view>
-                    </view>
-                  </view>
-                  <view class="chat-right_triangle"></view>
-                </view>
-                <image src='../../images/{{false?"collect_red.png":"collect_default_2.png"}}' class='dynamic_more_image'></image>
-              </view>
-              <view class='flex_row dynamic_fabulous'>
-                <image src='../../images/collect_black.png' class='dynamic_fabulous_logo'></image>
-                <block wx:for="{{9}}" wx:key="*this">
-                  <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='dynamic_fabulous_image'>
-                  </image>
-
-                </block>
-                <image class="dynamic_fabulous_image" src="../../images/shop_list_more.png" mode="aspectFill" />
-                  
-                <!-- <view class='dynamic_fabulous_numb'>99+</view> -->
-              </view>
-              <view class='fabulous_comment'>
-                <view class='flex_row dynamic_comment ai_flex_start'>
-                  <image src='../../images/comment_black.png' class='dynamic_fabulous_logo comment_icon'></image>
-                  <view class='flex_column weui-flex__item'>
-                    <block wx:for="{{3}}" wx:key="*this">
-                      <view class="flex_row ai_flex_start dynamic_comment_content">
-                        <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'
-                          class='dynamic_comment_image'></image>
-                        <view class='flex_column weui-flex__item'>
-                          <view class='flex_row jc_flex_sb'>
-                            <view class='dynamic_comment_name'>王小斌</view>
-                            <view class='dynamic_comment_time'>9分钟</view>
-                          </view>
-                          <view class='dynamic_comment_Msg'>店铺地址地址地址地址地址地址地址地址</view>
-                        </view>
-                      </view>
-                    </block>
-                    <!-- <text class='dynamic_comment_more'>查看所有10条评论 >></text> -->
-                  </view>
-                </view>
-              </view>
-            </view>
-          </view>
-          <view class='flex_row comment_input' wx:if="{{commentInputShow}}">
-            <input class='comment_input_class weui-flex__item' focus='{{commentInputShow}}' bindinput='commentInput'
-              placeholder='评论'></input>
-            <view class='comment_input_send {{commentValue.length>0?"comment_input_sendActive":""}}'>发送</view>
-          </view>
+            <include src="../template/dynamicList/dynamicList.wxml" wx:if='{{dynamicsList.length>0}}'/>
+              <template is="noDatas" data="{{paddingTop: '202rpx',paddingBottom:'302rpx',text1:'店铺暂无动态'}}" wx:else />
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
           <view class='shop_introduce_content'>
             <view class='flex_column ai_flex_center qr_code '>
-              <image src='data:image/png;base64,{{src}}' class='qr_code_image'></image>
+              <image src='{{shop.wxacode_image}}' class='qr_code_image'></image>
               <view class='qr_code_text'>微信扫码可打开店铺，并自动关注店铺</view>
             </view>
             <view class="global_cell ">
               <view class="weui-cell__hd">
                 <view class='weui-cell__rt'>店铺地址</view>
               </view>
-              <view class="weui-cell__bd color6">广东省广州市番禺区</view>
-              <image class='more_right' src='../../images/content_more_right.png'></image>
+              <view class="weui-cell__bd color6">{{shop.address_base}}{{shop.address_detail}}</view>
+              <!-- <image class='more_right' src='../../images/content_more_right.png'></image> -->
             </view>
             <view class="global_cell ">
               <view class="weui-cell__hd">
                 <view class='weui-cell__rt'>联系人</view>
               </view>
-              <view class="weui-cell__bd color6">斌爸</view>
+              <view class="weui-cell__bd color6">{{shop.leader_name}}</view>
             </view>
             <view class="global_cell ">
               <view class="weui-cell__hd">
                 <view class='weui-cell__rt '>联系电话</view>
               </view>
-              <view class="weui-cell__bd color6">13172853048</view>
+              <view class="weui-cell__bd color6">{{shop.leader_tel}}</view>
             </view>
             <view class="global_cell">
               <view class="weui-cell__hd">
                 <view class='weui-cell__rt'>微信号</view>
               </view>
-              <view class="weui-cell__bd color6">wwb520</view>
+              <view class="weui-cell__bd color6">{{shop.leader_wechat}}</view>
             </view>
             <view class="global_cell ">
               <view class="weui-cell__hd">
                 <view class='weui-cell__rt'>营业时间</view>
               </view>
-              <view class="weui-cell__bd color6">9：20-12：20</view>
+              <view class="weui-cell__bd color6">{{shop.open_starttime}}-{{shop.open_endtime}}</view>
             </view>
-            <view class="global_cell ">
+            <!-- <view class="global_cell ">
               <view class="weui-cell__hd">
                 <view class='weui-cell__rt'>主营类品</view>
               </view>
               <view class="weui-cell__bd color6">服饰</view>
-            </view>
+            </view> -->
             <view class="global_cell border_none">
               <view class="weui-cell__hd">
                 <view class='weui-cell__rt'>店铺介绍</view>
               </view>
             </view>
           </view>
-          <block wx:for='{{3}}' wx:key='*this'>
-            <image class='shop_introduce_image' src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'></image>
+          <block wx:for='{{imgUrls}}' wx:key='*this'>
+            <image class='shop_introduce_image' src='{{osscdn}}{{item}}'></image>
           </block>
         </view>
       </view>
@@ -306,13 +225,13 @@
   </view>
 
 </view>
-<view class='flex_column show_shop_contact'>
+<view class='flex_column show_shop_contact' style="display:{{showShopContact!=0?'flex':'none'}}">
   <image class='shop_phone {{showShopContact!==0?showShopContact?"shop_phone_animation":"hide_phone_animation":""}}'
-    src='/images/shop_phone.png'></image>
+    src='/images/shop_phone.png' bindtap="callPhone"></image>
   <image class='shop_wx {{showShopContact!==0?showShopContact?"shop_wx_animation":"hide_wx_animation":""}}'
-    src='/images/shop_wx.png'></image>
+    src='/images/shop_wx.png' bindtap="copyWechat"></image>
 </view>
 <view class='flex_column ai_flex_center contact_shop_owner' bindtap='showShopContact'>
-  <image class='contact_image' src='/images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' mode="aspectFill"></image>
+  <image class='contact_image' src='{{osscdn}}{{shop.shop_avatar}}' mode="aspectFill"></image>
   <view class='contact_shop_text'>联系店主</view>
 </view>

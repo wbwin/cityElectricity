@@ -22,3 +22,15 @@
   width: 48rpx;
   height: 48rpx;
 }
+.need_num{
+  margin-left: 32rpx;
+  font-size:26rpx;
+font-family:PingFangSC;
+font-weight:500;
+color:rgba(51,51,51,1);
+}
+.order_items{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

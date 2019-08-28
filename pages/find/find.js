@@ -1,4 +1,7 @@
 //index.js
+import config from "../../utils/config"
+import api from "../../utils/api"
+import utils from "../../utils/utils"
 //获取应用实例
 const app = getApp()
 var sliderWidth = 26;
@@ -18,6 +21,14 @@ Page({
     commentInputShow: false,
     commentValue: '',
     // 动态
+    listData:[],
+    shopPage:1,
+    searchText:'',
+    shopSearchText:'',
+    dynaSearchText:'',
+    osscdn:'',
+    dynaPage:1,//动态页数
+    dynamicsList:[],//动态列表
   },
   onLoad: function () {
     var that = this;
@@ -34,12 +45,99 @@ Page({
         });
       }
     });
+    that.setData({
+      dynaPage:1,//动态页数
+      dynamicsList:[],//动态列表
+      listData:[],
+      shopPage:1,
+      searchText:'',
+      shopSearchText:'',
+      dynaSearchText:'',
+    })
+    that.getPlatformShop();//加载数据
+    that.getDynamicsInfoToPlatform()
+  },
+  onShow: function () {
+    let that = this;
+    // that.onLoad();
+    that.setData({
+      dynaPage:1,//动态页数
+      dynamicsList:[],//动态列表
+      listData:[],
+      shopPage:1,
+      searchText:'',
+      shopSearchText:'',
+      dynaSearchText:'',
+    })
+    that.getPlatformShop();//加载数据
+    that.getDynamicsInfoToPlatform()
+  },
+  onReachBottom:function(){
+    var that=this
+    if(that.data.activeIndex==1){
+      var dynaPage=Number(that.data.dynaPage)+1
+      that.setData({
+        dynaPage:dynaPage
+      })
+      that.getDynamicsInfoToPlatform()
+    }else{
+      var shopPage=Number(that.data.shopPage)+1
+      that.setData({
+        shopPage:shopPage
+      })
+      that.getPlatformShop()
+    }
+  },
+  onPullDownRefresh:function(){
+    var that=this
+    that.setData({
+      dynaPage:1,
+      dynamicsList:[],
+      listData:[],
+      shopPage:1,
+    })
+    that.getPlatformShop();//加载数据
+    that.getDynamicsInfoToPlatform()
+  },
+  onShareAppMessage:function(res){
+    var that=this
+    if(res.from=="button"){
+      var dynamicsList=that.data.dynamicsList
+      var index=res.target.dataset.index
+      var dynamicsData=dynamicsList[index]
+      console.log(res.target)
+      var imageUrl=dynamicsData.img_json.length>0?that.data.osscdn+dynamicsData.img_json[0]:'/images/logo.png'
+      return {
+        title: dynamicsData.content,
+        path: '/pages/dynamicDetails/dynamicDetails?dynamics_id='+dynamicsData.id,
+        imageUrl:imageUrl,
+      }
+    }else{
+      return {
+        title: '同橙电商',
+        path: '/pages/my/my',
+        imageUrl:'/images/logo.png',
+      }
+    }
+    
   },
   //切换tab
   tabClick: function (e) {
+    var that=this
+    if(e.currentTarget.id==0){
+      var searchText=that.data.shopSearchText
+      that.setData({
+        searchText:searchText
+      })
+    }else{
+      var searchText=that.data.dynaSearchText
+      that.setData({
+        searchText:searchText
+      })
+    }
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
-      activeIndex: e.currentTarget.id
+      activeIndex: e.currentTarget.id,
     });
   },
   //切换tab
@@ -94,9 +192,155 @@ Page({
     }
   },
   // 动态
-  dynamicDetails: function () {
+  dynamicDetails: function (e) {
+    var dynamics_id=e.currentTarget.dataset.id
     wx.navigateTo({
-      url: '/pages/dynamicDetails/dynamicDetails'
+      url: '/pages/dynamicDetails/dynamicDetails?dynamics_id='+dynamics_id
     })
+  },
+   //获取平台店铺列表
+   getPlatformShop:function(){
+    const that = this;
+    // const token = wx.getStorageSync('token');
+    var shopPage=that.data.shopPage
+    var listData=that.data.listData
+    utils.util.post(api.getPlatformShop,{
+      page:shopPage,
+      limit:10,
+      search:that.data.searchText,
+    },res=>{
+      var data=res.data.data
+      if(data.length>0){
+        listData=listData.concat(data)
+      that.setData({
+        listData:listData,
+        osscdn:res.osscdn
+      })
+    }
+    })
+  },
+   //查看动态 放大图片
+   previewImage:function(e){
+    const that = this
+    var dynamicsList=that.data.dynamicsList
+    var index=e.currentTarget.dataset.index
+    var img_index=e.currentTarget.dataset.img_index
+    var img_json=dynamicsList[index].img_json
+    var osscdn=that.data.osscdn
+    console.log(img_json)
+    wx.previewImage({
+      current: img_json[img_index], // 当前显示图片的链接，不填则默认为 urls 的第一张
+      urls: img_json,
+      success: function(res){
+        console.log(res)
+      },
+      fail: function() {
+        
+      },
+      complete: function() {
+        // complete
+      }
+    })
+  },
+   //获取平台动态
+   getDynamicsInfoToPlatform(){
+    var that=this
+    const token=wx.getStorageSync('token')
+    var page=that.data.dynaPage
+    var dynamicsList=that.data.dynamicsList
+    utils.util.post(api.getDynamicsInfoToPlatform,{
+      page:page,
+      limit:10,
+      token:token,
+      search:that.data.searchText,
+    },res=>{
+      var list=res.data.list
+      if(list.length>0){
+      for(var i in list){
+        list[i].img_json=JSON.parse(list[i].img_json)
+        for(var j in list[i].img_json){
+          list[i].img_json[j]=that.data.osscdn+list[i].img_json[j]
+        }
+      }
+      dynamicsList=dynamicsList.concat(list)
+      that.setData({
+        dynamicsList:dynamicsList,
+        osscdn:res.osscdn
+      })
+      console.log(dynamicsList)
+    }
+    })
+  },
+  //赞
+  fabulous:function(e){
+    var that=this
+    var dynamics_id=e.currentTarget.dataset.dynamics_id
+    var like_status=e.currentTarget.dataset.is_like
+    var index=e.currentTarget.dataset.index
+    var dynamicsList=that.data.dynamicsList
+    like_status=like_status==0?'1':'0'
+    utils.util.post(api.setDynamicsLike,{
+      dynamics_id:dynamics_id,
+      like_status:like_status,
+      token:wx.getStorageSync('token')
+    },res=>{
+      if(like_status==1){
+        wx.showToast({
+          icon:'none',
+          title:'点赞成功'
+        })
+        var userAvatar=wx.getStorageSync('loginResult').avatar
+        dynamicsList[index].like_info.push({avatar:userAvatar,user_id:wx.getStorageSync('userId')})
+      }else{
+        wx.showToast({
+          icon:'none',
+          title:'取消点赞成功'
+        })
+        for(var i in dynamicsList[index].like_info){
+          if(dynamicsList[index].like_info[i].user_id==wx.getStorageSync('userId')){
+            dynamicsList[index].like_info.splice(i,1)
+          }
+        }
+      }
+      dynamicsList[index].is_like=like_status
+      that.setData({
+        dynamicsList:dynamicsList,
+      })
+    })
+  },
+  //关键词搜索
+  searchInput:function(e){
+    var that=this
+    var activeIndex=that.data.activeIndex
+    if(activeIndex==0){
+      that.setData({
+        shopSearchText:e.detail.value
+      })
+    }else{
+      that.setData({
+        dynaSearchText:e.detail.value
+      })
+    }
+    that.setData({
+      searchText: e.detail.value
+    })
+  },
+  //关键词搜索确认
+  searchConfirm:function(e){
+    var that=this
+    var activeIndex=that.data.activeIndex
+    if(activeIndex==0){
+      that.setData({
+        shopPage:1,
+        listData:[]
+      })
+      that.getPlatformShop();//加载数据
+    }else{
+      that.setData({
+        dynaPage:1,
+        dynamicsList:[]
+      })
+      that.getDynamicsInfoToPlatform()
+    }
   }
 })

@@ -1,0 +1,125 @@
+page {
+    background: #fff;
+  }
+  
+  .logo {
+    width: 236rpx;
+    height: 236rpx;
+    margin: 118rpx auto 0rpx auto;
+    display: block;
+  }
+  
+  .title-tip {
+    font-size: 32rpx;
+    color: #c1c1c1;
+    display: block;
+    text-align: center;
+    padding-top: 24rpx;
+    padding-bottom: 118rpx;
+    /* margin:24rpx auto 118rpx auto; *//* width:100%; */
+  }
+  
+  .loginBtn {
+    width: 80%;
+    height: 84rpx;
+    line-height: 84rpx;
+    background: #1aad19;
+    color: #fff;
+    font-size: 36rpx;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 100rpx;
+  }
+  
+  .mask {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.8;
+    top: 0;
+  }
+  
+  .maskBody {
+    position: fixed;
+    z-index: 5000;
+    /* width: 80%; */
+    width: 560rpx;
+    /* height:550rpx; */
+    top: 48%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .title {
+    text-align: center;
+    font-size: 32rpx;
+    color: #000;
+    height: 75rpx;
+    border-bottom: 1rpx solid #ddd;
+    line-height: 75rpx;
+  }
+  
+  .successIcon {
+    width: 97rpx;
+    height: 97rpx;
+    /* border-radius: 100%; */
+    text-align: center;
+    padding: 30rpx 0rpx 0rpx 0rpx;
+  }
+  
+  .sqcontent {
+    text-align: center;
+    font-size: 30rpx;
+    color: #333;
+    padding: 20rpx 0rpx;
+    border-bottom: 1rpx solid #ddd;
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  .contentTip {
+    text-align: center;
+    font-size: 28rpx;
+    color: #999;
+    padding: 20rpx 0rpx 40rpx 0rpx;
+  }
+  
+  .btn {
+    display: flex;
+    height: 90rpx;
+    align-items: center;
+    text-align: center;
+    border-top: 1rpx solid #ddd;
+  }
+  
+  .reject {
+    flex: 1 1 auto;
+    color: #000;
+    font-size: 32rpx;
+    height: 90rpx;
+    line-height: 90rpx;
+    border-right: 1rpx solid #ddd;
+  }
+  
+  .agree {
+    flex: 1 1 auto;
+    height: 90rpx;
+    line-height: 90rpx;
+  }
+  
+  .agree button {
+    background: #fff;
+    color: #32b42f;
+    font-size: 32rpx;
+  }
+  
+  .agree button::after {
+    border: none;
+  }
+  

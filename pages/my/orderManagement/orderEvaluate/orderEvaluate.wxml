@@ -1,0 +1,15 @@
+<!--pages/my/orderManagement/orderManagement.wxml-->
+<import src="/pages/template/noDatas/noDatas.wxml"/>
+<view class='page'>
+  <view class='page_bd'>
+    <view class="flex_row order_msg">
+      <image src="{{goods_cover}}" class="goods_img"/>
+      <text class="goods_name">{{goods_name}}</text>
+    </view>
+    <view class="textarea_box">
+    <textarea maxlength="50" class="evaluate_textarea" bindinput="textareaInput" value="{{evaluate_text}}" placeholder="请输入您的评价内容"/>
+    <text class="textarea_text">{{evaluate_text_length}}/50</text>
+  </view>
+  </view>
+  <view class="submit" bindtap="submit">提交</view>
+</view>

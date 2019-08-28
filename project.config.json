@@ -4,18 +4,26 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
+		"coverView": true,
 		"autoAudits": false,
-		"checkInvalidKey": true
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.7.0",
-	"appid": "wxc1ff9289a1d8558e",
-	"projectname": "%E5%90%8C%E5%9F%8E%E7%94%B5%E5%95%86%E5%BC%80%E5%8F%911.0%E7%89%88",
+	"libVersion": "2.8.0",
+	"appid": "wx4ce63283b6872944",
+	"projectname": "%E5%90%8C%E6%A9%99%E7%94%B5%E5%95%86%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E7%89%88",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
@@ -40,19 +48,195 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 0,
 			"list": [
 				{
-					"id": -1,
+					"id": 0,
 					"name": "店铺",
 					"pathName": "pages/shop/shop",
+					"query": "id=12",
+					"scene": null
+				},
+				{
+					"id": 1,
+					"name": "商品详情",
+					"pathName": "pages/goods/goods",
+					"query": "goods_id=43&shop_id=4",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "关于我们",
+					"pathName": "pages/my/aboutUs/aboutUs",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "商品详情",
+					"name": "我的",
+					"pathName": "pages/my/my",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "申请商家",
+					"pathName": "pages/my/applicationMerchant/applicationMerchant",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "供应商申请",
+					"pathName": "pages/my/applicationMerchant/supplierApplication/supplierApplication",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "店铺",
+					"pathName": "pages/shop/shop",
+					"query": "id=4",
+					"scene": null
+				},
+				{
+					"id": 7,
+					"name": "普通商品详情",
 					"pathName": "pages/goods/goods",
+					"query": "goods_id=36&shop_id=4",
+					"scene": null
+				},
+				{
+					"id": 8,
+					"name": "店铺申请",
+					"pathName": "pages/my/applicationMerchant/shopApplication/shopApplication",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 9,
+					"name": "商品分类",
+					"pathName": "pages/shop/commodityClassification/commodityClassification",
+					"query": "shop_id=4&category_id=29",
+					"scene": null
+				},
+				{
+					"id": 10,
+					"name": "订单确认",
+					"pathName": "pages/goods/confirmationOrder/confirmationOrder",
+					"query": "orderMsg={\"shop_id\":\"4\",\"goods_id\":\"42\",\"spec\":\"翡翠绿,36\",\"num\":\"2\",\"order_type\":2}",
+					"scene": null
+				},
+				{
+					"id": 11,
+					"name": "商家三种分类",
+					"pathName": "pages/shop/goodsClassification/goodsClassification",
+					"query": "type=2&shop_id=4",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "店铺首页",
+					"pathName": "pages/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "发现",
+					"pathName": "pages/find/find",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 14,
+					"name": "动态详情",
+					"pathName": "pages/dynamicDetails/dynamicDetails",
+					"query": "dynamics_id=50",
+					"scene": null
+				},
+				{
+					"id": 15,
+					"name": "我的订单",
+					"pathName": "pages/my/orderManagement/orderManagement",
+					"query": "type=0",
+					"scene": null
+				},
+				{
+					"id": 16,
+					"name": "订单详情",
+					"pathName": "pages/my/orderManagement/orderDetail/orderDetail",
+					"query": "order_sn=20190822102217583149",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "订单评价",
+					"pathName": "pages/my/orderManagement/orderEvaluate/orderEvaluate",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 18,
+					"name": "申请退款",
+					"pathName": "pages/my/orderManagement/applyForRefund/applyForRefund",
+					"query": "order_sn=20190822101806628969&type=1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "售后",
+					"pathName": "pages/my/afterSaleManagement/afterSaleManagement",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 20,
+					"name": "售后详情",
+					"pathName": "pages/my/afterSaleManagement/afterSaleDetail/afterSaleDetail",
+					"query": "order_sn=20190822101806628969",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "店铺粉丝数",
+					"pathName": "pages/followNumb/followNumb",
+					"query": "shop_id=4&type=0",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的收藏",
+					"pathName": "pages/my/commodityCollection/commodityCollection",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 23,
+					"name": "拼单列表",
+					"pathName": "pages/my/regiment/regiment",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "拼单详情",
+					"pathName": "pages/my/regiment/groupOrderDetail/groupOrderDetail",
+					"query": "order_sn=20190826101242252296",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "金额明细",
+					"pathName": "pages/my/wallet/detailsOfAmount/detailsOfAmount",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 26,
+					"name": "pages/my/wallet/detailsOfAmount/detailsOfAmount",
+					"pathName": "pages/my/wallet/cashWithdrawal/cashWithdrawal",
+					"query": "money=200",
 					"scene": null
 				}
 			]

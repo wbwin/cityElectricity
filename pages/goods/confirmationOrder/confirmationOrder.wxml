@@ -2,35 +2,49 @@
 <view class='page'>
   <view class='page_hd'></view>
   <view class='page_bd'>
+      <view class='flex_row order_item_state'>
+         
+
+          <image class="shopIcon" src="{{osscdn}}{{orderData.shop_avatar}}" mode="aspectFill"/>
+          <text>{{orderData.shop_name}}</text>
+          <image class="rightIcon" src="../../../images/content_more_right.png" />
+        
+      </view>
     <!-- 订单商品信息 -->
     <view class='flex_row order_goods'>
-      <image class='order_goods_image' src='../../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'></image>
+      <image class='order_goods_image' src='{{osscdn}}{{orderData.goods_cover}}'></image>
       <view class='flex_column jc_flex_sb weui-flex__item order_goods_content'>
         <view class='flex_column'>
-          <text class='order_goods_name'>商品名称商品名称</text>
-          <text class='order_goods_spec'>XL码</text>
+          <text class='order_goods_name'>{{orderData.goods_name}}</text>
+          <text class='order_goods_spec'>{{orderData.order_goods_spec}}</text>
         </view>
         <view class='flex_row jc_flex_sb'>
           <view class='flex_row'>
-            <text class='order_goods_price'>￥999</text>
+            <text class='order_goods_price'>￥{{orderData.goods_price}}</text>
             <!-- <text class='order_goods_originalPrice'>￥1000</text> -->
           </view>
-          <text class='order_goods_numb'>×1</text>
+          <text class='order_goods_numb'>×{{orderData.order_goods_num}}</text>
         </view>
       </view>
     </view>
     <!-- 订单商品信息 -->
-    <input class='message_to_business' type='text' placeholder='给商家的留言'></input>
+    <input class='message_to_business' type='text' bindinput="userNoteInput" placeholder='给商家的留言'></input>
     <view class='line_border'></view>
     <!-- 配送信息 -->
     <view class='weui-tab'>
-      <view class='weui-navbar'>
+      <view class='weui-navbar' wx:if='{{orderData.is_selfsend==1}}'>
         <block wx:for='{{tabs}}' wx:key='*this'>
           <view id='{{index}}' class='weui-navbar__item {{activeIndex==index?"weui-bar__item_on":""}}' bindtap="tabClick">
             <view class="weui-navbar__title">{{item}}</view>
           </view>
         </block>
         <view class="weui-navbar__slider" style="width:9.5%;left:20%!important; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+      </view>
+      <view class='weui-navbar' wx:else>
+        <view  class='weui-navbar__item weui-bar__item_on'>
+          <view class="weui-navbar__title">商家配送</view>
+        </view>
+        <view class="weui-navbar__slider" style="width:9.5%;left:45.2%!important;"></view>
       </view>
       <view class="weui-tab__panel">
       <image src='/images/dividing_line.png' class='dividing_line'></image>
@@ -51,18 +65,18 @@
           <view class='flex_row self_taking bb1'>
           <text class='self_taking_symbol'>*</text>
             <text class='self_taking_text'>取货人</text>
-            <input class='self_taking_input' type='text' placeholder='请输入取货人'></input>
+            <input class='self_taking_input' type='text' bindinput="getNameInput" placeholder='请输入取货人'></input>
           </view>
           <view class='flex_row self_taking '>
           <text class='self_taking_symbol'>*</text>
             <text class='self_taking_text'>联系电话</text>
-            <input class='self_taking_input' type='text' placeholder='请输入联系电话'></input>
+            <input class='self_taking_input' type='number' bindinput="getTelInput" maxlength='11' placeholder='请输入联系电话'></input>
           </view>
           <view class='line_border'></view>
           <view class='flex_row shop_address' bindtap='openLocation'>
             <view class='flex_row ai_flex_start weui-flex__item'>
               <text class='shop_address_title'>店家地址</text>
-              <text class='weui-flex__item shop_address_msg'>地址信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息</text>
+              <text class='weui-flex__item shop_address_msg'>{{orderData.address_base}}{{orderData.address_detail}}</text>
             </view>
             <image class='address_icon_main' src='../../../images/address_icon_main.png'></image>
           </view>
@@ -82,11 +96,11 @@
     <view class='total_detail'>
       <view class='flex_row jc_flex_sb'>
         <text>订单总额：</text>
-        <text class='color6'>¥100.00</text>
+        <text class='color6'>¥{{orderData.order_price}}</text>
       </view>
       <view class='flex_row jc_flex_sb mt12'  hidden="{{activeIndex == 1}}">
-        <text>运费（N公里以上需运费）：</text>
-        <text class='color6'>¥12.00</text>
+        <text>运费<text wx:if="{{orderData.logistics_price>0}}">（{{orderData.max_logistics_length}}公里以上需运费）</text>：</text>
+        <text class='color6'>¥{{orderData.logistics_price}}</text>
       </view>
     </view>
     <!-- <view class='flex_row jc_flex_sb'>
@@ -97,9 +111,9 @@
   <view class='flex_row page_fb jc_flex_sb'>
   <view class='flex_row'>
   <text class='need_pay'>应付金额：</text>
-      <text class='need_pay_money'>¥112.00</text>
+      <text class='need_pay_money'>¥{{pay_price}}</text>
       </view>
-<button class='need_pay_button' >确认支付</button>
+<button class='need_pay_button' bindtap='sure_pay'>确认支付</button>
   </view>
   
 </view>

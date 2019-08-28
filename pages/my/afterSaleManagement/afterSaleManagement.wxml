@@ -12,38 +12,40 @@
         <!-- <view class="weui-navbar__slider" style="width:12.5%;left:6.5%!important; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view> -->
       </view>
       <view class="weui-tab__panel">
-        <view class="weui-tab__content" wx:if="{{true}}">
-          <block wx:for='{{8}}' wx:key='*this'>
+        <view class="weui-tab__content" wx:if="{{afterSaleList.length>0}}">
+          <block wx:for='{{afterSaleList}}' wx:key='*this'>
             <view class="order_item">
             <!-- <navigator url='./orderDetail/orderDetail' class='order_item'> -->
             <view class='flex_row jc_flex_end order_item_state'>
-                <image class="shopIcon" src="{{shopIcon}}" mode="aspectFill"/>
-                <text>店铺名</text>
+                <navigator url='/pages/shop/shop?id={{item.shop_id}}' class='order_item_nav'>
+                <image class="shopIcon" src="{{osscdn}}{{item.shop_avatar}}" mode="aspectFill"/>
+                <text>{{item.shop_name}}</text>
                 <image class="rightIcon" src="{{rightIcon}}" />
-              <text class='order_goods_state regiment_order_goods_state'>待付款</text>
+                </navigator>
+              <text class='order_goods_state regiment_order_goods_state'>{{activeIndex==0?'处理中':'已完成'}}</text>
             </view>
             
-              <view class='flex_row  order_goods' bindtap="checkOrderDtail" data-state="processing">
-                <image class='order_goods_image' src='../../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'></image>
+              <view class='flex_row  order_goods' bindtap="checkOrderDtail" data-aftersafe_sn="{{item.aftersafe_sn}}" data-state="processing">
+                <image class='order_goods_image' src='{{osscdn}}{{item.goods_cover}}'></image>
                 <view class='flex_column jc_flex_sb weui-flex__item order_goods_content'>
                   <view class=' flex_column order_goods_contentTop'>
                     <view class='flex_row ai_flex_start'>
-                      <text class='order_goods_name weui-flex__item'>商品名称名称名称名称名称名称名称名称名称名称名...</text>
+                      <text class='order_goods_name weui-flex__item'>{{item.goods_name}}</text>
                       
                     </view>
 
-                    <text class='order_goods_spec'>橙红色，XL码</text>
+                    <text class='order_goods_spec'>{{item.order_goods_spec}}</text>
                   </view>
                   <view class='flex_row jc_flex_sb'>
-                    <text>¥200</text>
-                    <text class='order_goods_numb'>x1</text>
+                    <text>¥{{item.goods_price}}</text>
+                    <text class='order_goods_numb'>x{{item.order_goods_num}}</text>
                   </view>
                 </view>
               </view>
               <view class='flex_row jc_flex_end order_goods_msg'>
                 <text class=''>共1件商品  合计：</text>
-                <text class='order_goods_price'>¥200</text>
-                <text class=''>（含运费¥0.00）</text>
+                <text class='order_goods_price'>¥{{item.pay_price}}</text>
+                <text class=''>（含运费¥{{item.logistics_price}}）</text>
               </view>
               <!-- <view class='flex_row jc_flex_end order_goods_button'>
                 <button class='button_main'>确认收货</button>

@@ -2,34 +2,68 @@
 <view class='page'>
   <view class='page_bd'>
     <view class='flex_row jc_flex_sb order_item_state'>
-      <text>交易状态</text>
-      <text class='order_goods_state'>待付款</text>
+        <navigator url='/pages/shop/shop?id={{orderData.shop_id}}' class='order_item'>
+
+          <image class="shopIcon" src="{{osscdn}}{{orderData.shop_avatar}}" mode="aspectFill"/>
+          <text>{{orderData.shop_name}}</text>
+          <image class="rightIcon" src="{{rightIcon}}" />
+        </navigator>
+     <!-- 拼团单-->
+     <block wx:if="{{orderData.order_type==1}}">
+        <block wx:if="{{orderData.is_aftersafe==0}}">
+            <!-- 非退款，非自提 -->
+          <text class='order_goods_state regiment_order_goods_state' wx:if="{{orderData.logistics_action!=2}}">{{orderData.order_status==0?'已取消':orderData.order_status==1?'拼团单 待支付':orderData.order_status==2?'拼团单 待发货':orderData.order_status==3?'拼团单 待收货':orderData.order_status==4?'拼团单 已完成':''}}</text>
+          <!-- 非退款，自提 -->
+          <text class='order_goods_state regiment_order_goods_state' wx:else >{{orderData.order_status==0?'自提单 已取消':orderData.order_status==1?'拼团自提单 待支付':orderData.order_status==2?'拼团自提单 待自提':orderData.order_status==3?'拼团自提单 待自提':orderData.order_status==4?'拼团自提单 已自提':''}}</text>
+          </block>
+          <block wx:else>
+
+          <!-- 退款 -->
+              <text class='order_goods_state regiment_order_goods_state' wx:if="{{orderData.logistics_action!=2}}">{{orderData.order_status==2&&orderData.aftersafe_status==2?'退款失败 待发货':orderData.order_status==2?'申请退款中...':orderData.order_status==3?'待收货':orderData.order_status==4&&orderData.aftersafe_status==2?'退款失败 已完成':orderData.order_status==4?'已退款':''}}</text>
+          </block>
+    </block>
+    <!-- 非拼团单-->
+    <block wx:else>
+    <block wx:if="{{orderData.is_aftersafe==0}}">
+      <!-- 非退款，非自提 -->
+    <text class='order_goods_state regiment_order_goods_state' wx:if="{{orderData.logistics_action!=2}}">{{orderData.order_status==0?'已取消':orderData.order_status==1?'待支付':orderData.order_status==2?'待发货':orderData.order_status==3?'待收货':orderData.order_status==4?'已完成':''}}</text>
+    <!-- 非退款，自提 -->
+    <text class='order_goods_state regiment_order_goods_state' wx:else >{{orderData.order_status==0?'自提单 已取消':orderData.order_status==1?'自提单 待支付':orderData.order_status==2?'待自提':orderData.order_status==3?'待自提':orderData.order_status==4?'已自提':''}}</text>
+    </block>
+    <block wx:else>
+
+    <!-- 退款 -->
+        <text class='order_goods_state regiment_order_goods_state' wx:if="{{orderData.logistics_action!=2}}">{{orderData.order_status==2&&orderData.aftersafe_status==2?'退款失败 待发货':orderData.order_status==2?'申请退款中...':orderData.order_status==3?'待收货':orderData.order_status==4&&orderData.aftersafe_status==2?'退款失败 已完成':orderData.order_status==4?'已退款':''}}</text>
+    </block>
+  </block>
     </view>
+    <navigator url='/pages/goods/goods?goods_id={{orderData.goods_id}}&shop_id={{orderData.shop_id}}'>
 
     <view class='flex_row  order_goods'>
-      <image class='order_goods_image' src='/images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'></image>
+      <image class='order_goods_image' src='{{osscdn}}{{orderData.goods_cover}}'></image>
       <view class='flex_column jc_flex_sb weui-flex__item order_goods_content'>
         <view class=' flex_column order_goods_contentTop'>
           <view class='flex_row ai_flex_start'>
-            <text class='order_goods_name weui-flex__item'>商品名称名称名称名称名称名称名称名称名称名称名...</text>
+            <text class='order_goods_name weui-flex__item'>{{orderData.goods_name}}</text>
 
           </view>
 
-          <text class='order_goods_spec'>橙红色，XL码</text>
+          <text class='order_goods_spec'>{{orderData.order_goods_spec}}</text>
         </view>
         <view class='flex_row jc_flex_sb'>
-          <text>¥200</text>
-          <text class='order_goods_numb'>x1</text>
+          <text>¥{{orderData.goods_price}}</text>
+          <text class='order_goods_numb'>x{{orderData.order_goods_num}}</text>
         </view>
       </view>
     </view>
+  </navigator>
     <view class='flex_row jc_flex_end order_goods_msg'>
       <text class=''>共1件商品  合计：</text>
-      <text class='order_goods_price'>¥200</text>
-      <text class=''>（含运费¥0.00）</text>
+      <text class='order_goods_price'>¥{{orderData.order_price}}</text>
+      <text class=''>（含运费¥{{orderData.logistics_price}}）</text>
     </view>
-    <view class='line_border'></view>
-    <view class='group_message'>
+    <view class='line_border' wx:if="{{orderData.group_id}}"></view>
+    <view class='group_message' wx:if="{{orderData.group_id}}">
       <text>待分享，还差2人</text>
       <scroll-view scroll-x="true" class='group_message_scroll'>
         <block wx:for='{{3}}' wx:key='*this'>
@@ -41,17 +75,40 @@
         <text class='group_message_tip'>拼主</text>
       </scroll-view>
     </view>
+    <block wx:if="{{orderData.logistics_action==2}}">
     <view class='line_border'></view>
     <view class='flex_row  addressee_message'>
+      <view class='flex_column ai_flex_start addressee_main2'>
+        <view class='flex_row mb9'>
+          <text>取货人：{{orderData.get_name}}</text>
+          <!-- <text class='addressee_main_phone'>{{orderData.get_name}}</text> -->
+        </view>
+        <text class='addressee_main_msg'>联系电话：{{orderData.get_tel}}</text>
+      </view>
+    </view>
+  </block>
+    <view class='line_border'></view>
+    <view class="transaction_mode">交易方式：{{orderData.logistics_action==2?'到店自取':'物流配送'}}</view>
+    <view class='flex_row  addressee_message' wx:if="{{orderData.logistics_action!=2}}">
       <image class='shop_address_image' src='/images/city.png'></image>
       <view class='flex_column ai_flex_start addressee_main'>
         <view class='flex_row'>
-          <text>斌爸</text>
-          <text class='addressee_main_phone'>13172853048</text>
+          <text>{{orderData.get_name}}</text>
+          <text class='addressee_main_phone'>{{orderData.get_tel}}</text>
         </view>
-        <text class='addressee_main_msg'>广东省广州市越秀区先烈中路汇华大厦1910</text>
+        <text class='addressee_main_msg'>{{orderData.get_address_text}}</text>
       </view>
     </view>
+    
+    
+    <view class='flex_row shop_address' bindtap='openLocation' wx:else>
+      <view class='flex_row weui-flex__item ai_flex_start'>
+        <text>店家地址：</text>
+        <text class='weui-flex__item'>{{orderData.get_address_text}}</text>
+      </view>
+      <image class='shop_address_image ml21' src='../../../../images/city.png'></image>
+    </view>
+    <!-- <block >
     <view class='line_border'></view>
     <view class='flex_column refund_message'>
       <view class='flex_row ai_flex_start'>
@@ -67,27 +124,29 @@
         </view>
       </view>
     </view>
+  </block> -->
     <view class='line_border'></view>
-    <!-- <view class='flex_row shop_address' bindtap='openLocation'>
-      <view class='flex_row weui-flex__item ai_flex_start'>
-        <text>店家地址：</text>
-        <text class='weui-flex__item'>地址信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息</text>
-      </view>
-      <image class='shop_address_image' src='../../../../images/city.png'></image>
-    </view> -->
+    
     <view class='flex_column order_detail_otherMsg'>
-      <text class='detail_otherMsg_text'>订单编号：3216546515216564165</text>
-      <text class='detail_otherMsg_text'>创建时间：2019-04-27  15:24:15</text>
-      <text class='detail_otherMsg_text'>付款时间：2019-04-27  15:24:15</text>
+      <text class='detail_otherMsg_text'>订单编号：{{orderData.order_sn}}</text>
+      <text class='detail_otherMsg_text'>创建时间：{{orderData.createtime}}</text>
+      <text class='detail_otherMsg_text' wx:if="{{orderData.paytime}}">付款时间：{{orderData.paytime}}</text>
     </view>
     <view class='flex_column order_detail_buttonView'>
-    <text>卖家已发货</text>
-    <text>还剩6天20小时自动确认</text>
+    <text>{{orderData.order_status==1?'订单未支付':orderData.order_status==2?'等待卖家发货':orderData.order_status==3?'卖家已发货':orderData.order_status==4?'订单已完成':''}}</text>
+    <text wx:if="{{orderData.order_status==3&&orderData.remainingTime}}">还剩{{orderData.remainingTime}}自动确认</text>
     <view class='flex_row jc_flex_end mt16'>
-      <button bindtap='toApplyForRefund' class='button_main'>确认收货</button>
+      <button bindtap='toPay' class='button_main' wx:if="{{orderData.order_status==1}}">付款</button>
+      <button bindtap='sureHave' class='button_main'  wx:if="{{orderData.order_status==3&&orderData.logistics_action==2}}">确认自提</button>
+      <block wx:if="{{orderData.logistics_action!=2}}">
+      <button bindtap='sureHave' class='button_main'  wx:if="{{orderData.order_status==3}}">确认收货</button>
+      <button bindtap='toApplyForRefund' class='button_default' data-type="1" wx:if="{{orderData.order_status==2&&!orderData.is_aftersafe}}">订单退款</button>
+      <button bindtap='toApplyForRefund' class='button_default' data-type="2" wx:if="{{orderData.order_status==4&&!orderData.is_aftersafe}}">申请售后</button>
+      <button bindtap='toOrderEvaluate' class='button_main'  wx:if="{{orderData.order_status==4&&orderData.is_comment==0}}">订单评价</button>
+    </block>
     </view>
     </view>
-    <!-- <view class='flex_row jc_flex_end order_detail_button'>
+    <!-- <view class='flex_row jc_flex_end order_detail_button' wx:if="{{orderData.order_status==2}}">
       <button bindtap='toApplyForRefund' class='button_default'>订单退款</button>
     </view> -->
   </view>

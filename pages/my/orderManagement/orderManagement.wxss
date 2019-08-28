@@ -22,3 +22,8 @@
   flex: 1;
   justify-content: flex-end;
 }
+.order_item{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

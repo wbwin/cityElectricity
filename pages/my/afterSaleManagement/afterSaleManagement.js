@@ -1,4 +1,6 @@
 // pages/my/afterSaleManagement/afterSaleManagement.js
+import api from "../../../utils/api"
+import utils from "../../../utils/utils"
 var sliderWidth = 26;
 Page({
 
@@ -11,7 +13,11 @@ Page({
     sliderOffset: 0,
     sliderLeft: 0,
     rightIcon:'../../../images/content_more_right.png',
-    shopIcon:'../../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'
+    shopIcon:'../../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg',
+    token:'',
+    osscdn:'',
+    page:1,//页数
+    afterSaleList:[],
   },
 
   /**
@@ -34,6 +40,12 @@ Page({
       }
     });
     /*切换*/
+    that.setData({
+      token:wx.getStorageSync('token'),
+      page:1,//页数
+      afterSaleList:[],
+    })
+    that.getUserAftersafe();
   },
 
   /**
@@ -47,7 +59,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var that=this
+    // that.setData({
+    //   token:wx.getStorageSync('token'),
+    //   page:1,//页数
+    //   afterSaleList:[],
+    // })
+    // that.getUserAftersafe();
   },
 
   /**
@@ -68,36 +86,82 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    var that=this
+    that.setData({
+      page:1,//页数
+      afterSaleList:[],
+    })
+    that.getUserAftersafe();
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    var that=this
+    var page=Number(that.data.page)+1
+    that.setData({
+      page:page
+    })
+    that.getUserAftersafe();
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage: function (res) {
+    var that=this
+    if(res.from=="button"){
+      
+    }else{
+      return {
+        title: '同橙电商',
+        path: '/pages/my/my',
+        imageUrl:'/images/logo.png',
+      }
+    }
   },
   //切换tab
   tabClick: function (e) {
+    var that=this
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
-      activeIndex: e.currentTarget.id
+      activeIndex: e.currentTarget.id,
+      page:1,//页数
+      afterSaleList:[],
     });
+    that.getUserAftersafe();
   },
   //查看售后详情
   checkOrderDtail:function(e){
     // console.log(e)
     const state = e.currentTarget.dataset.state
+    const aftersafe_sn=e.currentTarget.dataset.aftersafe_sn
     console.log(state)
     wx.navigateTo({
-      url: '/pages/my/orderManagement/orderDetail/orderDetail?state='+state
+      url: '/pages/my/afterSaleManagement/afterSaleDetail/afterSaleDetail?aftersafe_sn='+aftersafe_sn
+    })
+  },
+  //获取我的售后申请
+  getUserAftersafe:function(){
+    var that=this
+    var page=that.data.page
+    var afterSaleList=that.data.afterSaleList
+    utils.util.post(api.getUserAftersafe,{
+      token:that.data.token,
+      page:page,
+      limit:10,
+      aftersafe_status:that.data.activeIndex
+    },res=>{
+      if(res.data.list.length>0){
+        afterSaleList=afterSaleList.concat(res.data.list)
+        
+      }
+      that.setData({
+        afterSaleList:afterSaleList,
+        osscdn:res.osscdn
+      })
+      
     })
   }
 })

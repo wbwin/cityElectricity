@@ -6,7 +6,11 @@ Page({
    */
   data: {
     money: '', //可提现的金额
-    if_withdrawal: false
+    if_withdrawal: false,
+    bankName:'',
+    bankNumber:'',
+    name:'',
+    cashPrice:'',
   },
 
   /**
@@ -74,13 +78,75 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage: function (res) {
+    var that=this
+    if(res.from=="button"){
+      
+    }else{
+      return {
+        title: '同橙电商',
+        path: '/pages/my/my',
+        imageUrl:'/images/logo.png',
+      }
+    }
   },
   //提现记录
   record:function(){
     wx.navigateTo({
       url: '/pages/my/wallet/discountRecord/discountRecord'
+    })
+  },
+  //提现
+  cash:function(){
+    var that=this
+    var bankName=that.data.bankName
+    var bankNumber=that.data.bankNumber
+    var name=that.data.name
+    var cashPrice=that.data.cashPrice
+    if(!that.data.if_withdrawal){
+      wx.showModal({
+        title:'提示',
+        content:'金额不足100元，无法提现',
+        showCancel:false,
+        confirmText:'确定',
+        confirmColor:"#646981",
+      })
+    }
+    if(!bankName||!bankNumber||!name||!cashPrice){
+      wx.showModal({
+        title:'提示',
+        content:'请将信息填写完整',
+        showCancel:false,
+        confirmText:'确定',
+        confirmColor:"#646981",
+      })
+    }
+  },
+  //银行名称
+  bankNameInput:function(e){
+    const that = this;
+    that.setData({
+      bankName:e.detail.value
+    })
+  },
+  //卡号
+  bankNumberInput:function(e){
+    const that = this;
+    that.setData({
+      bankNumber:e.detail.value
+    })
+  },
+  //姓名
+  nameInput:function(e){
+    const that = this;
+    that.setData({
+      name:e.detail.value
+    })
+  },
+  cashPriceInput:function(e){
+    const that = this;
+    that.setData({
+      cashPrice:e.detail.value
     })
   }
 })

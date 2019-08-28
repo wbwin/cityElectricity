@@ -1,9 +1,11 @@
 <!--index.wxml-->
+<import src="../template/noDatas/noDatas.wxml" />
+
 <view class='page'>
   <view class='page__hd'>
     <view class="flex_row weui-search-bar">
       <image src='/images/search_icon.png' class='search_icon'></image>
-      <input type="text" class="search_input weui-flex__item" placeholder="搜索" value="{{inputVal}}" />
+      <input type="text" class="search_input weui-flex__item" bindconfirm='searchConfirm' confirm-type='search'  bindinput="searchInput" placeholder="搜索" value="{{searchText}}"/>
 
     </view>
   </view>
@@ -19,50 +21,51 @@
       </view>
       <view class="weui-tab__panel">
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-          <block wx:for="{{fansNumber}}" wx:key='*this'>
-          <view class='shop_poster_item'>
-                <navigator url="/pages/shop/shop?id=12" class='shop_poster'>
-                  <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='shop_poster_img'></image>
+          <view wx:if="{{listData.length>0}}">
+            <block wx:for="{{listData}}" wx:key='index' wx:for-item="item">
+              <view class='shop_poster_item'>
+                <navigator url="/pages/shop/shop?id={{item.id}}" class='shop_poster' hover-class="btn-hover">
+                  <image src='{{osscdn}}{{item.shop_image}}' class='shop_poster_img'>
+                  </image>
                   <view class='flex_row shop_poster_content'>
-                    <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='head_portrait'></image>
+                    <image src='{{osscdn}}{{item.shop_avatar}}' class='head_portrait'>
+                    </image>
                     <view class='flex_row ai_flex_end weui-flex__item'>
                       <view class='flex_column weui-flex__item'>
-                        <view class='poster_item_shopName'>店铺名称</view>
-                        <view class='poster_item_shopMsg'>一句话介绍介绍介绍介绍介绍</view>
+                        <view class='poster_item_shopName'>{{item.shop_name}}</view>
+                        <view class='poster_item_shopMsg'>{{item.shop_intro}}</view>
                       </view>
+                      <!-- <view class='flex_column ai_flex_end shop_poster_tip'>
+                        <view>越秀区先烈中路000号</view>
+                        <view>距离：550m</view>
+                      </view> -->
                     </view>
                   </view>
                   <view class='shop_poster_classfly'>新品</view>
                 </navigator>
-                <navigator url='/pages/followNumb/followNumb' class='flex_row fans'>
+                <navigator url='/pages/followNumb/followNumb?shop_id={{item.id}}&type=0' class='flex_row fans' hover-class="btn-hover" >
                   <view class='flex_column fans_numb'>
-                    <view class='fans_numb_text'>54</view>
+                    <view class='fans_numb_text'>{{item.fans_count}}</view>
                     <view>个粉丝</view>
                   </view>
                   <view class='flex_row weui-flex__item fans_numb_img'>
-                    <block wx:for="{{fansNumber}}" wx:key='*this'>
-                      <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='fans_img'></image>
+                    <block wx:for="{{item.fans}}" wx:for-item="cell" wx:key="index">
+                      <image src='{{osscdn}}{{cell.avatar}}' class='fans_img'></image>
                     </block>
-                    <image src='../../images/shop_list_more.png' class='fans_img'></image>
+                    <block wx:if="{{item.fans.length>10}}">
+                      <image src='../../images/shop_list_more.png' class='fans_img'></image>
+                    </block>
                   </view>
                 </navigator>
-                  <view class='shop_recommend_title'>店主推荐</view>
-
-              <view class='flex_row shop_recommend'>
-                <block wx:for="{{3}}" wx:key="*this">
-                  <view class='shop_recommend_content'>
-                    <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='shop_recommend_image'></image>
-                    <view class='shop_recommend_name'>2019春装新款商品名称名称名称名称2019春装新款商品名称名称名称名称</view>
-                    <view class='colorMain'>￥129</view>
-                  </view>
-                </block>
               </view>
-              </view>
-           
-          </block>
+            </block>
+          </view>
+          <template is="noDatas" data="{{paddingTop: '102rpx',paddingBottom:'264rpx',text1:'暂无关注的店铺',text2:'点击下方发现，查看更多的店铺的内容'}}" wx:else />
         </view>
-        <view class="flex_row weui-tab__content" hidden="{{activeIndex != 1}}">
-          <include src="../template/dynamicList/dynamicList.wxml"/>
+        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+          <include src="../template/dynamicList/dynamicList.wxml" wx:if='{{dynamicsList.length>0}}'/>
+            <template is="noDatas" data="{{paddingTop: '102rpx',text1:'暂无关注的店铺动态',text2:'点击下方发现，查看更多的店铺的内容'}}" wx:else />
+  
         </view>
       </view>
     </view>

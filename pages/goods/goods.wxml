@@ -1,31 +1,32 @@
 <!--pages/goods/goods.wxml-->
+<import src="../template/noDatas/noDatas.wxml" />
 <view class='page'>
 
   <view class='page_hd'>
     <swiper indicator-dots="{{indicatorDots}}" bindchange="slideImageChange" class="slide_image" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <swiper-item wx:if='{{goods_video}}'>
+        <video id="myVideo" bindplay='bindplay' bindpause='bindpause' bindended='bindended' class="goods_video" src="{{osscdn}}{{goods_video}}"  controls></video>
+      </swiper-item>
       <block wx:for="{{imgUrls}}">
         <swiper-item>
-          <image src="{{item}}" class="slide_image" mode="aspectFill" />
+          <image src="{{osscdn}}{{item}}" class="slide_image" mode="aspectFill" />
         </swiper-item>
       </block>
 
     </swiper>
-    <view class='slide_image_indicator'>{{slideImageIndex+1}}/{{imgUrls.length}}</view>
+    <view class='slide_image_indicator'>{{slideImageIndex+1}}/{{goods_video?imgUrls.length+1:imgUrls.length}}</view>
   </view>
-  <view class='flex_column ai_flex_center contact_shop_owner'>
-    <image class='contact_image' src='../../images/name.png'></image>
-    <view>联系店主</view>
-  </view>
+  
   <view class='page_bd'>
     <view class='goods_top_content'>
       <view class='flex_row jc_flex_sb goods_content'>
         <view class='flex_row '>
-          <view class='goods_price'>￥159</view>
-          <view class='goods_originalPrice'>￥666</view>
+          <view class='goods_price'>{{goodsDetail.label==2?'拼团价:':''}}￥{{goodsDetail.price}}</view>
+          <view class='goods_originalPrice'>{{goodsDetail.label==2?'原价:':''}}￥{{goodsDetail.mart_price}}</view>
         </view>
         <view class='flex_row'>
-          <view class='flex_column ai_flex_center'>
-            <image class='goods_content_image' src='/images/{{true?"goods_collect":"goods_collect_pre"}}.png'></image>
+          <view class='flex_column ai_flex_center' bindtap='changeCollect' >
+            <image class='goods_content_image' src='/images/{{collectType==1?"goods_collect":"goods_collect_pre"}}.png'></image>
             <view class='goods_button_text'>收藏</view>
           </view>
           <view class='flex_column ai_flex_center ml30' style="position:relative;">
@@ -35,20 +36,22 @@
           </view>
         </view>
       </view>
-      <view class='goods_name'>2019春装新款商品名称名称名称名称名称名称名称名称名称名称名称名称名称名</view>
-      <view class='flex_row goods_saleNumb'>已售70件</view>
+      <view class='goods_name'>{{goodsDetail.goods_name}}</view>
+      <view class='flex_row goods_saleNumb'>已售{{goodsDetail.sales_volume}}件</view>
     </view>
     <view class='line_border'></view>
-    <navigator url='/pages/followNumb/followNumb' class='flex_row goods_fans' hover-class='none'>
+    <navigator url='/pages/followNumb/followNumb?goods_id={{goods_id}}&shop_id={{shop_id}}&type=1' class='flex_row goods_fans' hover-class='none'>
       <view class='flex_column fans_numb'>
-        <view class='fans_numb_text'>54</view>
+        <view class='fans_numb_text'>{{goodsDetail.browse_count}}</view>
         <view class='fs10'>围观人数</view>
       </view>
       <view class='flex_row weui-flex__item fans_numb_img' style='margin-left:24rpx;'>
-        <block wx:for="{{10}}" wx:key='*this'>
-          <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='fans_img' style='margin-left:2rpx;'></image>
+        <block wx:for="{{goodsDetail.browse}}" wx:for-item='browse_item' wx:key='*this'>
+          <image src='{{osscdn}}{{browse_item.avatar}}' class='fans_img' style='margin-left:2rpx;'></image>
         </block>
-        <image src='../../images/shop_list_more.png' class='fans_img'></image>
+        <block wx:if="{{goodsDetail.browse.length>10}}">
+            <image src='../../images/shop_list_more.png' class='fans_img'></image>
+        </block>
       </view>
     </navigator>
     <view class='line_border'></view>
@@ -58,49 +61,52 @@
           <view class="weui-navbar__title">详情</view>
         </view>
         <view data-index='1' class='weui-navbar__item {{activeIndex==1?"weui-bar__item_on":""}}' bindtap="tabClick">
-          <view class="weui-navbar__title">评论（2）</view>
+          <view class="weui-navbar__title">评论（{{goodsDetail.comment_info.length}}）</view>
         </view>
 
         <view class="weui-navbar__slider" style="width:9.5%;left:{{activeIndex==0?'20.3%':'14.8%'}}!important; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
       </view>
       <view class="weui-tab__panel">
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-          <image class='' src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'></image>
+          <rich-text class="" nodes="{{goodsDetail.content}}"></rich-text>
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-          <block wx:for='{{8}}' wx:key='*this'>
+          <block wx:if="{{goodsDetail.comment_info.length>0}}">
+          <block wx:for='{{goodsDetail.comment_info}}' wx:key='*this'>
             <view class='flex_row ai_flex_start comment_item'>
-              <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='head_portrait'></image>
+              <image src='{{osscdn}}{{item.avatar}}' class='head_portrait'></image>
               <view class='flex_column comment_content weui-flex__item'>
                 <view class='flex_row jc_flex_sb'>
-                  <view class='comment_name'>用户名</view>
-                  <view class='comment_time'>05-05 23:45</view>
+                  <view class='comment_name'>{{item.user_name}}</view>
+                  <view class='comment_time'>{{item.createtime}}</view>
                 </view>
-                <view class='comment_msg fs13'>很好，不错~</view>
+                <view class='comment_msg fs13'>{{item.connent}}</view>
               </view>
             </view>
           </block>
+        </block>
+        <template is="noDatas" data="{{paddingTop: '102rpx',paddingBottom:'264rpx',text1:'暂无评论'}}" wx:else />
         </view>
       </view>
     </view>
   </view>
-  <view class='goods_show_buy' bindtap='showBuyFram'>立即购买</view>
+  <view class='goods_show_buy' bindtap='showBuyFram'>{{goodsDetail.label==2?'参与拼团':'立即购买'}}</view>
   <view class='mask' bindtap='hideBuyFram' wx:if='{{showBuyFram}}'></view>
   <view class='buy_frame' animation='{{animationData}}'>
     <view class='flex_row buy_frame_content'>
-      <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='goods_image'></image>
+      <image src='{{osscdn}}{{goods_cover}}' class='goods_image'></image>
       <view class='flex_column jc_flex_start buy_frame_content_text'>
-        <view class='buy_frame_price'>￥5.5-7.7</view>
-        <view>请选择 颜色</view>
+        <view class='buy_frame_price'>￥{{goods_price}}</view>
+        <view>请选择 <block wx:for='{{spec_json}}' wx:for-item='spec_item' wx:for-index='spec_index' wx:key='*this'>{{spec_item.name}} </block></view>
       </view>
     </view>
     <scroll-view scroll-y style='height:420rpx;'>
-      <block wx:for='{{2}}' wx:key='*this'>
+      <block wx:for='{{spec_json}}' wx:for-item='spec_item' wx:for-index='spec_index' wx:key='*this'>
         <view class='buy_frame_spec'>
-          <view class='buy_frame_spec_title'>颜色</view>
+          <view class='buy_frame_spec_title'>{{spec_item.name}}</view>
           <view class='buy_frame_specContent'>
-            <block wx:for='{{10}}' wx:key='{{index}}' wx:for-index='index'>
-              <view bindtap="select" data-index='{{index}}' class='specContent_item {{isSelect == index?"specContent_item_active":""}}'>【单面吸盘车载框】金色</view>
+            <block wx:for='{{spec_item.children}}' wx:for-item='spec_children_item' wx:key='{{index}}' wx:for-index='spec_children_index'>
+              <view bindtap="select" data-spec_index='{{spec_index}}' data-spec_children_index='{{spec_children_index}}' class='specContent_item {{spec_item.isSelect == spec_children_index?"specContent_item_active":""}}'>{{spec_children_item}}</view>
             </block>
           </view>
         </view>
@@ -118,11 +124,11 @@
     <image class='hide_frame_image' src='/images/mask_close.png' bindtap='hideBuyFram'></image>
   </view>
 </view>
-<view class='flex_column show_shop_contact'>
+<view class='flex_column show_shop_contact' style="display:{{showShopContact!=0?'flex':'none'}}">
     <image bindtap="phoneCall" class='shop_phone {{showShopContact!==0?showShopContact?"shop_phone_animation":"hide_phone_animation":""}}' src='/images/shop_phone.png'></image>
     <image bindtap="setClipboardData" class='shop_wx {{showShopContact!==0?showShopContact?"shop_wx_animation":"hide_wx_animation":""}}'  src='/images/shop_wx.png'></image>
   </view>
   <view class='flex_column ai_flex_center contact_shop_owner' bindtap='showShopContact'>
-    <image class='contact_image' src='/images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'></image>
+    <image class='contact_image' src='{{osscdn}}{{goodsDetail.shop_leader.avatar}}'></image>
     <view class='contact_shop_text'>联系店主</view>
   </view>

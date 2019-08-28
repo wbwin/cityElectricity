@@ -4,12 +4,22 @@
     <image class="apply-icon" src="{{apply_success}}" lazy-load="true" />
     <view class="apply-success-text">审核通过</view>
   </view>
-  <view class="apply-return-info">
-    <view>1.您提交的信息已通过审核</view>
-    <view>登录账号：XXXX</view>
-    <view>初始密码：XXXX<text class="defalt-txt">（首次登录后请及时更改）</text></view>
-    <view>2.商家后台地址：wwww.XXX</view>
-  </view>
+  <block wx:if="{{is_shop}}">
+    <view class="apply-return-info">
+      <view>1.您提交的信息已通过审核</view>
+      <view>登录账号：{{shop.admin_name}}</view>
+      <view>初始密码：{{shop.pwd}}<text class="defalt-txt">（首次登录后请及时更改）</text></view>
+      <view>2.商家后台地址：{{shop.url}}</view>
+    </view>
+  </block>
+  <block wx:if="{{is_supplier}}">
+    <view class="apply-return-info">
+      <view>1.您提交的信息已通过审核</view>
+      <view>登录账号：{{supplier.admin_name}}</view>
+      <view>初始密码：{{supplier.pwd}}<text class="defalt-txt">（首次登录后请及时更改）</text></view>
+      <view>2.商家后台地址：{{supplier.url}}</view>
+    </view>
+  </block>
 </block>
 <block wx:else>
   <view class="apply-state">

@@ -11,10 +11,18 @@
 .page_hd{
   position: relative
 }
+.page_bd{
+  margin-bottom: 98rpx;
+}
 .weui-tab__panel{
   padding-top: 0
 }
 .slide_image {
+  width: 100%;
+  height: 750rpx;
+  position: relative;
+}
+.goods_video{
   width: 100%;
   height: 750rpx;
   position: relative;
@@ -121,7 +129,9 @@ color:rgba(153,153,153,1);
 .comment_msg {
   margin-top: 16rpx;
 }
-
+.wscnph{
+  width: 750rpx;
+}
 .goods_show_buy {
   position: fixed;
   bottom: 0;

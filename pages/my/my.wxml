@@ -2,61 +2,69 @@
 <view class='page'>
   <view class='page_hd'>
     <view class='personal_center_hd flex_row ai_flex_start'>
-      <image src='../../images/default-avatar.png' class='personal_image'></image>
-      <view class='flex_row weui-flex__item mt8'>
-        <view class='weui-flex__item personal_name'>黄老板</view>
-        <view class='flex_row personal_address_view' bindtap="chooseAdress">
-          <image src='/images/address_icon.png' class='personal_address'></image>
-          <view class='personal_address_name'>收货地址</view>
+      <block wx:if="{{isLogin}}">
+          <image src='{{defaultAvatar}}' class='personal_image'></image>
+          <view class='flex_row weui-flex__item mt8'>
+            <button class="weui-flex__item personal_name personal_name_button" open-type='getUserInfo' bindgetuserinfo="getUserInfoCallBack">点击登录</button>
+          </view>
+      </block>
+      <block wx:else>
+        <image src='{{osscdn}}{{userInfo.avatar}}' class='personal_image'></image>
+        <view class='flex_row weui-flex__item mt8'>
+          <view class='weui-flex__item personal_name'>{{userInfo.user_name}}</view>
+          <view class='flex_row personal_address_view' bindtap="chooseAdress">
+            <image src='/images/address_icon.png' class='personal_address'></image>
+            <view class='personal_address_name'>收货地址</view>
+          </view>
         </view>
-      </view>
+      </block>
     </view>
-    <view class='line_border'></view>
-    <navigator url='/pages/my/wallet/wallet'>
-      <view class='personal_money flex_row'>
-
-        <view class="flex_colum ai_flex_center personal_money_msg">
-          <image src='/images/my_wallet.png' class='my_wallet'></image>
-          <view>我的钱包</view>
-        </view>
-        <view class='flex_column ai_flex_center personal_money_msg'>
-          <view class='fs18'>0.00</view>
-          <view>未结算</view>
-        </view>
-        <view class='flex_column ai_flex_center personal_money_msg'>
-          <view class='fs18'>0.00</view>
-          <view>已结算</view>
-        </view>
-        <view class='balance_detail weui-flex__item flex_row'>余额详情</view>
-      </view>
-    </navigator>
-    <navigator url='/pages/my/applicationMerchant/applicationMerchant' class="global_cell border_none" hover-class="none">
+    <block wx:if="{{!isLogin}}">
+      <!-- is_shop=0表示普通人 is_shop=1表示店主 -->
+      <block wx:if="{{userInfo.is_shop == 1}}">
+        <view class='line_border'></view>
+        <navigator url='/pages/my/wallet/wallet'>
+          <view class='personal_money flex_row'>
+            <view class="flex_colum ai_flex_center personal_money_msg">
+              <image src='/images/my_wallet.png' class='my_wallet'></image>
+              <view>我的钱包</view>
+            </view>
+            <view class='flex_column ai_flex_center personal_money_msg'>
+              <view class='fs18'>{{userInfo.unsettled_money}}</view>
+              <view>未结算</view>
+            </view>
+            <view class='flex_column ai_flex_center personal_money_msg'>
+              <view class='fs18'>{{userInfo.settled_money}}</view>
+              <view>已结算</view>
+            </view>
+            <view class='balance_detail weui-flex__item flex_row'>余额详情</view>
+          </view>
+        </navigator>
+      </block>
+    </block>
+    <view class="global_cell border_none" bindtap="applicationMerchant">
+    <!-- <navigator url='/pages/my/applicationMerchant/applicationMerchant' class="global_cell border_none" hover-class="none"> -->
       <image src="/images/business_portal.png" class='global_cell_image'></image>
       <view class="weui-cell__bd">商家入口</view>
       <image class='more_right' src='/images/content_more_right.png'></image>
-    </navigator>
-    <!-- <navigator url='/pages/my/applicationMerchant/applicationMerchant' class="global_cell">
-        <image src="../../images/new_member.png" class='global_cell_image'></image>
-      <view class="weui-cell__bd">申请店铺</view>
-      <image class='more_right' src='/images/content_more_right.png'></image>
-    </navigator>
-    <view class="global_cell border_none">
-        <image src="../../images/new_member.png" class='global_cell_image'></image>
-      <view class="weui-cell__bd">申请供应商</view>
-      <image class='more_right' src='/images/content_more_right.png'></image>
-    </view> -->
+    <!-- </navigator> -->
+    </view>
     <view class='line_border'></view>
     <view>
-      <navigator url='./orderManagement/orderManagement' class="global_cell" hover-class="none">
+      <view class="global_cell">
+      <!-- <navigator url='./orderManagement/orderManagement' class="global_cell" hover-class="none"> -->
         <image src="/images/my_order.png" class='global_cell_image'></image>
         <view class="weui-cell__bd flex_row">我的订单</view>
-      </navigator>
+      <!-- </navigator> -->
+      </view>
       <view class='flex_row order_category'>
-        <view class='flex_column ai_flex_center weui-flex__item'>
-          <image src='/images/be_delivery.png' class='personal_money_image'></image>
-          <view>待发货</view>
+        <block wx:for="{{orderArray}}" wx:index="{{item}}" wx:key="index">
+        <view class='flex_column ai_flex_center weui-flex__item' data-item="{{item.text}}" bindtap="checkOrder">
+          <image src='{{item.src}}' class='personal_money_image'></image>
+          <view>{{item.text}}</view>
         </view>
-        <view class='flex_column ai_flex_center weui-flex__item'>
+        </block>
+        <!-- <view class='flex_column ai_flex_center weui-flex__item'>
           <image src='/images/be_received.png' class='personal_money_image'></image>
           <view>待收货</view>
         </view>
@@ -67,11 +75,18 @@
         <navigator url='./afterSaleManagement/afterSaleManagement' class='flex_column ai_flex_center weui-flex__item' hover-class="none">
           <image src='/images/after_sale.png' class='personal_money_image'></image>
           <view>售后</view>
-        </navigator>
-      </view>
+        </navigator>-->
+      </view> 
     </view>
     <view class='line_border'></view>
-    <navigator url='./regiment/regiment' class="global_cell" hover-class="none">
+    <block wx:for="{{lineBorder}}" wx:index="{{item}}" wx:key="index">
+      <view class="global_cell" data-type="{{item.text}}" bindtap="lineBorder">
+        <image src="{{item.src}}" class='global_cell_image'></image>
+        <view class="weui-cell__bd">{{item.text}}</view>
+        <image class='more_right' src='/images/content_more_right.png'></image>
+      </view>
+    </block>
+    <!-- <navigator url='./regiment/regiment' class="global_cell" hover-class="none">
       <image src="/images/my_regiment.png" class='global_cell_image'></image>
       <view class="weui-cell__bd">我的拼团</view>
       <image class='more_right' src='/images/content_more_right.png'></image>
@@ -91,7 +106,22 @@
       <image src="/images/my_aboutUs.png" class='global_cell_image'></image>
       <view class="weui-cell__bd">关于我们</view>
       <image class='more_right' src='/images/content_more_right.png'></image>
-    </navigator>
+    </navigator> -->
   </view>
   <view class='page_bd'></view>
+  <block wx:if="{{show}}">
+      <view class="mask"></view>
+      <view class='maskBody'>
+        <view class="title">微信授权</view>
+        <image class="successIcon" src="{{defaultAvatar}}" />
+        <view class="sqcontent">微信授权成功</view>
+        <view class="contentTip">授权绑定的手机号码</view>
+        <view class="btn">
+          <view class="reject" bindtap="reject">拒绝</view>
+          <view class="agree">
+            <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">允许</button>
+          </view>
+        </view>
+      </view>
+    </block>
 </view>

@@ -12,43 +12,80 @@
         <!-- <view class="weui-navbar__slider" style="width:12.5%;left:6.5%!important; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view> -->
       </view>
       <view class="weui-tab__panel">
-        <view class="weui-tab__content" wx:if="{{true}}">
-          <block wx:for='{{8}}' wx:key='*this'>
-            <navigator url='./orderDetail/orderDetail' class='order_item'>
+        <view class="weui-tab__content" wx:if="{{orderList.length>0}}">
+          <block wx:for='{{orderList}}' wx:key='*this'>
             <view class='flex_row jc_flex_end order_item_state'>
-                <image class="shopIcon" src="{{shopIcon}}" mode="aspectFill"/>
-                <text>店铺名</text>
+                <navigator url='/pages/shop/shop?id={{item.shop_id}}' class='order_item'>
+
+                <image class="shopIcon" src="{{osscdn}}{{item.shop_avatar}}" mode="aspectFill"/>
+                <text>{{item.shop_name}}</text>
                 <image class="rightIcon" src="{{rightIcon}}" />
-              <text class='order_goods_state regiment_order_goods_state'>待付款</text>
+              </navigator>
+              <!-- 拼团单-->
+              <block wx:if="{{item.order_type==1}}">
+                  <block wx:if="{{item.is_aftersafe==0}}">
+                      <!-- 非退款，非自提 -->
+                    <text class='order_goods_state regiment_order_goods_state' wx:if="{{item.logistics_action!=2}}">{{item.order_status==0?'已取消':item.order_status==1?'拼团单 待支付':item.order_status==2?'拼团单 待发货':item.order_status==3?'拼团单 待收货':item.order_status==4?'拼团单 已完成':''}}</text>
+                    <!-- 非退款，自提 -->
+                    <text class='order_goods_state regiment_order_goods_state' wx:else >{{item.order_status==0?'自提单 已取消':item.order_status==1?'拼团自提单 待支付':item.order_status==2?'拼团自提单 待自提':item.order_status==3?'拼团自提单 待自提':item.order_status==4?'拼团自提单 已自提':''}}</text>
+                    </block>
+                    <block wx:else>
+      
+                    <!-- 退款 -->
+                        <text class='order_goods_state regiment_order_goods_state' wx:if="{{item.logistics_action!=2}}">{{item.order_status==2&&item.aftersafe_status==2?'退款失败 待发货':item.order_status==2?'申请退款中...':item.order_status==3?'待收货':item.order_status==4&&item.aftersafe_status==2?'退款失败 已完成':item.order_status==4?'已退款':''}}</text>
+                    </block>
+              </block>
+              <!-- 非拼团单-->
+              <block wx:else>
+              <block wx:if="{{item.is_aftersafe==0}}">
+                <!-- 非退款，非自提 -->
+              <text class='order_goods_state regiment_order_goods_state' wx:if="{{item.logistics_action!=2}}">{{item.order_status==0?'已取消':item.order_status==1?'待支付':item.order_status==2?'待发货':item.order_status==3?'待收货':item.order_status==4?'已完成':''}}</text>
+              <!-- 非退款，自提 -->
+              <text class='order_goods_state regiment_order_goods_state' wx:else >{{item.order_status==0?'自提单 已取消':item.order_status==1?'自提单 待支付':item.order_status==2?'待自提':item.order_status==3?'待自提':item.order_status==4?'已自提':''}}</text>
+              </block>
+              <block wx:else>
+
+              <!-- 退款 -->
+                  <text class='order_goods_state regiment_order_goods_state' wx:if="{{item.logistics_action!=2}}">{{item.order_status==2&&item.aftersafe_status==2?'退款失败 待发货':item.order_status==2?'申请退款中...':item.order_status==3?'待收货':item.order_status==4&&item.aftersafe_status==2?'退款失败 已完成':item.order_status==4?'已退款':''}}</text>
+              </block>
+            </block>
             </view>
-            
+            <navigator url='./orderDetail/orderDetail?order_sn={{item.order_sn}}' class='order_item'>
+
               <view class='flex_row  order_goods'>
-                <image class='order_goods_image' src='../../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'></image>
+                <image class='order_goods_image' src='{{osscdn}}{{item.goods_cover}}'></image>
                 <view class='flex_column jc_flex_sb weui-flex__item order_goods_content'>
                   <view class=' flex_column order_goods_contentTop'>
                     <view class='flex_row ai_flex_start'>
-                      <text class='order_goods_name weui-flex__item'>商品名称名称名称名称名称名称名称名称名称名称名...</text>
+                      <text class='order_goods_name weui-flex__item'>{{item.goods_name}}</text>
                       
                     </view>
 
-                    <text class='order_goods_spec'>橙红色，XL码</text>
+                    <text class='order_goods_spec'>{{item.order_goods_spec}}</text>
                   </view>
                   <view class='flex_row jc_flex_sb'>
-                    <text>¥200</text>
-                    <text class='order_goods_numb'>x1</text>
+                    <text>¥{{item.goods_price}}</text>
+                    <text class='order_goods_numb'>x{{item.order_goods_num}}</text>
                   </view>
                 </view>
               </view>
+            </navigator>
+
               <view class='flex_row jc_flex_end order_goods_msg'>
                 <text class=''>共1件商品  合计：</text>
-                <text class='order_goods_price'>¥200</text>
-                <text class=''>（含运费¥0.00）</text>
+                <text class='order_goods_price'>¥{{item.order_price}}</text>
+                <text class=''>（含运费¥{{item.logistics_price}}）</text>
               </view>
               <view class='flex_row jc_flex_end order_goods_button'>
-                <button class='button_main'>确认收货</button>
+                <button class='button_main' wx:if="{{item.order_status==1}}" data-order_type='{{item.order_type}}' data-order_sn='{{item.order_sn}}' bindtap="toPay">付款</button>
+                <button class='button_main'  wx:if="{{item.order_status==3&&item.logistics_action!=2}}"  data-index='{{index}}' bindtap="sureHave">确认收货</button>
+                <button class='button_main'  wx:if="{{item.order_status==3&&item.logistics_action==2}}"  data-index='{{index}}' bindtap="sureHave">确认自提</button>
+
+                <!-- <button class='button_main button_default'  wx:if="{{item.order_status==4}}">查看订单</button> -->
+                <button class='button_main'  wx:if="{{item.order_status==4&&item.is_comment==0}}" data-index='{{index}}' bindtap="toOrderEvaluate">订单评价</button>
+
               </view>
               <view class='line_border'></view>
-            </navigator>
           </block>
         </view>
         <template is="noDatas" data="{{paddingTop:'272rpx',text1:'暂无订单'}}" wx:else/>

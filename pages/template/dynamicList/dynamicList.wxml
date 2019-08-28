@@ -1,39 +1,42 @@
+<block wx:for='{{dynamicsList}}' wx:key='*this'>
 <!-- <navigator url='/pages/dynamicDetails/dynamicDetails' class='flex_row dynamic'> -->
 <view class="flex_row dynamic">
-  <button class="share_btn dynamic_share_image" open-type='share'></button>
+  <button class="share_btn dynamic_share_image" data-index="{{index}}" data-dynamics_id="{{item.id}}" open-type='share'></button>
   <image src='../../images/share.png' class='dynamic_share_image'></image>
-  <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='dynamic_image' mode="aspectFill"></image>
+  <image src='{{osscdn}}{{item.shop_info.shop_avatar}}' class='dynamic_image' mode="aspectFill"></image>
   <view class='dynamic_content'>
-    <view class='dynamic_shop_name'>店铺名称</view>
-    <view bindtap="dynamicDetails" class='dynamic_shop_Msg'>动态文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案</view>
-    <view class='dynamic_shop_image' wx:if="{{true}}">
-      <block wx:for="{{6}}" wx:key="*this" wx:for-index="i">
-        <image mode="aspectFill" src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' bindtap="previewImage" class='dynamic_shop_image_item'
-          style='margin-right:{{(i+1)%3?"15rpx":"0"}}'></image>
+    <view class='dynamic_shop_name'>{{item.shop_info.shop_name}}</view>
+    <view bindtap="dynamicDetails" data-id='{{item.id}}' class='dynamic_shop_Msg'>{{item.content}}</view>
+    <view class='dynamic_shop_image' wx:if="{{item.img_json.length>0}}">
+      <block wx:for="{{item.img_json}}" wx:for-item='img_item' wx:key="*this" wx:for-index="img_index">
+        <image mode="aspectFill" src='{{img_item}}' data-index='{{index}}' data-img_index='{{img_index}}' bindtap="previewImage" class='dynamic_shop_image_item'
+          style='margin-right:{{(img_index+1)%3?"15rpx":"0"}}'></image>
       </block>
     </view>
-    <view class='dynamic_shop_video' wx:else>
+    <!-- <view class='dynamic_shop_video' wx:else>
       <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='shop_video_image' mode="aspectFill"></image>
       <view class='flex_row jc_flex_center shop_video_mask'>
         <image src='../../images/video_play.png' class='shop_videoPlay_image'></image>
       </view>
 
-    </view>
+    </view> -->
     <view class='flex_row dynamic_shop_address'>
       <image src='../../images/address_icon.png' class='dynamic_shop_address_image'></image>
-      <text>店铺地址地址地址地址地址地址地址地址店铺地址地址地址地址地址地址地址地址</text>
+      <text>{{item.shop_info.address_base}}{{item.shop_info.address_detail}}</text>
     </view>
-    <block wx:for="{{2}}" wx:key="*this">
+    <block wx:for="{{item.goods_info}}" wx:for-item='goods_item' wx:for-index='goods_index' wx:key="*this">
+      <navigator url='/pages/goods/goods?goods_id={{goods_item.id}}&shop_id={{item.shop_id}}'>
       <view class='flex_row dynamic_goods_list'>
-        <image class='dynamic_goods_image ' src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'></image>
+        <image class='dynamic_goods_image ' src='{{osscdn}}{{goods_item.goods_cover}}'></image>
         <view class='flex_column jc_flex_sb weui-flex__item'>
-          <text class='textEllipsisTwo dynamic_goods_name'>2019新款女装春秋装纯棉咖啡色收腰长袖衬衣潮流限量正品</text>
-          <text class='dynamic_goods_price'>¥564</text>
+          <text class='textEllipsisTwo dynamic_goods_name'>{{goods_item.goods_name}}</text>
+          <text class='dynamic_goods_price'>¥{{goods_item.price}}</text>
         </view>
       </view>
+    </navigator>
     </block>
     <view class='flex_row jc_flex_sb dynamic_time'>
-      <view>1小时前</view>
+      <view>{{item.createtime}}</view>
       <view class='dynamic_chat_triangle flex_row' style="transform:{{triangleShow?'scaleX(1)':'scaleX(0)'}}">
         <!-- <view class='chat_triangle_content flex_row'>
                     <view class='flex_row chat_triangle_item'>
@@ -48,42 +51,43 @@
                   </view>
                   <view class="chat-right_triangle"></view> -->
       </view>
-      <image src='../../images/collect_default_2.png' class='dynamic_more_image'></image>
+      <image src='../../images/{{item.is_like==0?"collect_default_2":"collect_red"}}.png' data-is_like="{{item.is_like}}" data-index="{{index}}" data-dynamics_id='{{item.id}}' catchtap='fabulous' class='dynamic_more_image'></image>
     </view>
-    <view class='flex_row dynamic_fabulous'>
+    <view class='flex_row dynamic_fabulous' wx:if='{{item.like_info.length>0}}'>
       <image src='../../images/collect_black.png' class='dynamic_fabulous_logo'></image>
-      <block wx:for="{{9}}" wx:key="*this">
-        <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='dynamic_fabulous_image'></image>
+      <block wx:for="{{item.like_info}}" wx:for-item='like_item' wx:for-index='like_index' wx:key="*this">
+        <image src='{{osscdn}}{{like_item.avatar}}' class='dynamic_fabulous_image'></image>
 
       </block>
       <!-- <view class='dynamic_fabulous_numb'>99+</view> -->
-      <image class="fans_img" src="../../images/shop_list_more.png" />
+      <image class="fans_img" wx:if="item.like_info.length>9" src="../../images/shop_list_more.png" />
 
     </view>
     <view class='fabulous_comment'>
       <view class='flex_row dynamic_comment ai_flex_start'>
         <image src='../../images/comment_black.png' class='dynamic_fabulous_logo comment_icon'></image>
         <view class='flex_column weui-flex__item'>
-          <block wx:for="{{3}}" wx:key="*this">
-            <view class="flex_row ai_flex_start dynamic_comment_content">
-              <image src='../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg' class='dynamic_comment_image'>
+          <block wx:for="{{item.comment_info}}" wx:for-item='comment_item' wx:for-index='comment_index' wx:key="*this">
+            <view class="flex_row ai_flex_start dynamic_comment_content" wx:if='{{comment_index<4}}'>
+              <image src='{{osscdn}}{{comment_item.avatar}}' class='dynamic_comment_image'>
               </image>
               <view class='flex_column weui-flex__item'>
                 <view class='flex_row jc_flex_sb'>
-                  <view class='dynamic_comment_name'>王小斌</view>
-                  <view class='dynamic_comment_time'>9分钟</view>
+                  <view class='dynamic_comment_name'>{{comment_item.user_name}}</view>
+                  <view class='dynamic_comment_time'>{{comment_item.createtime}}</view>
                 </view>
-                <view class='dynamic_comment_Msg'>店铺地址地址地址地址地址地址地址地址</view>
+                <view class='dynamic_comment_Msg'>{{comment_item.content}}</view>
               </view>
             </view>
           </block>
-          <!-- <text class='dynamic_comment_more'>查看所有10条评论 >></text> -->
+          <text class='dynamic_comment_more' wx:if='{{item.comment_info.length>4}}'>查看所有{{item.comment_info.length}}条评论 >></text>
         </view>
       </view>
     </view>
   </view>
 </view>
 <!-- </navigator> -->
+</block>
 <!-- <view class='flex_row comment_input' wx:if="{{commentInputShow}}">
             <input class='comment_input_class weui-flex__item' focus='{{commentInputShow}}' bindinput='commentInput' placeholder='评论'></input>
             <view class='comment_input_send {{commentValue.length>0?"comment_input_sendActive":""}}'>发送</view>

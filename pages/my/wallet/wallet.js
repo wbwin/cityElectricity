@@ -1,11 +1,14 @@
 // pages/my/wallet/wallet.js
+import api from "../../../utils/api"
+import utils from "../../../utils/utils"
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    token:'',
+    userInfo:'',
   },
 
   /**
@@ -26,7 +29,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var that=this
+    that.setData({
+      token:wx.getStorageSync('token')
+    })
+    that.getUserInfo()
   },
 
   /**
@@ -47,7 +54,8 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    var that=this
+    that.getUserInfo()
   },
 
   /**
@@ -60,8 +68,17 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage: function (res) {
+    var that=this
+    if(res.from=="button"){
+      
+    }else{
+      return {
+        title: '同橙电商',
+        path: '/pages/my/my',
+        imageUrl:'/images/logo.png',
+      }
+    }
   },
   cashWithdrawal: function (e) {
     wx.navigateTo({
@@ -74,14 +91,24 @@ Page({
     const id = e.currentTarget.dataset.id
     if (id == 1) {
       wx.navigateTo({
-        url: '/pages/my/wallet/detailsOfAmount/detailsOfAmount?title=已结算金额明细'
+        url: '/pages/my/wallet/detailsOfAmount/detailsOfAmount?type=1'
       })
     }
     if (id == 2) {
       wx.navigateTo({
-        url: '/pages/my/wallet/detailsOfAmount/detailsOfAmount?title=未结算金额明细'
+        url: '/pages/my/wallet/detailsOfAmount/detailsOfAmount?type=2'
       })
     }
 
+  },
+  getUserInfo:function(){
+    var that=this
+    utils.util.post(api.getUserInfo,{
+      token:that.data.token
+    },res=>{
+      that.setData({
+        userInfo:res.data,
+      })
+    })
   }
 })

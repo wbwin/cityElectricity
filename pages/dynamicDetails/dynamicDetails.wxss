@@ -30,6 +30,7 @@ font-weight:400;
 color:rgba(255,132,27,1);
 background: #fff;
 line-height:34rpx;
+margin-left: 32rpx;
 }
 .dynamicDetail_shop_content{
   padding: 32rpx;
@@ -67,11 +68,13 @@ line-height:36rpx;
 font-family:PingFangSC-Regular;
 font-weight:400;
 color:rgba(85,85,85,1);
-width: auto;
+width: 30rpx;
 height: auto;
+text-align: center;
 }
 .dynamic_fabulous{
-  position: relative
+  position: relative;
+  min-height: 49rpx;
 }
 .open_content{
   width: 100%;

@@ -1,0 +1,50 @@
+<import src="../../template/noDatas/noDatas.wxml"/>
+<!--pages/shop/commodityClassification/commodityClassification.wxml-->
+<view class='page'>
+  <view class='page_hd'>
+    <view class="flex_row weui-search-bar">
+      <image src='../../../images/search_icon.png' class='search_icon'></image>
+      <input type="text" class="search_input weui-flex__item" bindconfirm='searchConfirm' confirm-type='search'  bindinput="searchInput" placeholder="搜索" value="{{search_text}}"/>
+
+    </view>
+    <scroll-view scroll-x="true" class="classifly_list" scroll-into-view="{{toView}}">
+      <block wx:for='{{categroy_list}}' wx:key='*this'>
+        <view class='classifly_item {{activeIndex==index?"mainColor":""}}' id="{{'index'+index}}" data-index="{{index}}" bindtap='classiflyChoose'>{{item.category_name}}</view>
+      </block>
+      <!-- <view class="weui-navbar__slider" style="width:{{linewidth}};left:0%!important; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view> -->
+    </scroll-view>
+
+  </view>
+  <view class='page_bd'>
+    <view class='flex_row sort_classify'>
+      <view class='flex_row jc_flex_center sort_classify_item {{sortIndex==1?"sort_item_active":""}}' bindtap='sortChoose' data-index='1'>综合</view>
+      <view class='flex_row jc_flex_center sort_classify_item {{sortIndex==2?"sort_item_active":""}}' bindtap='sortChoose' data-index='2'>最热</view>
+      <view class='flex_row jc_flex_center sort_classify_item {{sortIndex==3?"sort_item_active":""}}' bindtap='sortChoose' data-index='3'>新品</view>
+      <view class='flex_row jc_flex_center sort_classify_item {{sortIndex==4||sortIndex==5?"sort_item_active":""}}' bindtap='sortChoose' data-index='{{sortIndex!=4?"5":"4"}}'>价格
+        <image class='screen_icon' src='../../../images/{{sortIndex==4?"screen_icon":sortIndex==5?"screen_icon_pre":"screen_icon_default"}}.png'></image>
+      </view>
+    </view>
+    <view class='goods_list' wx:if="{{goods_list.length>0}}">
+      <block wx:for='{{goods_list}}' wx:key='*this'>
+          <!-- <navigator url='/pages/goods/goods?goods_id={{item.goods_id}}&shop_id={{item.shop_id}}' > -->
+          <view class='flex_row goods_item'>
+          <image class='goods_image' src='{{osscdn}}{{item.goods_cover}}'></image>
+          <view class='goods_item_tip' wx:if='{{item.label!=1}}'>{{item.label==2?'拼团':'折扣'}}</view>
+          <view class='flex_column weui-flex__item jc_flex_sb goods_content'>
+            <view class='goods_name textEllipsisTwo'>{{item.goods_name}}</view>
+            <view class='flex_column'>
+              <view class='goods_money'>￥{{item.price}}</view>
+              <view class='flex_row goods_msg'>
+                <view>{{item.sales_volume}}购买</view>
+                <view class='weui-flex__item goods_browse'>{{item.browse_count}}围观</view>
+                <view class='goods_buy' bindtap='goodsBuy' data-goods_id='{{item.goods_id}}'>立即购买</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      <!-- </navigator> -->
+      </block>
+    </view>
+    <template is="noDatas" data="{{paddingTop:'250rpx',text1:'暂无商品'}}" wx:else/>
+  </view>
+</view>

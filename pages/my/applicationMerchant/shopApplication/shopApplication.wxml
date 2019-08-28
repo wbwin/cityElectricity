@@ -4,41 +4,36 @@
     <text>填写店铺信息</text>
   </view>
   <view class='page_bd'>
-    <!-- <view class='flex_row ai_flex_start default_input_list'>
-      <text class='default_input_text'>店铺头像</text>
-      <image class='shop_head' bindtap='chooseShopHead' src='{{shopHead}}'></image>
-    </view> -->
     <view class='flex_row default_input_list'>
       <text class='default_input_text'>店铺名称</text>
-      <input class='default_input weui-flex__item' type='text' placeholder='请输入店铺名称（2-10个字）'></input>
+      <input class='default_input weui-flex__item' type='text' bindinput="shopName" placeholder='请输入店铺名称（2-10个字）'></input>
     </view>
     <view class='flex_row default_input_list' style="align-items:flex-start;">
       <text class='default_input_text'>详细介绍</text>
-      <!-- <input class='default_input weui-flex__item' type='text' placeholder='请输入店铺简介'></input> -->
-      <textarea name="" id="" rows="4" class="default_input weui-flex__item" placeholder="请输入店铺简介"></textarea>
+      <textarea name="" id="" rows="4" class="default_input weui-flex__item" placeholder="请输入店铺简介" bindinput="shopIntro"></textarea>
     </view>
-    <view class='flex_row default_input_list' style="align-items:flex-start;">
+    <view class='flex_row default_input_list' style="align-items:flex-start;" bindtap='chooseLocation'>
       <text class='default_input_text'>店铺地址</text>
       <textarea class='default_input weui-flex__item default_input_2row' rows="2" disabled value='' placeholder='{{locationName?locationName:"请选择店铺地址"}}'></textarea>
       <!-- <image class='default_input_icon' src='/images/city.png' bindtap='chooseLocation'></image> -->
-      <text class="default_set_location" bindtap='chooseLocation'>设置定位</text>
+      <text class="default_set_location" >设置定位</text>
     </view>
     <view class='flex_row default_input_list' style="align-items:flex-start;">
       <text class='default_input_text'>详细地址</text>
-      <textarea class='default_input weui-flex__item default_input_2row' rows="2" placeholder='如道路、门牌号、小区、楼栋号、单元室等'></textarea>
+      <textarea class='default_input weui-flex__item default_input_2row' rows="2" placeholder='如道路、门牌号、小区、楼栋号、单元室等' bindinput="addressDetail"></textarea>
     </view>
     <view class='line_border'></view>
     <view class='flex_row default_input_list'>
       <text class='default_input_text'>店主姓名</text>
-      <input class='default_input weui-flex__item' type='text' placeholder='请输入店主姓名'></input>
+      <input class='default_input weui-flex__item' type='text' placeholder='请输入店主姓名' bindinput="leaderName"></input>
     </view>
     <view class='flex_row default_input_list'>
       <text class='default_input_text'>店主电话</text>
-      <input class='default_input weui-flex__item' type='number' placeholder='请输入店主电话'></input>
+      <input class='default_input weui-flex__item' type='number' placeholder='请输入店主电话' bindinput="leaderTel"></input>
     </view>
     <view class='flex_row default_input_list'>
       <text class='default_input_text'>店主微信号</text>
-      <input class='default_input weui-flex__item' type='text' placeholder='请输入店主微信号'></input>
+      <input class='default_input weui-flex__item' type='text' placeholder='请输入店主微信号' bindinput="leader_wechat"></input>
     </view>
     <view class='flex_row default_input_list'>
       <text class='default_input_text'>营业时间</text>
@@ -63,7 +58,7 @@
         <view class='shop_images_list'>
           <block wx:for='{{shopImages}}' wx:key='*this'>
             <view class='upload_image_view'>
-              <image class='upload_image' src='{{item}}'></image>
+              <image class='upload_image' src='{{osscdn}}{{item}}'></image>
               <image class='image_del' src='/images/image_del.png' data-index="{{index}}" bindtap='delShopImages'></image>
             </view>
           </block>
@@ -90,5 +85,5 @@
     </view>
     </view>
   </view>
-  <button class='bottom_button'>提交</button>
+  <button class='bottom_button' bindtap="submit">提交</button>
 </view>

@@ -9,7 +9,7 @@
       <text class='price_title flex_row jc_flex_center'>已结算金额</text>
       <view class=' weui-flex__item  price_content settled_color'>
          <text class='price_symbol'>￥</text>
-         <text class='price_numb'>200.00</text>
+         <text class='price_numb'>{{userInfo.settled_money}}</text>
       </view>
       <button class='withdrawal' bindtap='cashWithdrawal'>提现</button>
       
@@ -22,7 +22,7 @@
       <text class='price_title  flex_row jc_flex_center'>未结算金额</text>
       <view class=' weui-flex__item  price_content unsettled_color'>
          <text class='price_symbol'>￥</text>
-         <text class='price_numb'>200.00</text>
+         <text class='price_numb'>{{userInfo.unsettled_money}}</text>
       </view>
       
     </view>

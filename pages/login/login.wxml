@@ -1,0 +1,19 @@
+<image src="{{logo}}" class="logo"></image>
+<text class='title-tip'>同橙好货等着你</text>
+<button class='loginBtn' open-type="getUserInfo" bindgetuserinfo="getUserInfo">微信登录</button>
+
+<block wx:if="{{show}}">
+  <view class="mask"></view>
+  <view class='maskBody'>
+    <view class="title">微信授权</view>
+    <image class="successIcon" src="../../images/default-avatar.png" />
+    <view class="sqcontent">微信授权成功</view>
+    <view class="contentTip">授权绑定的手机号码</view>
+    <view class="btn">
+      <view class="reject" bindtap="reject">拒绝</view>
+      <view class="agree">
+        <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">允许</button>
+      </view>
+    </view>
+  </view>
+</block>

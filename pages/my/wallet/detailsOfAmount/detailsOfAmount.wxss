@@ -1,6 +1,9 @@
 /* pages/my/wallet/detailsOfAmount/detailsOfAmount.wxss */
 .page{
-  background: #f7f7f7
+  /* background: #f7f7f7 */
+}
+.page_bd{
+  height: 100%;
 }
 .amout_list{
 
@@ -27,10 +30,10 @@ font-weight:400;
 color:rgba(153,153,153,1);
 }
 .amout_item_price{
-font-size:36rpx;
-font-family:PingFangSC-Regular;
-font-weight:400;
-color:rgba(255,132,27,1);
+  font-size:36rpx;
+  font-family:PingFangSC;
+  font-weight:400;
+  color:rgba(255,132,27,1);
 }
 .settled_color{
   color:rgba(255,132,27,1);

@@ -1,16 +1,19 @@
+<import src="../template/noDatas/noDatas.wxml" />
 <view class='page'>
   <view class='page_bd'>
-    <view class='flex_column ai_flex_center follow_content'>
-      <text class='follow_numb'>共220人</text>
+    <view class='flex_column ai_flex_center follow_content' wx:if="{{count!=0}}">
+      <text class='follow_numb'>共{{count}}人</text>
       <view class='follow_list'>
-      <block wx:for='{{220}}' wx:key='*this'>
-        <image class='follow_image' style="margin-right:{{(index+1)%6?'22rpx':'0'}}" wx:if='{{index<30||(index>=30&&openOther)}}' src='../../images/shop_list_more.png'></image>
+      <block wx:for='{{list}}' wx:key='*this'>
+        <image class='follow_image' style="margin-right:{{(index+1)%6?'22rpx':'0'}};margin-left:{{(index+1)%6==1?'30rpx':'0'}}" wx:if='{{index<30||(index>=30&&openOther)}}' src='{{osscdn}}{{item.avatar}}'></image>
         </block>
       </view>
-      <view class='flex_row jc_flex_center open_content' bindtap='openOther' wx:if='{{!openOther}}'>
+      <view class='flex_row jc_flex_center open_content' bindtap='openOther' wx:if='{{!openOther&&count>=30}}'>
         <text>点击展开</text>
         <image class='open_image' src='../../images/pull_down.png'></image>
       </view>
     </view>
+    <template is="noDatas" data="{{paddingTop: '402rpx',paddingBottom:'264rpx',text1:'暂无人数'}}" wx:else />
+
   </view>
 </view>

@@ -6,7 +6,7 @@
   <view class='page_bd'>
     <view class='flex_row default_input_list'>
       <text class='default_input_text'>供应商名称</text>
-      <input class='default_input weui-flex__item' type='text' placeholder='请输入供应商名称（2-10个字）'></input>
+      <input class='default_input weui-flex__item' type='text' bindinput="supplierName" placeholder='请输入供应商名称（2-10个字）'></input>
     </view>
     <!-- <view class='flex_row default_input_list' bindtap='chooseLocation'>
       <text class='default_input_text'>供应商地址</text>
@@ -23,16 +23,16 @@
     <view class='flex_row default_input_list' style="align-items:flex-start;">
       <text class='default_input_text'>详细地址</text>
       <textarea class='default_input weui-flex__item default_input_2row' rows="2"
-        placeholder='如道路、门牌号、小区、楼栋号、单元室等'></textarea>
+        placeholder='如道路、门牌号、小区、楼栋号、单元室等' bindinput="addressDetail"></textarea>
     </view>
     <view class='line_border'></view>
     <view class='flex_row default_input_list'>
       <text class='default_input_text'>联系人姓名</text>
-      <input class='default_input weui-flex__item' type='text' placeholder='请输入联系人姓名'></input>
+      <input class='default_input weui-flex__item' type='text' placeholder='请输入联系人姓名' bindinput="leaderName"></input>
     </view>
     <view class='flex_row default_input_list'>
       <text class='default_input_text'>联系人电话</text>
-      <input class='default_input weui-flex__item' type='number' placeholder='请输入联系人电话'></input>
+      <input class='default_input weui-flex__item' type='number' placeholder='请输入联系人电话' bindinput="leaderTel"></input>
     </view>
     <view class='line_border'></view>
     <!-- <view class='flex_row  default_input_list '>
@@ -42,7 +42,7 @@
     <view class='flex_row default_input_list' style="align-items:flex-start;">
       <text class='default_input_text'>供应商介绍</text>
       <!-- <input class='default_input weui-flex__item' type='text' placeholder='请输入店铺简介'></input> -->
-      <textarea name="" id="" rows="4" class="default_input weui-flex__item" placeholder="请输入供应商介绍"></textarea>
+      <textarea name="" id="" rows="4" class="default_input weui-flex__item" placeholder="请输入供应商介绍" bindinput="supplierIntro"></textarea>
     </view>
     <view class='line_border'></view>
     <view class='flex_column ai_flex_start default_input_list'>
@@ -52,7 +52,7 @@
         <view class='shop_images_list'>
           <block wx:for='{{shopImages}}' wx:key='*this'>
             <view class='upload_image_view'>
-              <image class='upload_image' src='{{item}}'></image>
+              <image class='upload_image' src='{{osscdn}}{{item}}'></image>
               <image class='image_del' src='/images/image_del.png' data-index="{{index}}" bindtap='delShopImages'>
               </image>
             </view>
@@ -74,5 +74,5 @@
       </view>
     </view>
   </view>
-  <button class='bottom_button'>提交</button>
+  <button class='bottom_button' bindtap="sumbit">提交</button>
 </view>
