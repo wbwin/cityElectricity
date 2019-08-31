@@ -699,6 +699,7 @@ w100 {
   height: 160rpx;
   padding: 24rpx 32rpx;
   background: #f7f7f7;
+  width: 92%;
 }
 
 .order_goods_image {

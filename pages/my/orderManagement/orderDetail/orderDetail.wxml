@@ -19,7 +19,7 @@
           <block wx:else>
 
           <!-- 退款 -->
-              <text class='order_goods_state regiment_order_goods_state' wx:if="{{orderData.logistics_action!=2}}">{{orderData.order_status==2&&orderData.aftersafe_status==2?'退款失败 待发货':orderData.order_status==2?'申请退款中...':orderData.order_status==3?'待收货':orderData.order_status==4&&orderData.aftersafe_status==2?'退款失败 已完成':orderData.order_status==4?'已退款':''}}</text>
+              <text class='order_goods_state regiment_order_goods_state' wx:if="{{orderData.logistics_action!=2}}">{{orderData.order_status==2&&orderData.aftersafe_status==2?'退款失败 待发货':orderData.order_status==2?'申请退款中...':orderData.order_status==3?'待收货':orderData.order_status==4&&orderData.aftersafe_status==2?'退款失败 已完成':orderData.order_status==4&&orderData.aftersafe_status==0?'退款中...':orderData.order_status==4?'已退款':''}}</text>
           </block>
     </block>
     <!-- 非拼团单-->
@@ -33,7 +33,7 @@
     <block wx:else>
 
     <!-- 退款 -->
-        <text class='order_goods_state regiment_order_goods_state' wx:if="{{orderData.logistics_action!=2}}">{{orderData.order_status==2&&orderData.aftersafe_status==2?'退款失败 待发货':orderData.order_status==2?'申请退款中...':orderData.order_status==3?'待收货':orderData.order_status==4&&orderData.aftersafe_status==2?'退款失败 已完成':orderData.order_status==4?'已退款':''}}</text>
+        <text class='order_goods_state regiment_order_goods_state' wx:if="{{orderData.logistics_action!=2}}">{{orderData.order_status==2&&orderData.aftersafe_status==2?'退款失败 待发货':orderData.order_status==2?'申请退款中...':orderData.order_status==3?'待收货':orderData.order_status==4&&orderData.aftersafe_status==2?'退款失败 已完成':orderData.order_status==4&&orderData.aftersafe_status==0?'退款中...':orderData.order_status==4?'已退款':''}}</text>
     </block>
   </block>
     </view>
@@ -141,7 +141,7 @@
       <block wx:if="{{orderData.logistics_action!=2}}">
       <button bindtap='sureHave' class='button_main'  wx:if="{{orderData.order_status==3}}">确认收货</button>
       <button bindtap='toApplyForRefund' class='button_default' data-type="1" wx:if="{{orderData.order_status==2&&!orderData.is_aftersafe}}">订单退款</button>
-      <button bindtap='toApplyForRefund' class='button_default' data-type="2" wx:if="{{orderData.order_status==4&&!orderData.is_aftersafe}}">申请售后</button>
+      <button bindtap='toApplyForRefund' class='button_default' data-type="2" wx:if="{{(orderData.order_status==4&&!orderData.is_aftersafe)||(orderData.order_status==4&&orderData.aftersafe_status==2)}}">申请售后</button>
       <button bindtap='toOrderEvaluate' class='button_main'  wx:if="{{orderData.order_status==4&&orderData.is_comment==0}}">订单评价</button>
     </block>
     </view>

@@ -80,12 +80,18 @@ Page({
    */
   onShareAppMessage: function (res) {
     var that=this
-    var orderData=that.data.orderData
-    if (res.from === 'button') {
+    if(res.from=="button"){
+      var orderData=that.data.orderData
       return {
         title: '一起来拼团吧',
         path: '/pages/goods/goods?shop_id='+orderData.shop_id+'&goods_id='+orderData.goods_id,
         imageUrl:that.data.osscdn+orderData.goods_cover
+      }
+    }else{
+      return {
+        title: '同橙电商',
+        path: '/pages/my/my',
+        imageUrl:'/images/logo.png',
       }
     }
    
@@ -126,7 +132,7 @@ Page({
       order_sn:order_sn
     },res=>{
       var orderData=res.data
-      orderData.order_price=(Number(orderData.goods_price)*Number(orderData.order_goods_num)).toFixed(2)
+      // orderData.order_price=(Number(orderData.goods_price)*Number(orderData.order_goods_num)).toFixed(2)
       orderData.createtime=utils.formatTime(new Date(orderData.createtime*1000))
       orderData.paytime=utils.formatTime(new Date(orderData.paytime*1000))
       if(orderData.shiptime){

@@ -1,15 +1,15 @@
 <!--pages/my/wallet/discountRecord/discountRecord.wxml-->
 <import src="/pages/template/noDatas/noDatas.wxml" />
 <view class='page'>
-    <view class='page_bd' wx:if="{{false}}">
+    <view class='page_bd' wx:if="{{infoList.length}}">
         <view class='amout_list'>
-            <block wx:for='{{3}}' wx:key='*this'>
+            <block wx:for='{{infoList}}' wx:key='*this'>
                 <view class='flex_row amout_list_item '>
                     <view class='flex_column weui-flex__item amout_item_content'>
-                        <text class='amout_item_name'>提现金额：<text class="amout_item_price">50</text></text>
-                        <text class='amout_item_time'>2019-05-03 11:11:11</text>
+                        <text class='amout_item_name'>提现金额：<text class="amout_item_price">{{item.price}}</text></text>
+                        <text class='amout_item_time'>{{item.createtime}}</text>
                     </view>
-                    <text class='amout_item_price'>审核中</text>
+                    <text class='amout_item_price'>{{item.withdraw_status==0?'未审核':item.withdraw_status==1?'已提现':item.withdraw_status==2?'未通过':''}}</text>
                 </view>
             </block>
         </view>

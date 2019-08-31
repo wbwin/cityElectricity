@@ -18,12 +18,12 @@ Page({
    */
   onLoad: function (options) {
     var that=this
-    that.setData({
-      token:wx.getStorageSync('token'),
-      page:1,
-      goodsData:[],
-    })
-    that.getUserCollect();
+    // that.setData({
+    //   token:wx.getStorageSync('token'),
+    //   page:1,
+    //   goodsData:[],
+    // })
+    // that.getUserCollect();
   },
 
   /**
@@ -38,12 +38,12 @@ Page({
    */
   onShow: function () {
     var that=this
-  //   that.setData({
-  //     token:wx.getStorageSync('token'),
-  //     page:1,
-  //     goodsData:[],
-  //   })
-  //   that.getUserCollect();
+    that.setData({
+      token:wx.getStorageSync('token'),
+      page:1,
+      goodsData:[],
+    })
+    that.getUserCollect();
   },
 
   /**
@@ -77,6 +77,9 @@ Page({
    */
   onReachBottom: function () {
     var that=this
+    if(that.data.goodsData.length==0){
+      return false
+    }
     var page=Number(that.data.page)+1
     that.setData({
       page:page,

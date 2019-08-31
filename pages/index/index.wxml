@@ -7,7 +7,7 @@
       class="slide_image" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
       <block wx:for="{{imgUrls}}" wx:key='*this'>
         <swiper-item>
-          <image src="{{item}}" class="slide_image" />
+          <image src="{{item}}" bindtap="previewImageNav" data-index="{{index}}" mode="aspectFill" class="slide_image" />
         </swiper-item>
       </block>
     </swiper>
@@ -31,7 +31,7 @@
             <block wx:for="{{shopList}}" wx:key='index' wx:for-item="item">
               <view class='shop_poster_item'>
                 <navigator url="/pages/shop/shop?id={{item.shop_id}}" class='shop_poster' hover-class="btn-hover">
-                  <image src='{{osscdn}}{{item.shop_image}}' class='shop_poster_img'>
+                  <image src='{{osscdn}}{{item.shop_image}}' mode="aspectFill" class='shop_poster_img'>
                   </image>
                   <view class='flex_row shop_poster_content'>
                     <image src='{{osscdn}}{{item.shop_avatar}}' class='head_portrait'>

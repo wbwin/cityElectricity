@@ -60,6 +60,7 @@ Page({
     ],
     dynamicsList:[],//店铺动态
     page:1,//店铺动态页数
+    onShowTrue:false,
   },
 
   /**
@@ -78,7 +79,7 @@ Page({
       page:1,//店铺动态页数
     })
     that.getShopDetail(that.data.shop_id);//获取店铺详情
-    that.getShopDynamics();//获取店铺动态列表
+    // that.getShopDynamics();//获取店铺动态列表
     
   },
 
@@ -94,13 +95,20 @@ Page({
    */
   onShow: function () {
     var that=this
-    // that.setData({
-    //   token:wx.getStorageSync('token'),
-    //   dynamicsList:[],//店铺动态
-    //   page:1,//店铺动态页数
-    // })
-    // that.getShopDetail(that.data.shop_id);//获取店铺详情
-    // that.getShopDynamics();//获取店铺动态列表
+    if(!that.data.onShowTrue){
+      that.setData({
+        onShowTrue:true,
+        token:wx.getStorageSync('token'),
+      })
+        return false
+    }
+    that.setData({
+      token:wx.getStorageSync('token'),
+      dynamicsList:[],//店铺动态
+      page:1,//店铺动态页数
+    })
+    that.getShopDetail(that.data.shop_id);//获取店铺详情
+    that.getShopDynamics();//获取店铺动态列表
   },
 
   /**
@@ -128,13 +136,23 @@ Page({
     })
     that.getShopDetail(that.data.shop_id);//获取店铺详情
     that.getShopDynamics();//获取店铺动态列表
+    
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    var that=this
+    if(that.data.activeIndex==1&&that.data.dynamicsList.length!=0){
 
+      var page=Number(that.data.page)+1
+      that.setData({
+        page:page
+      })
+      that.getShopDynamics();//获取店铺动态列表
+
+    }
   },
 
   /**
@@ -147,7 +165,7 @@ Page({
       var index=res.target.dataset.index
       var dynamicsData=dynamicsList[index]
       console.log(res.target)
-      var imageUrl=dynamicsData.img_json.length>0?that.data.osscdn+dynamicsData.img_json[0]:'/images/logo.png'
+      var imageUrl=dynamicsData.img_json.length>0?dynamicsData.img_json[0]:'/images/logo.png'
       return {
         title: dynamicsData.content,
         path: '/pages/dynamicDetails/dynamicDetails?dynamics_id='+dynamicsData.id,
@@ -179,9 +197,13 @@ Page({
     });
   },
   tabClick: function (e) {
+    var that=this
+    var shop=that.data.shop
+    shop.is_dynamics_red=0
   this.setData({
     sliderOffset: e.currentTarget.offsetLeft,
-    activeIndex: e.currentTarget.id
+    activeIndex: e.currentTarget.id,
+    shop:shop,
   });
   },
   // 动态
@@ -228,37 +250,33 @@ Page({
   getShopDetail:function(e){
     const that = this;
     const token = wx.getStorageSync('token');
-    wx.request({
-      url: config.ApiUrl + api.getShopDetail,
-      data: {
-        token:token,
+    utils.util.post(api.getShopDetail,{
+      token:token,
         shop_id:e
-      },
-      method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-      // header: {}, // 设置请求的 header
-      success: function(res){
-        var data = res.data.data;
-        console.log(data)
-        console.log(res.data)
-        var goods_datas = that.data.goods_datas;
-        goods_datas[0].data = data.goods_recommend
-        goods_datas[1].data = data.goods_hot
-        goods_datas[2].data = data.goods_new
-        that.setData({
-          shop:data.shop,
-          is_fans:data.shop.is_fans,
-          goodsClassify:data.categroy,
-          categroy:data.categroy,
-          goods_datas: goods_datas,
-          imgUrls:JSON.parse(data.shop.shop_img_json),
-          osscdn:res.data.osscdn
-        })
-        if(wx.getLaunchOptionsSync().query.collect==1&&data.shop.is_fans==0){
-          that.shopFollow()
-        }
-        console.log(that.data.goods_datas)
+    },res=>{
+      var data = res.data;
+      console.log(data)
+      console.log(res.data)
+      var goods_datas = that.data.goods_datas;
+      goods_datas[0].data = data.goods_recommend
+      goods_datas[1].data = data.goods_hot
+      goods_datas[2].data = data.goods_new
+      that.setData({
+        shop:data.shop,
+        is_fans:data.shop.is_fans,
+        goodsClassify:data.categroy,
+        categroy:data.categroy,
+        goods_datas: goods_datas,
+        imgUrls:JSON.parse(data.shop.shop_img_json),
+        osscdn:res.osscdn
+      })
+      if(wx.getLaunchOptionsSync().query.collect==1&&data.shop.is_fans==0){
+        that.shopFollow()
       }
+      console.log(that.data.goods_datas)
+      that.getShopDynamics();//获取店铺动态列表
     })
+   
     // utils.util.post(api.getShopDetail,{
     //   shop_id:e
     // },res =>{
@@ -370,6 +388,9 @@ Page({
   //查看动态 放大图片
   previewImage:function(e){
     const that = this
+    that.setData({
+      onShowTrue:false
+    })
     var dynamicsList=that.data.dynamicsList
     var index=e.currentTarget.dataset.index
     var img_index=e.currentTarget.dataset.img_index
@@ -389,6 +410,40 @@ Page({
         // complete
       }
     })
+  },
+  previewWxacodeImage:function(){
+    var that=this
+    that.setData({
+      onShowTrue:false
+    })
+    var shop=that.data.shop
+    var img=[that.data.osscdn+shop.wxacode_image]
+    wx.previewImage({
+      urls: img,
+      success: function(res){
+        console.log(res)
+      },
+      fail: function() {
+        
+      },
+      complete: function() {
+        // complete
+      }
+    })
+  },
+  previewImageNav:function(e){
+    const that = this
+    that.setData({
+      onShowTrue:false
+    })
+    var imgUrls=that.data.imgUrls
+    var index=e.currentTarget.dataset.index
+    var osscdn=that.data.osscdn
+    for(var i in imgUrls){
+      imgUrls[i]=osscdn+imgUrls[i]
+    }
+    
+    utils.previewImage(imgUrls,imgUrls[index])
   },
     //获取店铺动态列表
     getShopDynamics(){

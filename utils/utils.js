@@ -115,7 +115,11 @@ util.ajax = obj => {
           wx.stopPullDownRefresh();
           extra.loading && wx.hideLoading();
           console.log(obj.data.page>1)
-          obj.data.page>1&&data.data.list.length==0&&wx.showToast({
+          obj.data.page>1&&data.data.data&&data.data.data.length==0&&wx.showToast({
+            icon:'none',
+            title:'已经到底啦！'
+          })
+          obj.data.page>1&&data.data.list&&data.data.list.length==0&&wx.showToast({
             icon:'none',
             title:'已经到底啦！'
           })
@@ -189,9 +193,55 @@ const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
+//验证银行卡有效性
+const checkCard=(cardNo)=>{
+  if (isNaN(cardNo))
+    return false;
+  if (cardNo.length < 12) {
+    return false;
+  }
+  var nums = cardNo.split("");
+  var sum = 0;
+  var index = 1;
+  for (var i = 0; i < nums.length; i++) {
+    if ((i + 1) % 2 == 0) {
+      var tmp = Number(nums[nums.length - index]) * 2;
+      if (tmp >= 10) {
+        var t = tmp + "".split("");
+        tmp = Number(t[0]) + Number(t[1]);
+      }
+      sum += tmp;
+    } else {
+      sum += Number(nums[nums.length - index]);
+    }
+    index++;
+  }
+  if (sum % 10 != 0) {
+    return false;
+  }
+  return true;
+}
+//放大图片
+const previewImage=(img_array,img)=>{
+  wx.previewImage({
+    current: img?img:'', // 当前显示图片的链接，不填则默认为 urls 的第一张
+    urls: img_array,
+    success: function(res){
+      console.log(res)
+    },
+    fail: function() {
+      
+    },
+    complete: function() {
+      // complete
+    }
+  })
+}
 
 module.exports = {
   formatTime: formatTime,
   intervalTime:intervalTime,
-  util:util
+  util:util,
+  checkCard:checkCard,
+  previewImage:previewImage,
 }

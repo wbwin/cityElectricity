@@ -40,12 +40,12 @@ Page({
       }
     });
     /*切换*/
-    that.setData({
-      token:wx.getStorageSync('token'),
-      page:1,//页数
-      afterSaleList:[],
-    })
-    that.getUserAftersafe();
+    // that.setData({
+    //   token:wx.getStorageSync('token'),
+    //   page:1,//页数
+    //   afterSaleList:[],
+    // })
+    // that.getUserAftersafe();
   },
 
   /**
@@ -60,12 +60,12 @@ Page({
    */
   onShow: function () {
     var that=this
-    // that.setData({
-    //   token:wx.getStorageSync('token'),
-    //   page:1,//页数
-    //   afterSaleList:[],
-    // })
-    // that.getUserAftersafe();
+    that.setData({
+      token:wx.getStorageSync('token'),
+      page:1,//页数
+      afterSaleList:[],
+    })
+    that.getUserAftersafe();
   },
 
   /**
@@ -99,6 +99,9 @@ Page({
    */
   onReachBottom: function () {
     var that=this
+    if(that.data.afterSaleList.length==0){
+      return false
+    }
     var page=Number(that.data.page)+1
     that.setData({
       page:page

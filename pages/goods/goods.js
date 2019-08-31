@@ -10,11 +10,7 @@ Page({
   data: {
     goodsDetail:'',
     /*轮播*/
-    imgUrls: [
-      'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
-      'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640',
-      'https://images.unsplash.com/photo-1551446591-142875a901a1?w=640'
-    ],
+    imgUrls: [],
     indicatorDots: false,
     autoplay: true,
     interval: 5000,
@@ -161,6 +157,10 @@ Page({
       }
       //显示商品的价格
       var spec_json=JSON.parse(res.data.spec_json)
+      if(!spec_json.length>0){
+        var spec_json=[]
+        spec_json.push(JSON.parse(res.data.spec_json))
+      }
       var spec_stock_price=[]
       var goods_price=''
       if(spec_json){
@@ -456,5 +456,25 @@ Page({
     that.setData({
       autoplay:true,
     })
+  },
+  //查看商品图片
+  previewImage:function(){
+    var that=this
+    var img_array=[that.data.osscdn+that.data.goods_cover]
+    utils.previewImage(img_array)
+  },
+  previewImageNav:function(e){
+    const that = this
+    that.setData({
+      onShowTrue:false
+    })
+    var imgUrls=that.data.imgUrls
+    var index=e.currentTarget.dataset.index
+    var osscdn=that.data.osscdn
+    for(var i in imgUrls){
+      imgUrls[i]=osscdn+imgUrls[i]
+    }
+    
+    utils.previewImage(imgUrls,imgUrls[index])
   },
 })

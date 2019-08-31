@@ -16,7 +16,8 @@ Page({
     token:'',
     osscdn:'',
     dynamicsData:'',//动态数据
-    openOther:false//展开点赞人数
+    openOther:false,//展开点赞人数
+    onShowTrue:false,
   },
 
   /**
@@ -44,6 +45,12 @@ Page({
    */
   onShow: function () {
     var that=this
+    if(!that.data.onShowTrue){
+      that.setData({
+        onShowTrue:true
+      })
+        return false
+    }
     that.getDynamicsDetail()
   },
 
@@ -207,5 +214,20 @@ Page({
       })
       that.getDynamicsDetail()
     })
+  },
+  //查看大图
+  previewImage:function(e){
+    var that=this
+    that.setData({
+      onShowTrue:false
+    })
+    var index=e.currentTarget.dataset.index
+    var dynamicsData=that.data.dynamicsData
+    var img_array=dynamicsData.img_json
+    var osscdn=that.data.osscdn
+    for(var i in img_array){
+      img_array[i]=osscdn+img_array[i]
+    }
+    utils.previewImage(img_array,img_array[index])
   }
 })

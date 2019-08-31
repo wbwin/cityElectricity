@@ -1,7 +1,7 @@
 <import src="../../template/noDatas/noDatas.wxml"/>
 <!--pages/shop/commodityClassification/commodityClassification.wxml-->
 <view class='page'>
-  <view class='page_hd'>
+  <!-- <view class='page_hd'>
     <view class="flex_row weui-search-bar">
       <image src='../../../images/search_icon.png' class='search_icon'></image>
       <input type="text" class="search_input weui-flex__item" bindconfirm='searchConfirm' confirm-type='search'  bindinput="searchInput" placeholder="搜索" value="{{search_text}}"/>
@@ -10,11 +10,11 @@
     <scroll-view scroll-x="true" class="classifly_list" scroll-into-view="{{toView}}">
       <block wx:for='{{categroy_list}}' wx:key='*this'>
         <view class='classifly_item {{activeIndex==index?"mainColor":""}}' id="{{'index'+index}}" data-index="{{index}}" bindtap='classiflyChoose'>{{item.category_name}}</view>
-      </block>
+      </block> -->
       <!-- <view class="weui-navbar__slider" style="width:{{linewidth}};left:0%!important; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view> -->
-    </scroll-view>
+    <!-- </scroll-view>
 
-  </view>
+  </view> -->
   <view class='page_bd'>
     <view class='flex_row sort_classify'>
       <view class='flex_row jc_flex_center sort_classify_item {{sortIndex==1?"sort_item_active":""}}' bindtap='sortChoose' data-index='1'>综合</view>

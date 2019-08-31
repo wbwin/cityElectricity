@@ -29,6 +29,7 @@ Page({
     osscdn:'',
     dynaPage:1,//动态页数
     dynamicsList:[],//动态列表
+    onShowTrue:false,
   },
   onLoad: function () {
     var that = this;
@@ -60,6 +61,12 @@ Page({
   onShow: function () {
     let that = this;
     // that.onLoad();
+    if(!that.data.onShowTrue){
+      that.setData({
+        onShowTrue:true
+      })
+        return false
+    }
     that.setData({
       dynaPage:1,//动态页数
       dynamicsList:[],//动态列表
@@ -73,14 +80,23 @@ Page({
     that.getDynamicsInfoToPlatform()
   },
   onReachBottom:function(){
+    console.log(13234734)
+
     var that=this
+    
     if(that.data.activeIndex==1){
+      if(that.data.dynamicsList.length==0){
+        return false
+      }
       var dynaPage=Number(that.data.dynaPage)+1
       that.setData({
         dynaPage:dynaPage
       })
       that.getDynamicsInfoToPlatform()
     }else{
+      if(that.data.listData.length==0){
+        return false
+      }
       var shopPage=Number(that.data.shopPage)+1
       that.setData({
         shopPage:shopPage
@@ -105,8 +121,8 @@ Page({
       var dynamicsList=that.data.dynamicsList
       var index=res.target.dataset.index
       var dynamicsData=dynamicsList[index]
-      console.log(res.target)
-      var imageUrl=dynamicsData.img_json.length>0?that.data.osscdn+dynamicsData.img_json[0]:'/images/logo.png'
+      console.log(dynamicsData.img_json)
+      var imageUrl=dynamicsData.img_json.length>0?dynamicsData.img_json[0]:'/images/logo.png'
       return {
         title: dynamicsData.content,
         path: '/pages/dynamicDetails/dynamicDetails?dynamics_id='+dynamicsData.id,
@@ -207,7 +223,7 @@ Page({
     utils.util.post(api.getPlatformShop,{
       page:shopPage,
       limit:10,
-      search:that.data.searchText,
+      search_text:that.data.searchText,
     },res=>{
       var data=res.data.data
       if(data.length>0){
@@ -222,6 +238,9 @@ Page({
    //查看动态 放大图片
    previewImage:function(e){
     const that = this
+    that.setData({
+      onShowTrue:false
+    })
     var dynamicsList=that.data.dynamicsList
     var index=e.currentTarget.dataset.index
     var img_index=e.currentTarget.dataset.img_index
@@ -252,7 +271,7 @@ Page({
       page:page,
       limit:10,
       token:token,
-      search:that.data.searchText,
+      search_text:that.data.searchText,
     },res=>{
       var list=res.data.list
       if(list.length>0){

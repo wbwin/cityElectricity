@@ -216,6 +216,7 @@ Page({
       shop_id:that.data.shop_id,
       search:that.data.sortIndex,
       type:that.data.type,
+      // search_text:that.data.search_text,
     },res=>{
       var goods_list=res.data
       that.setData({
@@ -232,16 +233,16 @@ Page({
       url:'/pages/goods/goods?goods_id='+goods_id+'&shop_id='+that.data.shop_id
     })
   },
-  //关键词搜索
-  searchInput:function(e){
-    var that=this
-    that.setData({
-      search_text: e.detail.value
-    })
-  },
-  //关键词搜索确认
-  searchConfirm:function(e){
-    var that=this
-    that.getMoreGoodsToCategory();
-  }
+  // //关键词搜索
+  // searchInput:function(e){
+  //   var that=this
+  //   that.setData({
+  //     search_text: e.detail.value
+  //   })
+  // },
+  // //关键词搜索确认
+  // searchConfirm:function(e){
+  //   var that=this
+  //   that.getMoreGoods();
+  // }
 })

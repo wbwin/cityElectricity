@@ -5,11 +5,11 @@
   <view class='page_hd'>
     <swiper indicator-dots="{{indicatorDots}}" bindchange="slideImageChange" class="slide_image" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
       <swiper-item wx:if='{{goods_video}}'>
-        <video id="myVideo" bindplay='bindplay' bindpause='bindpause' bindended='bindended' class="goods_video" src="{{osscdn}}{{goods_video}}"  controls></video>
+        <video id="myVideo" bindplay='bindplay' bindpause='bindpause' poster="{{osscdn}}{{goodsDetail.goods_cover}}" bindended='bindended' class="goods_video" src="{{osscdn}}{{goods_video}}"  controls></video>
       </swiper-item>
       <block wx:for="{{imgUrls}}">
         <swiper-item>
-          <image src="{{osscdn}}{{item}}" class="slide_image" mode="aspectFill" />
+          <image src="{{osscdn}}{{item}}" bindtap="previewImageNav" data-index="{{index}}" class="slide_image" mode="aspectFill" />
         </swiper-item>
       </block>
 
@@ -61,7 +61,7 @@
           <view class="weui-navbar__title">详情</view>
         </view>
         <view data-index='1' class='weui-navbar__item {{activeIndex==1?"weui-bar__item_on":""}}' bindtap="tabClick">
-          <view class="weui-navbar__title">评论（{{goodsDetail.comment_info.length}}）</view>
+          <view class="weui-navbar__title">评论（{{goodsDetail.comment_info&&goodsDetail.comment_info.length>0?goodsDetail.comment_info.length:0}}）</view>
         </view>
 
         <view class="weui-navbar__slider" style="width:9.5%;left:{{activeIndex==0?'20.3%':'14.8%'}}!important; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
@@ -94,7 +94,7 @@
   <view class='mask' bindtap='hideBuyFram' wx:if='{{showBuyFram}}'></view>
   <view class='buy_frame' animation='{{animationData}}'>
     <view class='flex_row buy_frame_content'>
-      <image src='{{osscdn}}{{goods_cover}}' class='goods_image'></image>
+      <image src='{{osscdn}}{{goods_cover}}' bindtap="previewImage" class='goods_image'></image>
       <view class='flex_column jc_flex_start buy_frame_content_text'>
         <view class='buy_frame_price'>￥{{goods_price}}</view>
         <view>请选择 <block wx:for='{{spec_json}}' wx:for-item='spec_item' wx:for-index='spec_index' wx:key='*this'>{{spec_item.name}} </block></view>

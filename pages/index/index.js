@@ -30,6 +30,7 @@ Page({
     osscdn:'',
     dynaPage:1,//动态页数
     dynamicsList:[],//动态列表
+    onShowTrue:false,
   },
   onLoad: function () {
     var that = this;
@@ -46,9 +47,24 @@ Page({
         });
       }
     });
+    that.setData({
+      dynaPage:1,
+      dynamicsList:[],
+      shopList:[],
+      shopPage:1,
+    })
+    that.getBanner();//banner
+    that.getUserShop();//加载数据
+    that.getDynamicsInfo()
   },
   onShow: function () {
     let that = this;
+    if(!that.data.onShowTrue){
+      that.setData({
+        onShowTrue:true
+      })
+        return false
+    }
     that.setData({
       dynaPage:1,
       dynamicsList:[],
@@ -62,12 +78,18 @@ Page({
   onReachBottom:function(){
     var that=this
     if(that.data.activeIndex==1){
+      if(that.data.dynamicsList.length==0){
+        return false
+      }
       var dynaPage=Number(that.data.dynaPage)+1
       that.setData({
         dynaPage:dynaPage
       })
       that.getDynamicsInfo()
     }else{
+      if(that.data.shopList.length==0){
+        return false
+      }
       var shopPage=Number(that.data.shopPage)+1
       that.setData({
         shopPage:shopPage
@@ -195,7 +217,7 @@ Page({
       var index=res.target.dataset.index
       var dynamicsData=dynamicsList[index]
       console.log(res.target)
-      var imageUrl=dynamicsData.img_json.length>0?that.data.osscdn+dynamicsData.img_json[0]:'/images/logo.png'
+      var imageUrl=dynamicsData.img_json.length>0?dynamicsData.img_json[0]:'/images/logo.png'
       return {
         title: dynamicsData.content,
         path: '/pages/dynamicDetails/dynamicDetails?dynamics_id='+dynamicsData.id,
@@ -214,6 +236,9 @@ Page({
   //查看动态 放大图片
   previewImage:function(e){
     const that = this
+    that.setData({
+      onShowTrue:false
+    })
     var dynamicsList=that.data.dynamicsList
     var index=e.currentTarget.dataset.index
     var img_index=e.currentTarget.dataset.img_index
@@ -233,6 +258,16 @@ Page({
         // complete
       }
     })
+  },
+  previewImageNav:function(e){
+    const that = this
+    that.setData({
+      onShowTrue:false
+    })
+    var imgUrls=that.data.imgUrls
+    var index=e.currentTarget.dataset.index
+    console.log(imgUrls,imgUrls[index])
+    utils.previewImage(imgUrls,imgUrls[index])
   },
   //获取用户关注的动态
   getDynamicsInfo(){

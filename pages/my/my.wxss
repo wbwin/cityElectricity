@@ -88,6 +88,9 @@ color:rgba(51,51,51,1);
 .personal_money_msg{
   margin: 0 48rpx;
 }
+.personal_money_box{
+  width: 180rpx;
+}
 .balance_detail{
   border-left: 2rpx solid #DDDDDD;
   justify-content: center;

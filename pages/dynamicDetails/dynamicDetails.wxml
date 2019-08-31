@@ -13,7 +13,7 @@
     <view class='dynamicDetail_shop_content'>{{dynamicsData.content}}</view>
     <view class='dynamic_shop_image flex_column' wx:if="dynamicsData.img_json.length>0">
       <block wx:for="{{dynamicsData.img_json}}" wx:key="*this">
-        <image src='{{osscdn}}{{item}}' class='dynamic_shop_image_item'></image>
+        <image src='{{osscdn}}{{item}}' bindtap="previewImage" data-index="{{index}}" class='dynamic_shop_image_item'></image>
       </block>
     </view>
     <view class='dynamicDetail_content'>
@@ -51,7 +51,7 @@
         </view>
         <image src='../../images/comments.png' catchtap='triangleClick' class='dynamic_more_image'></image>
       </view>
-      <view class='flex_row ai_flex_start dynamic_fabulous'>
+      <view class='flex_row ai_flex_start dynamic_fabulous' wx:if="{{dynamicsData.like_info.length>0}}">
         <view class='flex_column'>
           <image src='../../images/collect_black.png' class='dynamic_fabulous_logo dynamic_fabulous_collect'></image>
           <!-- <text>{{dynamicsData.like_info.length>99?'99+':dynamicsData.like_info.length}}</text> -->
@@ -71,7 +71,7 @@
 
         <view class='dynamic_fabulous_numb' wx:if="{{dynamicsData.like_info.length>10}}">{{dynamicsData.like_info.length>99?'99+': dynamicsData.like_info.length }}</view>
       </view>
-      <view class='fabulous_comment' wx:if="dynamicsData.comment_info.length>0">
+      <view class='fabulous_comment' wx:if="{{dynamicsData.comment_info.length>0}}">
         <view class='flex_row dynamic_comment ai_flex_start'>
           <image src='../../images/comment_black.png' class='dynamic_fabulous_logo comment_icon'></image>
           <view class='flex_column weui-flex__item'>

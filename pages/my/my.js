@@ -68,6 +68,7 @@ Page({
         userInfo:loginResult,
         osscdn:wx.getStorageSync('osscdn')
       })
+      that.getUserInfo()
     }else{
       that.setData({
         isLogin:true
@@ -93,7 +94,8 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    var that=this
+    that.onShow()
   },
 
   /**
@@ -319,5 +321,20 @@ Page({
         url: '/pages/my/aboutUs/aboutUs'
       })
     }
+  },
+  //
+  getUserInfo:function(){
+    var that=this
+    var token=wx.getStorageSync('token')
+    utils.util.post(api.getUserInfo,{
+      token:token
+    },res=>{
+      console.log(res)
+      res.data.token=token
+      wx.setStorageSync('loginResult', res.data);
+      that.setData({
+        userInfo:res.data
+      })
+    })
   }
 })

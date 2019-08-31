@@ -3,9 +3,13 @@
 <view class="flex_row dynamic">
   <button class="share_btn dynamic_share_image" data-index="{{index}}" data-dynamics_id="{{item.id}}" open-type='share'></button>
   <image src='../../images/share.png' class='dynamic_share_image'></image>
+  <navigator url='/pages/shop/shop?id={{item.shop_id}}'>
   <image src='{{osscdn}}{{item.shop_info.shop_avatar}}' class='dynamic_image' mode="aspectFill"></image>
+  </navigator>
   <view class='dynamic_content'>
+      <navigator url='/pages/shop/shop?id={{item.shop_id}}'>
     <view class='dynamic_shop_name'>{{item.shop_info.shop_name}}</view>
+    </navigator>
     <view bindtap="dynamicDetails" data-id='{{item.id}}' class='dynamic_shop_Msg'>{{item.content}}</view>
     <view class='dynamic_shop_image' wx:if="{{item.img_json.length>0}}">
       <block wx:for="{{item.img_json}}" wx:for-item='img_item' wx:key="*this" wx:for-index="img_index">
@@ -60,10 +64,11 @@
 
       </block>
       <!-- <view class='dynamic_fabulous_numb'>99+</view> -->
-      <image class="fans_img" wx:if="item.like_info.length>9" src="../../images/shop_list_more.png" />
+      <image class="fans_img" wx:if="{{item.like_info.length>9}}" src="../../images/shop_list_more.png" />
 
     </view>
-    <view class='fabulous_comment'>
+    
+    <view class='fabulous_comment' bindtap="dynamicDetails" data-id='{{item.id}}' wx:if="{{item.comment_info.length>0}}">
       <view class='flex_row dynamic_comment ai_flex_start'>
         <image src='../../images/comment_black.png' class='dynamic_fabulous_logo comment_icon'></image>
         <view class='flex_column weui-flex__item'>

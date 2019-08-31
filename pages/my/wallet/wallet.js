@@ -81,8 +81,9 @@ Page({
     }
   },
   cashWithdrawal: function (e) {
+    var that=this
     wx.navigateTo({
-      url: './cashWithdrawal/cashWithdrawal?money=200',
+      url: './cashWithdrawal/cashWithdrawal?money='+that.data.userInfo.settled_money,
     })
   },
   //查看明细 已结算金额和未结算金额

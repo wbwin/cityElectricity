@@ -123,7 +123,7 @@ Page({
       aftersafe_sn:aftersafe_sn
     },res=>{
       var orderData=res.data
-      orderData.order_price=(Number(orderData.goods_price)*Number(orderData.order_goods_num)).toFixed(2)
+      // orderData.order_price=(Number(orderData.goods_price)*Number(orderData.order_goods_num)).toFixed(2)
       orderData.createtime=utils.formatTime(new Date(orderData.createtime*1000))
       orderData.paytime=utils.formatTime(new Date(orderData.paytime*1000))
       orderData.aftersafe_img_json=JSON.parse(orderData.aftersafe_img_json)

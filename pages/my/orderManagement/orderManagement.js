@@ -64,12 +64,12 @@ Page({
    */
   onShow: function () {
     var that=this
-    // that.setData({
-    //   token:wx.getStorageSync('token'),
-    //   page:1,
-    //   orderList:[],
-    // })
-    // that.getUserOrder();
+    that.setData({
+      token:wx.getStorageSync('token'),
+      page:1,
+      orderList:[],
+    })
+    that.getUserOrder();
   },
 
   /**
@@ -107,6 +107,9 @@ Page({
    */
   onReachBottom: function () {
     var that=this
+    if(that.data.orderList.length==0){
+      return false
+    }
     var page=Number(that.data.page)+1
     that.setData({
       page:page,
@@ -155,9 +158,9 @@ Page({
     },res=>{
       if(res.data.list.length>0){
         var listData=res.data.list
-        for(var i in listData){
-          listData[i].order_price=(Number(listData[i].goods_price)*Number(listData[i].order_goods_num)).toFixed(2)
-        }
+        // for(var i in listData){
+        //   listData[i].order_price=(Number(listData[i].goods_price)*Number(listData[i].order_goods_num)).toFixed(2)
+        // }
 
         orderList=orderList.concat(listData)
         that.setData({

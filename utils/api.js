@@ -40,6 +40,8 @@ const api = {
   addShopApply:'/public/api/apply/addShopApply',//店铺申请
   getUserCollect:'/public/api/user/getUserCollect',//获取我的收藏列表
   getAdminWallet:'/public/api/user/getAdminWallet',//获取钱包明细
+  addWithdrawInfo:'/public/api/User/addWithdrawInfo',//新增提现发起记录
+  getWithdrawInfo:'/public/api/User/getWithdrawInfo',//获取提现发起记录
   // 登录模块
   wechatLogin:'/public/api/wechat/wechatLogin',//登录获取openid
   addUserInfo:'/public/api/wechat/addUserInfo',//用户注册接口

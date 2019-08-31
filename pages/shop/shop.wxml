@@ -6,7 +6,7 @@
       class="slide_image" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
       <block wx:for="{{imgUrls}}" wx:key='*this'>
         <swiper-item>
-          <image src="{{osscdn}}{{item}}" class="slide_image" />
+          <image src="{{osscdn}}{{item}}" bindtap="previewImageNav" data-index="{{index}}" mode="aspectFill" class="slide_image" />
           <!-- <view class='flex_column slide_tip_content'>
             <text class='textEllipsis'>动态文字动态文字动动态文字动态文字动态文…</text>
             <text class='fs11'>05月28日 20:34</text>
@@ -58,7 +58,7 @@
           <view id='{{index}}' class='weui-navbar__item {{activeIndex==index?"weui-bar__item_on":""}}'
             bindtap="tabClick">
             <view class="weui-navbar__title">{{item}}</view>
-            <!-- <view class='circle_red'></view> -->
+            <view class='circle_red' wx:if="{{shop.is_dynamics_red==1&&index==1}}"></view>
           </view>
         </block>
         <view class="weui-navbar__slider"
@@ -100,6 +100,7 @@
                     </view> -->
                     
                     <view class='classifly_goods_tip' wx:if='{{item.data[0].label!=1}}'>{{item.data[0].label==2?'拼团':'折扣'}}</view>
+                    <view class='classifly_goods_tip' wx:if='{{goods_item.label==1&&classifly_index==2}}'>新品</view>
                     <view class='flex_column jc_flex_end goods_bigImg_content' wx:if='{{item.data[0].label!=1}}'>
                       <view class='flex_row jc_flex_end activity_endTime'>活动结束时间：{{item.data[0].activity_endtime}}</view>
 
@@ -141,8 +142,9 @@
                         <image src='{{osscdn}}{{goods_item.goods_cover}}'
                           class='goods_bigImg_class' mode="aspectFill"></image>
                           <view class='classifly_goods_tip' wx:if='{{goods_item.label!=1}}'>{{goods_item.label==2?'拼团':'折扣'}}</view>
-                        <view class='flex_column jc_flex_end goods_bigImg_content'  wx:if='{{goods_item.label!=1}}'>
-                          <view class='flex_row jc_flex_end activity_endTime'>活动结束时间：{{goods_item.activity_time}}</view>
+                          <view class='classifly_goods_tip' wx:if='{{goods_item.label==1&&classifly_index==2}}'>新品</view>
+                          <view class='flex_column jc_flex_end goods_bigImg_content'  wx:if='{{goods_item.label!=1}}'>
+                          <!-- <view class='flex_row jc_flex_end activity_endTime'>活动结束时间：{{goods_item.activity_time}}</view> -->
                         </view>
                       </view>
                       <view class='flex_column classifly_goods_content'>
@@ -170,7 +172,7 @@
         <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
           <view class='shop_introduce_content'>
             <view class='flex_column ai_flex_center qr_code '>
-              <image src='{{shop.wxacode_image}}' class='qr_code_image'></image>
+              <image src='{{osscdn}}{{shop.wxacode_image}}' bindtap="previewWxacodeImage" class='qr_code_image'></image>
               <view class='qr_code_text'>微信扫码可打开店铺，并自动关注店铺</view>
             </view>
             <view class="global_cell ">
@@ -217,7 +219,7 @@
             </view>
           </view>
           <block wx:for='{{imgUrls}}' wx:key='*this'>
-            <image class='shop_introduce_image' src='{{osscdn}}{{item}}'></image>
+            <image class='shop_introduce_image' bindtap="previewImageNav" data-index="{{index}}" src='{{osscdn}}{{item}}'></image>
           </block>
         </view>
       </view>

@@ -1,11 +1,14 @@
 // pages/my/wallet/discountRecord/discountRecord.js
+import api from "../../../../utils/api"
+import utils from "../../../../utils/utils"
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    page:1,
+    infoList:[],
   },
 
   /**
@@ -26,7 +29,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var that=this
+    that.setData({
+      token:wx.getStorageSync('token'),
+      page:1,
+      infoList:[],
+    })
+    that.getWithdrawInfo()
   },
 
   /**
@@ -47,14 +56,22 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    that.show()
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    var that=this
+    if(that.data.infoList.length==0){
+      return false
+    }
+    var page=Number(that.data.page)+1
+    that.setData({
+      page:page,
+    })
+    that.getWithdrawInfo()
   },
 
   /**
@@ -71,5 +88,23 @@ Page({
         imageUrl:'/images/logo.png',
       }
     }
+  },
+  //获取提现发起记录
+  getWithdrawInfo:function(){
+    var that=this
+    var infoList=that.data.infoList
+    utils.util.post(api.getWithdrawInfo,{
+      page:that.data.page,
+      limit:10,
+      token:that.data.token
+    },res=>{
+      var list=res.data.list
+      if(list.length>0){
+        infoList=infoList.concat(list)
+        that.setData({
+          infoList:infoList,
+        })
+      }
+    })
   }
 })

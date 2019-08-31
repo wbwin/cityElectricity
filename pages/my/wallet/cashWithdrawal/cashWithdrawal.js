@@ -1,4 +1,6 @@
 // pages/my/wallet/cashWithdrawal/cashWithdrawal.js
+import api from "../../../../utils/api"
+import utils from "../../../../utils/utils"
 Page({
 
   /**
@@ -11,6 +13,7 @@ Page({
     bankNumber:'',
     name:'',
     cashPrice:'',
+    token:'',
   },
 
   /**
@@ -44,7 +47,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var that=this
+    that.setData({
+      token:wx.getStorageSync('token')
+    })
   },
 
   /**
@@ -111,6 +117,17 @@ Page({
         confirmText:'确定',
         confirmColor:"#646981",
       })
+      return false
+    }
+    if(cashPrice<100){
+      wx.showModal({
+        title:'提示',
+        content:'提现金额不能小于100',
+        showCancel:false,
+        confirmText:'确定',
+        confirmColor:"#646981",
+      })
+      return false
     }
     if(!bankName||!bankNumber||!name||!cashPrice){
       wx.showModal({
@@ -120,7 +137,42 @@ Page({
         confirmText:'确定',
         confirmColor:"#646981",
       })
+      return false
     }
+    if(!utils.checkCard(bankNumber)){
+      wx.showModal({
+        title:'提示',
+        content:'银行卡号格式错误',
+        showCancel:false,
+        confirmText:'确定',
+        confirmColor:"#646981",
+      })
+      return false
+    }
+    utils.util.post(api.addWithdrawInfo,{
+      real_name:name,
+      price:cashPrice,
+      bank_name:bankName,
+      bank_account:bankNumber,
+      token:that.data.token,
+    },res=>{
+      wx.showModal({
+        title:'提示',
+        content:'提现申请成功',
+        showCancel:false,
+        confirmText:'好的',
+        confirmColor:"#646981",
+        success (res) {
+          if (res.confirm) {
+            wx.redirectTo({
+              url: '/pages/my/wallet/discountRecord/discountRecord'
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+    })
   },
   //银行名称
   bankNameInput:function(e){

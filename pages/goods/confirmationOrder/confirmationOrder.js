@@ -33,6 +33,7 @@ Page({
     get_name:'',//到店自取姓名
     get_tel:'',//到店自取电话
     order_sn:'',//订单编号
+    logistics_price:0,
   },
 
   /**
@@ -133,9 +134,25 @@ Page({
   },
   //切换tab
   tabClick: function (e) {
+    var that=this
+    var orderData=that.data.orderData
+    var activeIndex=e.currentTarget.id
+    if(activeIndex==0){
+      if(that.data.addressTransformation){
+        wx.showLoading();
+        that.getCoder(that.data.addressTransformation)
+      }
+    }else{
+      orderData.logistics_price=0
+      var pay_price=(Number(orderData.order_price)+Number(orderData.logistics_price)).toFixed(2)
+      that.setData({
+          orderData:orderData,
+          pay_price:pay_price
+      })
+    }
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
-      activeIndex: e.currentTarget.id
+      activeIndex: activeIndex
     });
   },
   //切换tab
@@ -187,6 +204,7 @@ Page({
     qqmapsdk.geocoder({
       address:address,
       success:function(res){
+        console.log(res)
         if(res.status==0){
           that.setData({
             userLocation:res.result.location
@@ -198,15 +216,21 @@ Page({
             },
             to: [{latitude:orderData.address_lat,longitude:orderData.address_lng}], //strs为字符串，末尾的“；”要去掉
             success: function (res) {
+              wx.hideLoading()
               console.log(res)
               if(res.status==0){
                 var distance=(Number(res.result.elements[0].distance)/1000).toFixed(2)
                 if(distance<orderData.max_logistics_length){
-                  orderData.logistics_price==0
-                  that.setData({
-                    orderData:orderData
-                  })
+                  orderData.logistics_price=0
+                  var pay_price=(Number(orderData.order_price)).toFixed(2)
+                }else{
+                  orderData.logistics_price=that.data.logistics_price
+                  var pay_price=(Number(orderData.order_price)+Number(orderData.logistics_price)).toFixed(2)
                 }
+                that.setData({
+                  orderData:orderData,
+                  pay_price:pay_price
+                })
               }
             }
           })
@@ -232,11 +256,13 @@ Page({
         osscdn:res.osscdn,
         orderData:res.data,
         pay_price:pay_price,
+        logistics_price:res.data.logistics_price
       })
       //默认地址
       if(wx.getStorageSync('defaultAddress')){
+        wx.showLoading()
         var defaultAddress=JSON.parse(wx.getStorageSync('defaultAddress'))
-  
+        console.log(163)
         that.setData({
           addressName: defaultAddress.userName,
           addressPhone: defaultAddress.telNumber,
@@ -310,9 +336,9 @@ Page({
         get_name:get_name,
         get_tel:get_tel,
         logistics_action:logistics_action,
-        // get_address_text:'',
-        // get_address_lng:'',
-        // get_address_lat:'',
+        get_address_text:'1',
+        get_address_lng:'1',
+        get_address_lat:'1',
       }
     }
 

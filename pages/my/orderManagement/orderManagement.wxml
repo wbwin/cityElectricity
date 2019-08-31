@@ -32,7 +32,7 @@
                     <block wx:else>
       
                     <!-- 退款 -->
-                        <text class='order_goods_state regiment_order_goods_state' wx:if="{{item.logistics_action!=2}}">{{item.order_status==2&&item.aftersafe_status==2?'退款失败 待发货':item.order_status==2?'申请退款中...':item.order_status==3?'待收货':item.order_status==4&&item.aftersafe_status==2?'退款失败 已完成':item.order_status==4?'已退款':''}}</text>
+                        <text class='order_goods_state regiment_order_goods_state' wx:if="{{item.logistics_action!=2}}">{{item.order_status==2&&item.aftersafe_status==2?'退款失败 待发货':item.order_status==2?'申请退款中...':item.order_status==3?'待收货':item.order_status==4&&item.aftersafe_status==2?'退款失败 已完成':item.order_status==4&&item.aftersafe_status==0?'退款中...':item.order_status==4?'已退款':''}}</text>
                     </block>
               </block>
               <!-- 非拼团单-->
@@ -46,7 +46,7 @@
               <block wx:else>
 
               <!-- 退款 -->
-                  <text class='order_goods_state regiment_order_goods_state' wx:if="{{item.logistics_action!=2}}">{{item.order_status==2&&item.aftersafe_status==2?'退款失败 待发货':item.order_status==2?'申请退款中...':item.order_status==3?'待收货':item.order_status==4&&item.aftersafe_status==2?'退款失败 已完成':item.order_status==4?'已退款':''}}</text>
+                  <text class='order_goods_state regiment_order_goods_state' wx:if="{{item.logistics_action!=2}}">{{item.order_status==2&&item.aftersafe_status==2?'退款失败 待发货':item.order_status==2?'申请退款中...':item.order_status==3?'待收货':item.order_status==4&&item.aftersafe_status==2?'退款失败 已完成':item.order_status==4&&item.aftersafe_status==0?'退款中...':item.order_status==4?'已退款':''}}</text>
               </block>
             </block>
             </view>

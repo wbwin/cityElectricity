@@ -25,7 +25,7 @@
             <block wx:for="{{listData}}" wx:key='index' wx:for-item="item">
               <view class='shop_poster_item'>
                 <navigator url="/pages/shop/shop?id={{item.id}}" class='shop_poster' hover-class="btn-hover">
-                  <image src='{{osscdn}}{{item.shop_image}}' class='shop_poster_img'>
+                  <image src='{{osscdn}}{{item.shop_image}}' mode="aspectFill" class='shop_poster_img'>
                   </image>
                   <view class='flex_row shop_poster_content'>
                     <image src='{{osscdn}}{{item.shop_avatar}}' class='head_portrait'>

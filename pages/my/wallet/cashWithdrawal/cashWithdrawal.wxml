@@ -4,26 +4,26 @@
     <text class='cashWithdrawal_text'>提现金额：</text>
     <view class='flex_row cashWithdrawal'>
       <text class='cashWithdrawal_symbol'>￥</text>
-      <input class='cashWithdrawal_input' placeholder='{{if_withdrawal?"最多可提现200元":"金额不足100元，无法提现"}}'
-        type='text'></input>
+      <input class='cashWithdrawal_input' bindinput="cashPriceInput" placeholder='{{if_withdrawal?"最多可提现"+money+"元":"金额不足100元，无法提现"}}'
+        type='number'></input>
       <text class="cashWithdrawal_money">￥{{money}}</text>
     </view>
     <view class='cashWithdrawal_tip'>金额满100元即可提现</view>
   </view>
   <view class='flex_row default_input_list'>
     <text class='default_input_text'>银行名称</text>
-    <input class='default_input weui-flex__item' type='text' bindinput="shopName" placeholder='请输入银行名称'></input>
+    <input class='default_input weui-flex__item' type='text' bindinput="bankNameInput" placeholder='请输入银行名称'></input>
   </view>
   <view class='flex_row default_input_list'>
     <text class='default_input_text'>银行卡号</text>
-    <input class='default_input weui-flex__item' type='text' bindinput="shopName" placeholder='请输入银行卡号'></input>
+    <input class='default_input weui-flex__item' type='number' bindinput="bankNumberInput" placeholder='请输入银行卡号'></input>
   </view>
   <view class='flex_row default_input_list'>
     <text class='default_input_text'>姓名</text>
-    <input class='default_input weui-flex__item' type='text' bindinput="shopName" placeholder='请输入姓名'></input>
+    <input class='default_input weui-flex__item' type='text' bindinput="nameInput" placeholder='请输入姓名'></input>
   </view>
   <view class="default-bottom-button">
     <button class="default-bottom-button-1" bindtap="record">提现记录</button>
-    <button class='default-bottom-button-2' >提现</button>
+    <button class='default-bottom-button-2' bindtap="cash">提现</button>
   </view>
 </view>
