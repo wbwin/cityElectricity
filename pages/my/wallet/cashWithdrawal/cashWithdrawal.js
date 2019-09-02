@@ -139,16 +139,16 @@ Page({
       })
       return false
     }
-    if(!utils.checkCard(bankNumber)){
-      wx.showModal({
-        title:'提示',
-        content:'银行卡号格式错误',
-        showCancel:false,
-        confirmText:'确定',
-        confirmColor:"#646981",
-      })
-      return false
-    }
+    // if(!utils.checkCard(bankNumber)){
+    //   wx.showModal({
+    //     title:'提示',
+    //     content:'银行卡号格式错误',
+    //     showCancel:false,
+    //     confirmText:'确定',
+    //     confirmColor:"#646981",
+    //   })
+    //   return false
+    // }
     utils.util.post(api.addWithdrawInfo,{
       real_name:name,
       price:cashPrice,

@@ -223,7 +223,7 @@ Page({
     })
     var index=e.currentTarget.dataset.index
     var dynamicsData=that.data.dynamicsData
-    var img_array=dynamicsData.img_json
+    var img_array=JSON.parse(JSON.stringify(dynamicsData.img_json))
     var osscdn=that.data.osscdn
     for(var i in img_array){
       img_array[i]=osscdn+img_array[i]

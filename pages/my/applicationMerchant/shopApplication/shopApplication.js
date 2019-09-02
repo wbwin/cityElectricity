@@ -268,6 +268,7 @@ Page({
           confirmText:'确定',
           confirmColor:"#646981",
         })
+        return false
       }
       if(open_starttime =='请选择'||open_starttime == ''||open_endtime == '请选择' || open_endtime == ''){
           wx.showModal({
@@ -277,6 +278,7 @@ Page({
           confirmText:'确定',
           confirmColor:"#646981",
         })
+        return false
       }
       if(is_supplier){
         is_apply_supplier = 1
@@ -335,7 +337,8 @@ Page({
           open_endtime:open_endtime,
           shop_img_json:shop_img_json,
           is_apply_supplier:is_apply_supplier,
-          token:token
+          token:token,
+          unNavigateBack:true,
       },res=>{
         wx.showModal({
           title:'提示',

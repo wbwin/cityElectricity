@@ -13,7 +13,7 @@
     <view class='dynamicDetail_shop_content'>{{dynamicsData.content}}</view>
     <view class='dynamic_shop_image flex_column' wx:if="dynamicsData.img_json.length>0">
       <block wx:for="{{dynamicsData.img_json}}" wx:key="*this">
-        <image src='{{osscdn}}{{item}}' bindtap="previewImage" data-index="{{index}}" class='dynamic_shop_image_item'></image>
+        <image src='{{osscdn}}{{item}}' bindtap="previewImage" mode="widthFix" data-index="{{index}}" class='dynamic_shop_image_item'></image>
       </block>
     </view>
     <view class='dynamicDetail_content'>
@@ -25,7 +25,7 @@
       <block wx:for="{{dynamicsData.goods_info}}" wx:key="*this">
         <navigator url='/pages/goods/goods?goods_id={{item.id}}&shop_id={{dynamicsData.shop_id}}'>
         <view class='flex_row dynamic_goods_list'>
-          <image class='dynamic_goods_image ' src='{{osscdn}}{{item.goods_cover}}'></image>
+          <image class='dynamic_goods_image ' mode="aspectFill" src='{{osscdn}}{{item.goods_cover}}'></image>
           <view class='flex_column jc_flex_sb weui-flex__item'>
             <text class='textEllipsisTwo dynamic_goods_name'>{{item.goods_name}}</text>
             <text class='dynamic_goods_price'>¥{{item.price}}</text>

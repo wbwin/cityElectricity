@@ -70,7 +70,7 @@
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
           <rich-text class="" nodes="{{goodsDetail.content}}"></rich-text>
         </view>
-        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+        <view class="weui-tab__content" style="padding-bottom: 130rpx" hidden="{{activeIndex != 1}}">
           <block wx:if="{{goodsDetail.comment_info.length>0}}">
           <block wx:for='{{goodsDetail.comment_info}}' wx:key='*this'>
             <view class='flex_row ai_flex_start comment_item'>

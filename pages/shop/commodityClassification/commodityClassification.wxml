@@ -28,7 +28,7 @@
       <block wx:for='{{goods_list}}' wx:key='*this'>
           <!-- <navigator url='/pages/goods/goods?goods_id={{item.goods_id}}' > -->
           <view class='flex_row goods_item'>
-          <image class='goods_image' src='{{osscdn}}{{item.goods_cover}}'></image>
+          <image class='goods_image' mode="aspectFill" src='{{osscdn}}{{item.goods_cover}}'></image>
           <view class='goods_item_tip' wx:if='{{item.label!=1}}'>{{item.label==2?'拼团':'折扣'}}</view>
           <view class='flex_column weui-flex__item jc_flex_sb goods_content'>
             <view class='goods_name textEllipsisTwo'>{{item.goods_name}}</view>

@@ -301,9 +301,24 @@ Page({
   },
   /*联系店主*/
   showShopContact() {
-    this.setData({
-      showShopContact: !this.data.showShopContact
+    var that=this
+    wx.showActionSheet({
+      itemList: ['拨打电话', '复制微信号'],
+      success (res) {
+        console.log(res.tapIndex)
+        if(res.tapIndex==0){
+          that.phoneCall();
+        }else{
+          that.setClipboardData();
+        }
+      },
+      fail (res) {
+        console.log(res.errMsg)
+      }
     })
+    // this.setData({
+    //   showShopContact: !this.data.showShopContact
+    // })
   },
   /*拨打电话*/
   phoneCall: function () {
@@ -468,13 +483,14 @@ Page({
     that.setData({
       onShowTrue:false
     })
-    var imgUrls=that.data.imgUrls
+    var imgUrls=JSON.parse(JSON.stringify(that.data.imgUrls))
     var index=e.currentTarget.dataset.index
     var osscdn=that.data.osscdn
     for(var i in imgUrls){
       imgUrls[i]=osscdn+imgUrls[i]
     }
-    
+    console.log(imgUrls[index])
+    console.log(imgUrls)
     utils.previewImage(imgUrls,imgUrls[index])
   },
 })

@@ -250,7 +250,8 @@ Page({
           address_lng:address_lng,
           leader_name:leader_name,
           leader_tel:leader_tel,
-          supplier_img_json:supplier_img_json
+          supplier_img_json:supplier_img_json,
+          unNavigateBack:true,
       },res=>{
         wx.showModal({
           title:'提示',

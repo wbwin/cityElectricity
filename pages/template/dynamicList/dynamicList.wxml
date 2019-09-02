@@ -31,7 +31,7 @@
     <block wx:for="{{item.goods_info}}" wx:for-item='goods_item' wx:for-index='goods_index' wx:key="*this">
       <navigator url='/pages/goods/goods?goods_id={{goods_item.id}}&shop_id={{item.shop_id}}'>
       <view class='flex_row dynamic_goods_list'>
-        <image class='dynamic_goods_image ' src='{{osscdn}}{{goods_item.goods_cover}}'></image>
+        <image class='dynamic_goods_image ' mode="aspectFill" src='{{osscdn}}{{goods_item.goods_cover}}'></image>
         <view class='flex_column jc_flex_sb weui-flex__item'>
           <text class='textEllipsisTwo dynamic_goods_name'>{{goods_item.goods_name}}</text>
           <text class='dynamic_goods_price'>¥{{goods_item.price}}</text>

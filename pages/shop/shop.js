@@ -235,9 +235,24 @@ Page({
   },
   /*联系店主*/
   showShopContact() {
-    this.setData({
-      showShopContact: !this.data.showShopContact
+    var that=this
+    wx.showActionSheet({
+      itemList: ['拨打电话', '复制微信号'],
+      success (res) {
+        console.log(res.tapIndex)
+        if(res.tapIndex==0){
+          that.callPhone();
+        }else{
+          that.copyWechat();
+        }
+      },
+      fail (res) {
+        console.log(res.errMsg)
+      }
     })
+    // this.setData({
+    //   showShopContact: !this.data.showShopContact
+    // })
   },
   // 动态详情
   dynamicDetails:function (e) {
@@ -436,7 +451,7 @@ Page({
     that.setData({
       onShowTrue:false
     })
-    var imgUrls=that.data.imgUrls
+    var imgUrls=JSON.parse(JSON.stringify(that.data.imgUrls))
     var index=e.currentTarget.dataset.index
     var osscdn=that.data.osscdn
     for(var i in imgUrls){

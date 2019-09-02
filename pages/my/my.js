@@ -125,7 +125,7 @@ Page({
     let that = this;
     wx.request({
       url: config.ApiUrl + api.getPlatformService,
-      data: {},
+      data: {unLoading:true},
       method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
       success: function(res){
@@ -148,7 +148,7 @@ Page({
       username:res.detail.userInfo.nickName,
       avatar:res.detail.userInfo.avatarUrl,
       city:res.detail.userInfo.city,
-      show:true
+      show:true,
     })
     wx.login({
       success: function(res){
@@ -327,7 +327,8 @@ Page({
     var that=this
     var token=wx.getStorageSync('token')
     utils.util.post(api.getUserInfo,{
-      token:token
+      token:token,
+      unLoading:true,
     },res=>{
       console.log(res)
       res.data.token=token

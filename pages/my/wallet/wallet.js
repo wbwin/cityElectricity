@@ -105,7 +105,8 @@ Page({
   getUserInfo:function(){
     var that=this
     utils.util.post(api.getUserInfo,{
-      token:that.data.token
+      token:that.data.token,
+      unLoading:true
     },res=>{
       that.setData({
         userInfo:res.data,

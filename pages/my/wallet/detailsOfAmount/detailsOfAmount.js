@@ -95,7 +95,8 @@ Page({
     var is_settle=type==1?'1':'0'
     utils.util.post(api.getAdminWallet,{
       is_settle:is_settle,
-      token:that.data.token
+      token:that.data.token,
+      unLoading:true
     },res=>{
       that.setData({
         walletList:res.data.list,

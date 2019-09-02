@@ -91,7 +91,7 @@ util.ajax = obj => {
   function request() {
     let data = obj.data;
 
-    if (extra.loading) {
+    if (extra.loading&&!obj.data.unLoading) {
       wx.showLoading({
         title: '加载中',
         mask: true
@@ -137,9 +137,11 @@ util.ajax = obj => {
             showCancel: false,
             success (res) {
               if (res.confirm) {
-                wx.navigateBack({
-                  delta:1
-                })
+                if(!obj.data.unNavigateBack){
+                  wx.navigateBack({
+                    delta:1
+                  })
+                }
               } else if (res.cancel) {
                 console.log('用户点击取消')
               }

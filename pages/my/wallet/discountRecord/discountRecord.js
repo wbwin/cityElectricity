@@ -96,7 +96,8 @@ Page({
     utils.util.post(api.getWithdrawInfo,{
       page:that.data.page,
       limit:10,
-      token:that.data.token
+      token:that.data.token,
+      unLoading:true
     },res=>{
       var list=res.data.list
       if(list.length>0){

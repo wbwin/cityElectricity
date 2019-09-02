@@ -84,7 +84,8 @@ Page({
     let that = this;
     let token = wx.getStorageSync('token');
     utils.util.post(api.getApplyStatus,{
-      token:token
+      token:token,
+      unLoading:true
     },res=>{
       that.setData({
         applyStatus:res.data,
