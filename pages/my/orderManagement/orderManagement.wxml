@@ -15,7 +15,7 @@
         <view class="weui-tab__content" wx:if="{{orderList.length>0}}">
           <block wx:for='{{orderList}}' wx:key='*this'>
             <view class='flex_row jc_flex_end order_item_state'>
-                <navigator url='/pages/shop/shop?id={{item.shop_id}}' class='order_item'>
+                <navigator url='/pages/shop/shop?id={{item.shop_id}}' class='order_item' hover-class='none'>
 
                 <image class="shopIcon" src="{{osscdn}}{{item.shop_avatar}}" mode="aspectFill"/>
                 <text>{{item.shop_name}}</text>
@@ -50,7 +50,7 @@
               </block>
             </block>
             </view>
-            <navigator url='./orderDetail/orderDetail?order_sn={{item.order_sn}}' class='order_item'>
+            <navigator url='./orderDetail/orderDetail?order_sn={{item.order_sn}}' class='order_item' hover-class='none'>
 
               <view class='flex_row  order_goods'>
                 <image class='order_goods_image' src='{{osscdn}}{{item.goods_cover}}'></image>
@@ -89,6 +89,8 @@
           </block>
         </view>
         <template is="noDatas" data="{{paddingTop:'272rpx',text1:'暂无订单'}}" wx:else/>
+        <view class="flex_row jc_flex_center bottom_tips" wx:if="{{showBottomTips}}">— 已经到底啦 —</view>
+
       </view>
     </view>
   </view>

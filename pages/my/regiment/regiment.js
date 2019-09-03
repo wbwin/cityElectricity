@@ -18,6 +18,7 @@ Page({
     osscdn:'',
     page:1,
     groupList:[],
+    showBottomTips:false,
   },
 
   /**
@@ -63,7 +64,6 @@ Page({
     that.setData({
       token:wx.getStorageSync('token'),
       page:1,
-      groupList:[],
     })
     that.getUserGroup()
   },
@@ -90,7 +90,6 @@ Page({
     that.setData({
       token:wx.getStorageSync('token'),
       page:1,
-      groupList:[],
     })
     that.getUserGroup()
   },
@@ -100,6 +99,9 @@ Page({
    */
   onReachBottom: function () {
     var that=this
+    if(that.data.showBottomTips){
+      return false
+    }
     if(that.data.groupList.length==0){
       return false
     }
@@ -139,7 +141,6 @@ Page({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id,
       page:1,
-      groupList:[],
     });
     that.getUserGroup()
   },
@@ -147,13 +148,19 @@ Page({
   //获取我的拼团列表
   getUserGroup:function(){
     var that=this
-    var groupList=that.data.groupList
+    var groupList=that.data.page==1?[]:that.data.groupList
     var group_status=Number(that.data.activeIndex)+1
+    if(that.data.page==1){
+      that.setData({
+        showBottomTips:false
+      })
+    }
     utils.util.post(api.getUserGroup,{
       page:that.data.page,
       limit:10,
       group_status:group_status,
-      token:that.data.token
+      token:that.data.token,
+      unLoading:true,
     },res=>{
       var list=res.data.list
       if(list.length>0){
@@ -161,6 +168,10 @@ Page({
         that.setData({
           groupList:groupList,
           osscdn:res.osscdn
+        })
+      }else{
+        that.setData({
+          showBottomTips:page==1?false:true
         })
       }
     })

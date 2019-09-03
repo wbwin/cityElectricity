@@ -118,7 +118,8 @@ Page({
     const token = wx.getStorageSync('token');
     utils.util.post(api.getShopDetail,{
       token:token,
-      shop_id:that.data.shop_id
+      shop_id:that.data.shop_id,
+      unLoading:true,
     },res=>{
       var shop = res.data.shop;
 
@@ -137,6 +138,7 @@ Page({
       goods_id:that.data.goods_id,
       token:wx.getStorageSync('token'),
       shop_id:that.data.shop_id,
+      unLoading:true,
     },res=>{
       that.setData({
         osscdn:res.osscdn,

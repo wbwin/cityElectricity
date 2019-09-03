@@ -98,6 +98,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    var that=this
     that.getMoreGoods()
   },
 
@@ -216,6 +217,7 @@ Page({
       shop_id:that.data.shop_id,
       search:that.data.sortIndex,
       type:that.data.type,
+      unLoading:true,
       // search_text:that.data.search_text,
     },res=>{
       var goods_list=res.data

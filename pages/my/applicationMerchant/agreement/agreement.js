@@ -79,7 +79,7 @@ Page({
     const that = this;
     wx.request({
       url: config.ApiUrl + api.getProtocolToApply,
-      data: {},
+      data: {unLoading:true,},
       method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
       success: function(res){

@@ -31,6 +31,7 @@ Page({
     dynaPage:1,//动态页数
     dynamicsList:[],//动态列表
     onShowTrue:false,
+    showBottomTips:false,
   },
   onLoad: function () {
     var that = this;
@@ -49,8 +50,6 @@ Page({
     });
     that.setData({
       dynaPage:1,
-      dynamicsList:[],
-      shopList:[],
       shopPage:1,
     })
     that.getBanner();//banner
@@ -67,8 +66,6 @@ Page({
     }
     that.setData({
       dynaPage:1,
-      dynamicsList:[],
-      shopList:[],
       shopPage:1,
     })
     that.getBanner();//banner
@@ -77,6 +74,9 @@ Page({
   },
   onReachBottom:function(){
     var that=this
+    if(that.data.showBottomTips){
+      return false
+    }
     if(that.data.activeIndex==1){
       if(that.data.dynamicsList.length==0){
         return false
@@ -101,8 +101,6 @@ Page({
     var that=this
     that.setData({
       dynaPage:1,
-      dynamicsList:[],
-      shopList:[],
       shopPage:1,
     })
     that.getBanner();//banner
@@ -136,11 +134,17 @@ Page({
     const that = this;
     const token = wx.getStorageSync('token');
     var page=that.data.shopPage
-    var shopList=that.data.shopList
+    var shopList=page==1?[]:that.data.shopList
+    if(page==1){
+      that.setData({
+        showBottomTips:false
+      })
+    }
     utils.util.post(api.getUserShop,{
       token:token,
       page:page,
       limit:10,
+      unLoading:true,
     },res=>{
       var list=res.data.list
       if(list.length>0){
@@ -151,6 +155,10 @@ Page({
         osscdn:res.osscdn
       })
       console.log(shopList)
+      }else{
+        that.setData({
+          showBottomTips:page==1?false:true
+        })
       }
     })
     
@@ -281,11 +289,17 @@ Page({
     }
     var osscdn=that.data.osscdn
     var page=that.data.dynaPage
-    var dynamicsList=that.data.dynamicsList
+    var dynamicsList=page==1?[]:that.data.dynamicsList
+    if(page==1){
+      that.setData({
+        showBottomTips:false
+      })
+    }
     utils.util.post(api.getDynamicsInfo,{
       page:page,
       limit:10,
-      token:token
+      token:token,
+      unLoading:true,
     },res=>{
       var list=res.data.list
       if(list.length>0){
@@ -302,6 +316,10 @@ Page({
         osscdn:res.osscdn
       })
       console.log(dynamicsList)
+    }else{
+      that.setData({
+        showBottomTips:page==1?false:true
+      })
     }
     })
   },

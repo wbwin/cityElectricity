@@ -183,7 +183,8 @@ Page({
     const token = wx.getStorageSync('token');
     utils.util.post(api.getShopDetail,{
       token:token,
-      shop_id:e
+      shop_id:e,
+      unLoading:true,
     },res=>{
       var categroy_list=[]
       if(res.data.categroy){
@@ -217,6 +218,7 @@ Page({
       type:1,
       category_id:that.data.category_id,
       search_text:that.data.search_text,
+      unLoading:true,
     },res=>{
       var goods_list=res.data.goods
       that.setData({

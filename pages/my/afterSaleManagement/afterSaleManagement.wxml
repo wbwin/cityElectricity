@@ -17,7 +17,7 @@
             <view class="order_item">
             <!-- <navigator url='./orderDetail/orderDetail' class='order_item'> -->
             <view class='flex_row jc_flex_end order_item_state'>
-                <navigator url='/pages/shop/shop?id={{item.shop_id}}' class='order_item_nav'>
+                <navigator url='/pages/shop/shop?id={{item.shop_id}}' class='order_item_nav' hover-class='none'>
                 <image class="shopIcon" src="{{osscdn}}{{item.shop_avatar}}" mode="aspectFill"/>
                 <text>{{item.shop_name}}</text>
                 <image class="rightIcon" src="{{rightIcon}}" />
@@ -56,6 +56,8 @@
           </block>
         </view>
         <template is="noDatas" data="{{paddingTop:'272rpx',text1:'暂无订单'}}" wx:else/>
+        <view class="flex_row jc_flex_center bottom_tips" wx:if="{{showBottomTips}}">— 已经到底啦 —</view>
+
       </view>
     </view>
   </view>

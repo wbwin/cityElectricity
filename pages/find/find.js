@@ -30,6 +30,7 @@ Page({
     dynaPage:1,//动态页数
     dynamicsList:[],//动态列表
     onShowTrue:false,
+    showBottomTips:false,
   },
   onLoad: function () {
     var that = this;
@@ -48,8 +49,6 @@ Page({
     });
     that.setData({
       dynaPage:1,//动态页数
-      dynamicsList:[],//动态列表
-      listData:[],
       shopPage:1,
       searchText:'',
       shopSearchText:'',
@@ -69,8 +68,6 @@ Page({
     }
     that.setData({
       dynaPage:1,//动态页数
-      dynamicsList:[],//动态列表
-      listData:[],
       shopPage:1,
       searchText:'',
       shopSearchText:'',
@@ -80,10 +77,11 @@ Page({
     that.getDynamicsInfoToPlatform()
   },
   onReachBottom:function(){
-    console.log(13234734)
 
     var that=this
-    
+      if(that.data.showBottomTips){
+        return false
+      }
     if(that.data.activeIndex==1){
       if(that.data.dynamicsList.length==0){
         return false
@@ -108,8 +106,6 @@ Page({
     var that=this
     that.setData({
       dynaPage:1,
-      dynamicsList:[],
-      listData:[],
       shopPage:1,
     })
     that.getPlatformShop();//加载数据
@@ -154,6 +150,7 @@ Page({
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id,
+      showBottomTips:false
     });
   },
   //切换tab
@@ -219,11 +216,17 @@ Page({
     const that = this;
     // const token = wx.getStorageSync('token');
     var shopPage=that.data.shopPage
-    var listData=that.data.listData
+    var listData=shopPage==1?[]:that.data.listData
+    if(shopPage==1){
+      that.setData({
+        showBottomTips:false
+      })
+    }
     utils.util.post(api.getPlatformShop,{
       page:shopPage,
       limit:10,
       search_text:that.data.searchText,
+      unLoading:true,
     },res=>{
       var data=res.data.data
       if(data.length>0){
@@ -232,6 +235,11 @@ Page({
         listData:listData,
         osscdn:res.osscdn
       })
+    }else{
+      that.setData({
+        showBottomTips:shopPage==1?false:true
+      })
+      
     }
     })
   },
@@ -266,12 +274,18 @@ Page({
     var that=this
     const token=wx.getStorageSync('token')
     var page=that.data.dynaPage
-    var dynamicsList=that.data.dynamicsList
+    var dynamicsList=page==1?[]:that.data.dynamicsList
+    if(page==1){
+      that.setData({
+        showBottomTips:false
+      })
+    }
     utils.util.post(api.getDynamicsInfoToPlatform,{
       page:page,
       limit:10,
       token:token,
       search_text:that.data.searchText,
+      unLoading:true,
     },res=>{
       var list=res.data.list
       if(list.length>0){
@@ -287,6 +301,10 @@ Page({
         osscdn:res.osscdn
       })
       console.log(dynamicsList)
+    }else{
+      that.setData({
+        showBottomTips:page==1?false:true
+      })
     }
     })
   },
@@ -351,13 +369,11 @@ Page({
     if(activeIndex==0){
       that.setData({
         shopPage:1,
-        listData:[]
       })
       that.getPlatformShop();//加载数据
     }else{
       that.setData({
         dynaPage:1,
-        dynamicsList:[]
       })
       that.getDynamicsInfoToPlatform()
     }

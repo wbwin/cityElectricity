@@ -1,6 +1,7 @@
 /* pages/goods/goods.wxss */
 .page{
-  margin-bottom: 98rpx;
+  height: auto;
+  padding-bottom: 2rpx
 }
 .share{
   position:absolute;

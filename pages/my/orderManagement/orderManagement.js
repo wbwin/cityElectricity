@@ -18,6 +18,7 @@ Page({
     token:'',
     osscdn:'',
     orderList:[],//订单列表
+    showBottomTips:false,
   },
 
   /**
@@ -47,7 +48,6 @@ Page({
     that.setData({
       token:wx.getStorageSync('token'),
       page:1,
-      orderList:[],
     })
     that.getUserOrder();
   },
@@ -67,7 +67,6 @@ Page({
     that.setData({
       token:wx.getStorageSync('token'),
       page:1,
-      orderList:[],
     })
     that.getUserOrder();
   },
@@ -93,7 +92,6 @@ Page({
     var that=this
     that.setData({
       page:1,
-      orderList:[],
     })
     that.getUserOrder()
     // wx.showToast({
@@ -107,6 +105,9 @@ Page({
    */
   onReachBottom: function () {
     var that=this
+    if(that.data.showBottomTips){
+      return false
+    }
     if(that.data.orderList.length==0){
       return false
     }
@@ -139,7 +140,6 @@ Page({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id,
       page:1,
-      orderList:[],
     });
     that.getUserOrder()
   },
@@ -149,12 +149,18 @@ Page({
     var page=that.data.page
     var order_status=Number(that.data.activeIndex)+1
     order_status=order_status==1?'':order_status
-    var orderList=that.data.orderList
+    var orderList=page==1?[]:that.data.orderList
+    if(page==1){
+      that.setData({
+        showBottomTips:false
+      })
+    }
     utils.util.post(api.getUserOrder,{
       token:that.data.token,
       page:page,
       limit:10,
-      order_status:order_status
+      order_status:order_status,
+      unLoading:true,
     },res=>{
       if(res.data.list.length>0){
         var listData=res.data.list
@@ -166,6 +172,10 @@ Page({
         that.setData({
           osscdn:res.osscdn,
           orderList:orderList
+        })
+      }else{
+        that.setData({
+          showBottomTips:page==1?false:true
         })
       }
       

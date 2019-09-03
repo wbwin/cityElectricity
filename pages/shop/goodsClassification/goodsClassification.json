@@ -1,5 +1,5 @@
 {
   "navigationBarTitleText": "分类",
   "enablePullDownRefresh": true,
-  "onReachBottomDistance": 50
+  "onReachBottomDistance": 100
 }

@@ -46,7 +46,7 @@
       </view>
     </view>
     <view class='line_border'></view>
-    <navigator url='/pages/followNumb/followNumb' class='flex_row goods_fans'>
+    <navigator url='/pages/followNumb/followNumb' class='flex_row goods_fans' hover-class='none'>
       <view class='flex_column fans_numb'>
         <view class='fans_numb_text'>54</view>
         <view class='fs10'>围观人数</view>

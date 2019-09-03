@@ -34,7 +34,7 @@
       </view>
     </view>
     <view class='line_border'></view>
-    <navigator url='/pages/followNumb/followNumb?shop_id={{shop.id}}&type=0'>
+    <navigator url='/pages/followNumb/followNumb?shop_id={{shop.id}}&type=0' hover-class='none'>
     <view class='flex_row fans_list'>
       <view class='flex_column fans_numb'>
         <view class='fans_numb_text'>{{shop.fans_count}}</view>
@@ -69,7 +69,7 @@
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
           <view class='flex_row goods_classify_list'>
             <block wx:for="{{goodsClassify}}" wx:key='*this'>
-            <navigator url='./commodityClassification/commodityClassification?shop_id={{shop_id}}&category_id={{item.id}}'>
+            <navigator url='./commodityClassification/commodityClassification?shop_id={{shop_id}}&category_id={{item.id}}' hover-class='none'>
               <view class='flex_column ai_flex_center goods_classify_item'>
                 <image class='classifly_icon' src='{{osscdn}}{{item.category_img}}'></image>
                 <view class="weui-navbar__title classifly_icon_text">{{item.category_name}}</view>
@@ -91,7 +91,7 @@
                 </view>
               </view>
               <view class="goodsClass" wx:if="{{item.data.length>0}}">
-                <navigator url='/pages/goods/goods?goods_id={{item.data[0].goods_id}}&shop_id={{shop_id}}' class='classifly_goods_bigList' hover-class="btn-hover">
+                <navigator url='/pages/goods/goods?goods_id={{item.data[0].goods_id}}&shop_id={{shop_id}}' class='classifly_goods_bigList' hover-class='none'>
                   <view class='classifly_goods_bigImg'>
                     <image src='{{osscdn}}{{item.data[0].goods_cover}}' class='goods_bigImg_class'
                       mode="aspectFill"></image>
@@ -107,7 +107,7 @@
                     </view>
                   </view>
                 </navigator>
-                  <navigator url='/pages/followNumb/followNumb?goods_id={{item.data[0].goods_id}}&shop_id={{shop_id}}&type=1' class='flex_row classifly_goods_fans'>
+                  <navigator url='/pages/followNumb/followNumb?goods_id={{item.data[0].goods_id}}&shop_id={{shop_id}}&type=1' class='flex_row classifly_goods_fans' hover-class='none'>
                     <view class='flex_column fans_numb'>
                       <view class='fans_numb_text'>{{item.data[0].browse_count}}</view>
                       <view class='fs10'>围观人数</view>
@@ -119,7 +119,7 @@
                       <image src='../../images/shop_list_more.png' class='fans_img' wx:if='{{item.data[0].browse.length>10}}'></image>
                     </view>
                   </navigator>
-                  <navigator url='/pages/goods/goods?goods_id={{item.data[0].goods_id}}&shop_id={{shop_id}}' class='classifly_goods_bigList' hover-class="btn-hover">
+                  <navigator url='/pages/goods/goods?goods_id={{item.data[0].goods_id}}&shop_id={{shop_id}}' class='classifly_goods_bigList' hover-class='none'>
 
                   <view class='flex_column classifly_goods_bigContent'>
                     <view class='goods_content_name' style='-webkit-line-clamp:1;'>{{item.data[0].goods_name}}
@@ -136,7 +136,7 @@
 
                 <view class='classifly_goods_smallWrap' wx:if='{{item.data.length>1}}'>
                   <block wx:for="{{item.data}}" wx:key='*this' wx:for-item='goods_item' wx:for-index='i'>
-                    <navigator url='/pages/goods/goods?goods_id={{goods_item.goods_id}}&shop_id={{shop_id}}' class='classifly_goods_smallList' wx:if="{{i!=0}}"
+                    <navigator url='/pages/goods/goods?goods_id={{goods_item.goods_id}}&shop_id={{shop_id}}' hover-class='none' class='classifly_goods_smallList' wx:if="{{i!=0}}"
                       style='margin-right:{{i%2?"26rpx":"0"}}'>
                       <view class='classifly_goods_smallImg'>
                         <image src='{{osscdn}}{{goods_item.goods_cover}}'
@@ -168,6 +168,8 @@
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
             <include src="../template/dynamicList/dynamicList.wxml" wx:if='{{dynamicsList.length>0}}'/>
               <template is="noDatas" data="{{paddingTop: '202rpx',paddingBottom:'302rpx',text1:'店铺暂无动态'}}" wx:else />
+              <view class="flex_row jc_flex_center bottom_tips" wx:if="{{showBottomTips}}">— 已经到底啦 —</view>
+
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
           <view class='shop_introduce_content'>

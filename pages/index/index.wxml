@@ -30,7 +30,7 @@
           <view wx:if="{{shopList.length>0}}">
             <block wx:for="{{shopList}}" wx:key='index' wx:for-item="item">
               <view class='shop_poster_item'>
-                <navigator url="/pages/shop/shop?id={{item.shop_id}}" class='shop_poster' hover-class="btn-hover">
+                <navigator url="/pages/shop/shop?id={{item.shop_id}}" class='shop_poster' hover-class='none'>
                   <image src='{{osscdn}}{{item.shop_image}}' mode="aspectFill" class='shop_poster_img'>
                   </image>
                   <view class='flex_row shop_poster_content'>
@@ -49,7 +49,7 @@
                   </view>
                   <view class='shop_poster_classfly'>新品</view>
                 </navigator>
-                <navigator url='/pages/followNumb/followNumb?shop_id={{item.id}}&type=0' class='flex_row fans' hover-class="btn-hover" >
+                <navigator url='/pages/followNumb/followNumb?shop_id={{item.id}}&type=0' class='flex_row fans' hover-class='none' >
                   <view class='flex_column fans_numb' >
                     <view class='fans_numb_text'>{{item.fans_count}}</view>
                     <view>个粉丝</view>
@@ -79,6 +79,8 @@
           <template is="noDatas" data="{{paddingTop: '102rpx',paddingBottom:'264rpx',text1:'暂无关注的店铺动态',text2:'点击下方发现，查看更多的店铺的内容'}}" wx:else />
 
         </view>
+        <view class="flex_row jc_flex_center bottom_tips" wx:if="{{showBottomTips}}">— 已经到底啦 —</view>
+
       </view>
     </view>
   </view>

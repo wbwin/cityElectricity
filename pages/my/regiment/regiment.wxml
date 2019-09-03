@@ -19,7 +19,7 @@
             <view class='order_item'>
             <!-- <navigator url='./orderDetail/orderDetail' class='order_item'> -->
             <view class='flex_row order_item_state'>
-                <navigator url='/pages/shop/shop?id={{item.shop_id}}' class='order_items'>
+                <navigator url='/pages/shop/shop?id={{item.shop_id}}' class='order_items' hover-class='none'>
 
               <image class="shopIcon" src="{{osscdn}}{{item.shop_avatar}}" mode="aspectFill"/>
               <text>{{item.shop_name}}</text>
@@ -36,7 +36,7 @@
                   </block>
               <!-- <text class='order_goods_state regiment_order_goods_state'>{{activeIndex==0?'待成团':activeIndex==1?'已成团':'拼团失败'}}</text> -->
             </view>
-            <navigator url='./groupOrderDetail/groupOrderDetail?order_sn={{item.order_sn}}' class='order_item'>
+            <navigator url='./groupOrderDetail/groupOrderDetail?order_sn={{item.order_sn}}' class='order_item' hover-class='none'>
 
               <view class='flex_row  order_goods'>
                 <image class='order_goods_image' src='{{osscdn}}{{item.goods_cover}}'></image>
@@ -73,6 +73,8 @@
           </block>
         </view>
         <template is="noDatas" data="{{paddingTop:'272rpx',text1:'暂无订单'}}" wx:else/>
+        <view class="flex_row jc_flex_center bottom_tips" wx:if="{{showBottomTips}}">— 已经到底啦 —</view>
+
       </view>
     </view>
   </view>

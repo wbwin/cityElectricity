@@ -9,6 +9,7 @@ Page({
   data: {
     page:1,
     infoList:[],
+    showBottomTips:false,
   },
 
   /**
@@ -33,7 +34,6 @@ Page({
     that.setData({
       token:wx.getStorageSync('token'),
       page:1,
-      infoList:[],
     })
     that.getWithdrawInfo()
   },
@@ -64,7 +64,8 @@ Page({
    */
   onReachBottom: function () {
     var that=this
-    if(that.data.infoList.length==0){
+
+    if(that.data.infoList.length==0||that.data.showBottomTips){
       return false
     }
     var page=Number(that.data.page)+1
@@ -92,7 +93,12 @@ Page({
   //获取提现发起记录
   getWithdrawInfo:function(){
     var that=this
-    var infoList=that.data.infoList
+    var infoList=that.data.page==1?[]:that.data.infoList
+    if(that.data.page==1){
+      that.setData({
+        showBottomTips:false
+      })
+    }
     utils.util.post(api.getWithdrawInfo,{
       page:that.data.page,
       limit:10,
@@ -104,6 +110,10 @@ Page({
         infoList=infoList.concat(list)
         that.setData({
           infoList:infoList,
+        })
+      }else{
+        that.setData({
+          showBottomTips:page==1?false:true
         })
       }
     })

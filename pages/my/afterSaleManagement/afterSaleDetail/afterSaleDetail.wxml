@@ -12,7 +12,7 @@
       <!-- <text class='order_goods_state' wx:else >{{orderData.order_status==0?'自提单 已取消':orderData.order_status==1?'自提单 待支付':orderData.order_status==2?'自提单 待自提':orderData.order_status==3?'自提单 待收货':orderData.order_status==4?'已自提':orderData.order_status==5?'自提单 已退款':orderData.order_status==6?'自提单 拼团中':orderData.order_status==7?'拼团失败':''}}</text> -->
 
     </view>
-    <navigator url='/pages/goods/goods?goods_id={{orderData.goods_id}}&shop_id={{orderData.shop_id}}'>
+    <navigator url='/pages/goods/goods?goods_id={{orderData.goods_id}}&shop_id={{orderData.shop_id}}' hover-class='none'>
     <view class='flex_row  order_goods'>
       <image class='order_goods_image' src='{{osscdn}}{{orderData.goods_cover}}'></image>
       <view class='flex_column jc_flex_sb weui-flex__item order_goods_content'>

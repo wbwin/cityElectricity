@@ -5,7 +5,7 @@
   <view wx:if="{{goodsData.length>0}}">
     <block wx:for='{{goodsData}}' wx:key='*this'>
       <view class='flex_column collection_item'>
-        <navigator url='/pages/shop/shop?id={{item.shop_id}}'>
+        <navigator url='/pages/shop/shop?id={{item.shop_id}}' hover-class='none'>
         <view class='flex_row collection_shop'>
           <image class='shop_image' src='{{osscdn}}{{item.shop_avatar}}'></image>
           <view class='flex_column weui-flex__item shop_content'>
@@ -33,5 +33,7 @@
     </block>
 </view>
 <template  is="noDatas" data="{{paddingTop:'272rpx',text1:'暂无收藏的商品',buttonText:'去逛逛'}}" wx:else/>
+<view class="flex_row jc_flex_center bottom_tips" wx:if="{{showBottomTips}}">— 已经到底啦 —</view>
+
   </view>
 </view>

@@ -15,4 +15,6 @@
         </view>
     </view>
     <template is="noDatas" data="{{paddingTop: '302rpx',text1:'暂无提现记录'}}" wx:else />
+    <view class="flex_row jc_flex_center bottom_tips" wx:if="{{showBottomTips}}">— 已经到底啦 —</view>
+
 </view>

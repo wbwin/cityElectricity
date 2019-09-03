@@ -23,7 +23,7 @@
       <!-- is_shop=0表示普通人 is_shop=1表示店主 -->
       <block wx:if="{{userInfo.is_shop == 1}}">
         <view class='line_border'></view>
-        <navigator url='/pages/my/wallet/wallet'>
+        <navigator url='/pages/my/wallet/wallet' hover-class='none'>
           <view class='personal_money flex_row'>
             <view class="flex_colum ai_flex_center personal_money_msg">
               <image src='/images/my_wallet.png' class='my_wallet'></image>

@@ -140,7 +140,8 @@ Page({
     wx.request({
       url: config.ApiUrl + api.getApplyStatus,
       data: {
-        token:token
+        token:token,
+        unLoading:true,
       },
       method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header

@@ -1,5 +1,5 @@
 {
   "navigationBarTitleText": "供应商申请",
   "enablePullDownRefresh": true,
-  "onReachBottomDistance": 50
+  "onReachBottomDistance": 100
 }

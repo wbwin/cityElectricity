@@ -29,7 +29,7 @@
       <text>{{item.shop_info.address_base}}{{item.shop_info.address_detail}}</text>
     </view>
     <block wx:for="{{item.goods_info}}" wx:for-item='goods_item' wx:for-index='goods_index' wx:key="*this">
-      <navigator url='/pages/goods/goods?goods_id={{goods_item.id}}&shop_id={{item.shop_id}}'>
+      <navigator url='/pages/goods/goods?goods_id={{goods_item.id}}&shop_id={{item.shop_id}}' hover-class='none'>
       <view class='flex_row dynamic_goods_list'>
         <image class='dynamic_goods_image ' mode="aspectFill" src='{{osscdn}}{{goods_item.goods_cover}}'></image>
         <view class='flex_column jc_flex_sb weui-flex__item'>

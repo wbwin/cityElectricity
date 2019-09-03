@@ -2,7 +2,7 @@
 <view class='page'>
   <view class='page_bd'>
       <view class='flex_row order_item_state'>
-          <navigator url='/pages/shop/shop?id={{orderData.shop_id}}' class='order_item'>
+          <navigator url='/pages/shop/shop?id={{orderData.shop_id}}' class='order_item' hover-class='none'>
 
           <image class="shopIcon" src="{{osscdn}}{{orderData.shop_avatar}}" mode="aspectFill"/>
           <text>{{orderData.shop_name}}</text>

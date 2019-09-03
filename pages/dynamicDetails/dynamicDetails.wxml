@@ -23,7 +23,7 @@
       </view>
       
       <block wx:for="{{dynamicsData.goods_info}}" wx:key="*this">
-        <navigator url='/pages/goods/goods?goods_id={{item.id}}&shop_id={{dynamicsData.shop_id}}'>
+        <navigator url='/pages/goods/goods?goods_id={{item.id}}&shop_id={{dynamicsData.shop_id}}' hover-class='none'>
         <view class='flex_row dynamic_goods_list'>
           <image class='dynamic_goods_image ' mode="aspectFill" src='{{osscdn}}{{item.goods_cover}}'></image>
           <view class='flex_column jc_flex_sb weui-flex__item'>

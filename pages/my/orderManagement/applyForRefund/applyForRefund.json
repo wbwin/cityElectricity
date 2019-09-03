@@ -1,5 +1,5 @@
 {
   "navigationBarTitleText": "申请退款",
   "enablePullDownRefresh": true,
-  "onReachBottomDistance": 50
+  "onReachBottomDistance": 100
 }

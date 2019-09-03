@@ -11,6 +11,7 @@ Page({
     osscdn:'',
     page:1,
     goodsData:[],
+    showBottomTips:false,
   },
 
   /**
@@ -41,7 +42,6 @@ Page({
     that.setData({
       token:wx.getStorageSync('token'),
       page:1,
-      goodsData:[],
     })
     that.getUserCollect();
   },
@@ -67,7 +67,6 @@ Page({
     var that=this
     that.setData({
       page:1,
-      goodsData:[],
     })
     that.getUserCollect();
   },
@@ -77,6 +76,9 @@ Page({
    */
   onReachBottom: function () {
     var that=this
+    if(that.data.showBottomTips){
+      return false
+    }
     if(that.data.goodsData.length==0){
       return false
     }
@@ -104,15 +106,25 @@ Page({
   },
   getUserCollect:function(){
     var that=this
-    var goodsData=that.data.goodsData
+    var goodsData=that.data.page==1?[]:that.data.goodsData
+    if(that.data.page==1){
+      that.setData({
+        showBottomTips:false
+      })
+    }
     utils.util.post(api.getUserCollect,{
       token:that.data.token,
       page:that.data.page,
       limit:10,
+      unLoading:true,
     },res=>{
       var list=res.data.list
       if(list.length>0){
         goodsData=goodsData.concat(list)
+      }else{
+        that.setData({
+          showBottomTips:page==1?false:true
+        })
       }
       that.setData({
         goodsData:goodsData,

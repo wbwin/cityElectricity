@@ -1,5 +1,5 @@
 {
   "navigationBarTitleText": "评价",
   "enablePullDownRefresh": true,
-  "onReachBottomDistance": 50
+  "onReachBottomDistance": 100
 }

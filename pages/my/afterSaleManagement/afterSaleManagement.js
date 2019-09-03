@@ -18,6 +18,8 @@ Page({
     osscdn:'',
     page:1,//页数
     afterSaleList:[],
+    showBottomTips:false,
+
   },
 
   /**
@@ -63,7 +65,6 @@ Page({
     that.setData({
       token:wx.getStorageSync('token'),
       page:1,//页数
-      afterSaleList:[],
     })
     that.getUserAftersafe();
   },
@@ -89,7 +90,6 @@ Page({
     var that=this
     that.setData({
       page:1,//页数
-      afterSaleList:[],
     })
     that.getUserAftersafe();
   },
@@ -99,6 +99,9 @@ Page({
    */
   onReachBottom: function () {
     var that=this
+    if(that.data.showBottomTips){
+      return false
+    }
     if(that.data.afterSaleList.length==0){
       return false
     }
@@ -131,7 +134,6 @@ Page({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id,
       page:1,//页数
-      afterSaleList:[],
     });
     that.getUserAftersafe();
   },
@@ -149,16 +151,26 @@ Page({
   getUserAftersafe:function(){
     var that=this
     var page=that.data.page
-    var afterSaleList=that.data.afterSaleList
+    var afterSaleList=page==1?[]:that.data.afterSaleList
+    if(page==1){
+      that.setData({
+        showBottomTips:false
+      })
+    }
     utils.util.post(api.getUserAftersafe,{
       token:that.data.token,
       page:page,
       limit:10,
-      aftersafe_status:that.data.activeIndex
+      aftersafe_status:that.data.activeIndex,
+      unLoading:true,
     },res=>{
       if(res.data.list.length>0){
         afterSaleList=afterSaleList.concat(res.data.list)
         
+      }else{
+        that.setData({
+          showBottomTips:page==1?false:true
+        })
       }
       that.setData({
         afterSaleList:afterSaleList,

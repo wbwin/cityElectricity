@@ -61,6 +61,7 @@ Page({
     dynamicsList:[],//店铺动态
     page:1,//店铺动态页数
     onShowTrue:false,
+    showBottomTips:false,
   },
 
   /**
@@ -75,7 +76,6 @@ Page({
     that.listTab();
     that.setData({
       token:wx.getStorageSync('token'),
-      dynamicsList:[],//店铺动态
       page:1,//店铺动态页数
     })
     that.getShopDetail(that.data.shop_id);//获取店铺详情
@@ -104,7 +104,6 @@ Page({
     }
     that.setData({
       token:wx.getStorageSync('token'),
-      dynamicsList:[],//店铺动态
       page:1,//店铺动态页数
     })
     that.getShopDetail(that.data.shop_id);//获取店铺详情
@@ -131,7 +130,6 @@ Page({
   onPullDownRefresh: function () {
     var that=this
     that.setData({
-      dynamicsList:[],//店铺动态
       page:1,//店铺动态页数
     })
     that.getShopDetail(that.data.shop_id);//获取店铺详情
@@ -144,6 +142,9 @@ Page({
    */
   onReachBottom: function () {
     var that=this
+    if(that.data.showBottomTips){
+      return false
+    }
     if(that.data.activeIndex==1&&that.data.dynamicsList.length!=0){
 
       var page=Number(that.data.page)+1
@@ -465,7 +466,12 @@ Page({
       var that=this
       const token=wx.getStorageSync('token')
       var page=that.data.page
-      var dynamicsList=that.data.dynamicsList
+      var dynamicsList=page==1?[]:that.data.dynamicsList
+      if(page==1){
+        that.setData({
+          showBottomTips:false
+        })
+      }
       utils.util.post(api.getShopDynamics,{
         page:page,
         limit:10,
@@ -483,9 +489,13 @@ Page({
         dynamicsList=dynamicsList.concat(list)
         that.setData({
           dynamicsList:dynamicsList,
-          osscdn:res.osscdn
+          osscdn:res.osscdn,
         })
         console.log(dynamicsList)
+      }else{
+        that.setData({
+          showBottomTips:page==1?false:true
+        })
       }
       })
     },

@@ -115,14 +115,14 @@ util.ajax = obj => {
           wx.stopPullDownRefresh();
           extra.loading && wx.hideLoading();
           console.log(obj.data.page>1)
-          obj.data.page>1&&data.data.data&&data.data.data.length==0&&wx.showToast({
-            icon:'none',
-            title:'已经到底啦！'
-          })
-          obj.data.page>1&&data.data.list&&data.data.list.length==0&&wx.showToast({
-            icon:'none',
-            title:'已经到底啦！'
-          })
+          // obj.data.page>1&&data.data.data&&data.data.data.length==0&&wx.showToast({
+          //   icon:'none',
+          //   title:'已经到底啦！'
+          // })
+          // obj.data.page>1&&data.data.list&&data.data.list.length==0&&wx.showToast({
+          //   icon:'none',
+          //   title:'已经到底啦！'
+          // })
             typeof obj.cb == 'function' && obj.cb(data);
         }else if(res.data.code == 4){
           wx.navigateTo({
