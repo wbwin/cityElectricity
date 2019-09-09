@@ -15,7 +15,7 @@ font-weight:400;
 color:rgba(51,51,51,1);
 }
 .page_hd{
-  font-size: 28rpx;
+  font-size: 24rpx;
 }
 .personal_center_hd{
   padding: 48rpx 32rpx 48rpx 48rpx;
@@ -80,7 +80,7 @@ color:rgba(51,51,51,1);
 .personal_money_image{
   width: 48rpx;
   height:48rpx;
-  margin-bottom: 12rpx;
+  margin-bottom: 14rpx;
 }
 .personal_money_detail{
   margin-right: 30rpx;
@@ -104,7 +104,13 @@ color:rgba(153,153,153,1);
 .order_category{
   padding:40rpx 32rpx;
 }
-
+.money_class{
+  font-size:36rpx;
+  font-family:PingFangSC;
+  font-weight:500;
+  color:rgba(51,51,51,1);
+  margin-bottom: 12rpx;
+}
 /* 弹出电话授权对话框 */
 .mask {
   position: fixed;
@@ -197,3 +203,13 @@ color:rgba(153,153,153,1);
 .agree button::after {
   border: none;
 }
+.global_cell_button{
+  text-align: left;
+  background-color: #fff;
+  line-height:normal;
+}
+.button-hover {
+  background-color: #fff;
+  
+}
+  

@@ -94,7 +94,7 @@ Page({
       var imageUrl=dynamicsData.img_json.length>0?that.data.osscdn+dynamicsData.img_json[0]:'/images/logo.png'
       console.log(res.target)
       return {
-        title: dynamicsData.content,
+        title: dynamicsData.shop_info.shop_name+dynamicsData.content,
         path: '/pages/dynamicDetails/dynamicDetails?dynamics_id='+dynamics_id,
         imageUrl:imageUrl
       }
@@ -139,7 +139,8 @@ Page({
     var dynamics_id=that.data.dynamics_id
     utils.util.post(api.getDynamicsDetail,{
       dynamics_id:dynamics_id,
-      token:that.data.token
+      token:that.data.token,
+      // unLoading:true,
     },res=>{
       var dynamicsData=res.data
       dynamicsData.img_json=JSON.parse(dynamicsData.img_json)
@@ -198,6 +199,9 @@ Page({
     var that=this
     var dynamics_id=that.data.dynamics_id
     var commentValue=that.data.commentValue
+    if(commentValue==''){
+      return false
+    }
     console.log(wx.getStorageSync('userId'))
     utils.util.post(api.addDynamicsComment,{
       dynamics_id:dynamics_id,
@@ -205,14 +209,18 @@ Page({
       token:that.data.token,
       id:wx.getStorageSync('userId')
     },res=>{
+      that.setData({
+        commentInputShow:false,
+        commentValue:'',
+      })
       wx.showToast({
         icon:'none',
         title:'评论成功'
       })
-      that.setData({
-        commentInputShow:false
-      })
-      that.getDynamicsDetail()
+      setTimeout(function(){
+        that.getDynamicsDetail()
+      },1500)
+      
     })
   },
   //查看大图
@@ -229,5 +237,12 @@ Page({
       img_array[i]=osscdn+img_array[i]
     }
     utils.previewImage(img_array,img_array[index])
+  },
+  //动态地址
+  openDynamicLocation:function(e){
+    var that=this
+    var dynamicsData=that.data.dynamicsData
+    var shop_info=dynamicsData.shop_info
+    utils.openLocation(Number(shop_info.address_lat),Number(shop_info.address_lng),shop_info.address_base+shop_info.address_detail)
   }
 })

@@ -42,10 +42,12 @@ input::-webkit-input-placeholder {
   box-sizing: border-box;
 }
 
-w100 {
+.w100 {
   width: 100%
 }
-
+.weui-navbar__item{
+  color: #999
+}
 /*flex*/
 .flex_column {
   display: flex;
@@ -154,6 +156,7 @@ w100 {
   bottom: 0;
   width: auto;
   height: auto;
+  border-radius: 8rpx;
 }
 
 .shop_poster_content {
@@ -181,6 +184,7 @@ w100 {
   line-height: 40rpx;
   max-height: 40rpx;
   overflow: hidden;
+  margin-bottom: 4rpx;
 }
 
 .poster_item_shopMsg {
@@ -537,36 +541,43 @@ w100 {
 }
 
 .comment_input {
-  padding: 20rpx 10rpx 0 40rpx;
+  /* padding: 0rpx 10rpx 0 0rpx; */
   font-size: 28rpx;
-  background: #efeff4;
+  background: #fff;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
+  border:2rpx solid #eee
 }
 
 .comment_input_class {
-  height: 70rpx;
+  height: 98rpx;
   border-radius: 10rpx;
   background: #fff;
-  padding: 0 20rpx;
-  margin-right: 20rpx;
-  margin-bottom: 20rpx;
+  padding: 0 32rpx;
+  /* margin-right: 20rpx; */
+  /* margin-bottom: 20rpx; */
+
 }
 
 .comment_input_send {
-  padding: 6rpx 10rpx;
-  border: 1rpx solid #c2c2c2;
-  border-radius: 10rpx;
-  margin-bottom: 20rpx;
+  padding: 0 32rpx;
+  /* border: 1rpx solid #c2c2c2; */
+  /* border-radius: 10rpx; */
+  /* margin-bottom: 20rpx; */
+  font-size:30rpx;
+  font-family:PingFangSC;
+  font-weight:400;
+  height: 98rpx;
+  line-height: 98rpx;
   color: #c2c2c2;
 }
 
 .comment_input_sendActive {
-  border: none;
-  color: #fff;
-  background: green;
+  /* border: none; */
+  color: #333333;
+  /* background: green; */
 
 }
 
@@ -994,7 +1005,7 @@ w100 {
 
 .weui-search-bar {
   margin: 16rpx 32rpx;
-  padding: 12rpx 32rpx;
+  padding: 18rpx 32rpx;
   background-color: #f7f7f7;
   border-radius: 38rpx;
   border: 0;

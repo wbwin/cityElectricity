@@ -26,7 +26,7 @@
     </view>
     <view class='goods_list' wx:if="{{goods_list.length>0}}">
       <block wx:for='{{goods_list}}' wx:key='*this'>
-          <!-- <navigator url='/pages/goods/goods?goods_id={{item.goods_id}}&shop_id={{item.shop_id}}' > -->
+          <navigator url='/pages/goods/goods?goods_id={{item.goods_id}}&shop_id={{shop_id}}' >
           <view class='flex_row goods_item'>
           <image class='goods_image' mode="aspectFill" src='{{osscdn}}{{item.goods_cover}}'></image>
           <view class='goods_item_tip' wx:if='{{item.label!=1}}'>{{item.label==2?'拼团':'折扣'}}</view>
@@ -37,14 +37,14 @@
               <view class='flex_row goods_msg'>
                 <view>{{item.sales_volume}}购买</view>
                 <view class='weui-flex__item goods_browse'>{{item.browse_count}}围观</view>
-                <view class='goods_buy' bindtap='goodsBuy' data-goods_id='{{item.goods_id}}'>立即购买</view>
+                <view class='goods_buy' >立即购买</view>
               </view>
             </view>
           </view>
         </view>
-      <!-- </navigator> -->
+      </navigator>
       </block>
     </view>
-    <template is="noDatas" data="{{paddingTop:'250rpx',text1:'暂无商品'}}" wx:else/>
+    <template is="noDatas" data="{{paddingTop:'250rpx',text1:'暂无商品'}}" wx:if="{{goods_list.length==0&&goods_list!==''}}"/>
   </view>
 </view>

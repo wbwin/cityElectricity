@@ -24,16 +24,18 @@ Page({
     duration: 1000,
     actionSheetHidden:false,
     previewImageArray:['../../images/25a771df8db1cb1347a6428fda54564e93584b69.jpg'],
-    shopList:[],//店铺列表
+    shopList:'',//店铺列表
     shopPage:1,//店铺页数
     listData:[],//承载列表数据
     osscdn:'',
     dynaPage:1,//动态页数
-    dynamicsList:[],//动态列表
+    dynamicsList:'',//动态列表
     onShowTrue:false,
     showBottomTips:false,
+    collect:'',
+    shop_id:'',
   },
-  onLoad: function () {
+  onLoad: function (options) {
     var that = this;
     wx.getSystemInfo({
       success: function (res) {
@@ -51,10 +53,11 @@ Page({
     that.setData({
       dynaPage:1,
       shopPage:1,
+      collect:options.collect,
+      shop_id:options.shop_id
     })
     that.getBanner();//banner
     that.getUserShop();//加载数据
-    that.getDynamicsInfo()
   },
   onShow: function () {
     let that = this;
@@ -70,7 +73,6 @@ Page({
     })
     that.getBanner();//banner
     that.getUserShop();//加载数据
-    that.getDynamicsInfo()
   },
   onReachBottom:function(){
     var that=this
@@ -105,7 +107,7 @@ Page({
     })
     that.getBanner();//banner
     that.getUserShop();//加载数据
-    that.getDynamicsInfo()
+    
   },
   //首页banner
   getBanner:function(){
@@ -157,9 +159,11 @@ Page({
       console.log(shopList)
       }else{
         that.setData({
-          showBottomTips:page==1?false:true
+          showBottomTips:page==1?false:true,
+          shopList:shopList,
         })
       }
+      that.getDynamicsInfo()
     })
     
   },
@@ -173,7 +177,7 @@ Page({
     //   that.getDynamicsInfo()
     // }
     this.setData({
-      sliderOffset: e.currentTarget.offsetLeft,
+      sliderOffset: e.currentTarget.id==0?e.currentTarget.offsetLeft:e.currentTarget.offsetLeft-56,
       activeIndex: e.currentTarget.id
     });
   },
@@ -227,7 +231,7 @@ Page({
       console.log(res.target)
       var imageUrl=dynamicsData.img_json.length>0?dynamicsData.img_json[0]:'/images/logo.png'
       return {
-        title: dynamicsData.content,
+        title: dynamicsData.shop_info.shop_name+'—'+dynamicsData.content,
         path: '/pages/dynamicDetails/dynamicDetails?dynamics_id='+dynamicsData.id,
         imageUrl:imageUrl,
       }
@@ -318,9 +322,11 @@ Page({
       console.log(dynamicsList)
     }else{
       that.setData({
-        showBottomTips:page==1?false:true
+        showBottomTips:page==1?false:true,
+        dynamicsList:dynamicsList,
       })
     }
+    console.log(that.data.dynamicsList)
     })
   },
   //赞
@@ -359,6 +365,14 @@ Page({
         dynamicsList:dynamicsList,
       })
     })
+  },
+  //动态地址
+  openDynamicLocation:function(e){
+    var that=this
+    var index=e.currentTarget.dataset.index
+    var dynamicsList=that.data.dynamicsList
+    var shop_info=dynamicsList[index].shop_info
+    utils.openLocation(Number(shop_info.address_lat),Number(shop_info.address_lng),shop_info.address_base+shop_info.address_detail)
   }
 
 })

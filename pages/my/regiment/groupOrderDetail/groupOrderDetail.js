@@ -82,8 +82,9 @@ Page({
     var that=this
     if(res.from=="button"){
       var orderData=that.data.orderData
+      var loginResult=wx.getStorageSync('loginResult')
       return {
-        title: '一起来拼团吧',
+        title: loginResult.user_name+'邀请你参加拼团—'+orderData.goods_name,
         path: '/pages/goods/goods?shop_id='+orderData.shop_id+'&goods_id='+orderData.goods_id,
         imageUrl:that.data.osscdn+orderData.goods_cover
       }

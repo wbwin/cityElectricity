@@ -17,7 +17,7 @@ Page({
     page:1,//订单页数
     token:'',
     osscdn:'',
-    orderList:[],//订单列表
+    orderList:'',//订单列表
     showBottomTips:false,
   },
 
@@ -175,7 +175,8 @@ Page({
         })
       }else{
         that.setData({
-          showBottomTips:page==1?false:true
+          showBottomTips:page==1?false:true,
+          orderList:orderList
         })
       }
       

@@ -24,7 +24,7 @@
       </view>
 
     </view> -->
-    <view class='flex_row dynamic_shop_address'>
+    <view class='flex_row dynamic_shop_address' data-index="{{index}}" bindtap="openDynamicLocation">
       <image src='../../images/address_icon.png' class='dynamic_shop_address_image'></image>
       <text>{{item.shop_info.address_base}}{{item.shop_info.address_detail}}</text>
     </view>
@@ -68,7 +68,7 @@
 
     </view>
     
-    <view class='fabulous_comment' bindtap="dynamicDetails" data-id='{{item.id}}' wx:if="{{item.comment_info.length>0}}">
+    <!-- <view class='fabulous_comment' bindtap="dynamicDetails" data-id='{{item.id}}' wx:if="{{item.comment_info.length>0}}">
       <view class='flex_row dynamic_comment ai_flex_start'>
         <image src='../../images/comment_black.png' class='dynamic_fabulous_logo comment_icon'></image>
         <view class='flex_column weui-flex__item'>
@@ -88,7 +88,7 @@
           <text class='dynamic_comment_more' wx:if='{{item.comment_info.length>4}}'>查看所有{{item.comment_info.length}}条评论 >></text>
         </view>
       </view>
-    </view>
+    </view> -->
   </view>
 </view>
 <!-- </navigator> -->

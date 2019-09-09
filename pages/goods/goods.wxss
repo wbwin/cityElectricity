@@ -9,6 +9,11 @@
   height:66rpx;
   opacity:0;
 }
+.weui-navbar {
+  padding: 15rpx 60rpx;
+  width: auto;
+  }
+  
 .page_hd{
   position: relative
 }
@@ -157,7 +162,8 @@ color:rgba(153,153,153,1);
   height: 748rpx;
   z-index: 999;
   transform:translateY(846rpx);
-  padding-bottom: 98rpx
+  padding-bottom: 98rpx;
+  border-radius:16rpx 16rpx 0rpx 0rpx;
 }
 
 .buy_frame_content {

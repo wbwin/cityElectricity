@@ -38,7 +38,7 @@
             <view class="weui-navbar__title">{{item}}</view>
           </view>
         </block>
-        <view class="weui-navbar__slider" style="width:9.5%;left:20%!important; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+        <view class="weui-navbar__slider" style="width:9.5%;left:20%!important; bottom: 16rpx !important;  transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
       </view>
       <view class='weui-navbar' wx:else>
         <view  class='weui-navbar__item weui-bar__item_on'>

@@ -20,9 +20,11 @@
 }
 
 .rightIcon {
-  width: 48rpx;
-  height: 48rpx;
+  width: 40rpx;
+  height: 40rpx;
+  margin-left: 8rpx;
 }
+
 
 .regiment_order_goods_state {
   display: flex;

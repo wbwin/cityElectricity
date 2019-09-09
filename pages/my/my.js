@@ -322,6 +322,11 @@ Page({
       })
     }
   },
+  toMyshop:function(){
+    wx.navigateTo({
+      url: '/pages/shop/shop?id='
+    })
+  },
   //
   getUserInfo:function(){
     var that=this

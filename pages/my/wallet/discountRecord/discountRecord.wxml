@@ -9,12 +9,15 @@
                         <text class='amout_item_name'>提现金额：<text class="amout_item_price">{{item.price}}</text></text>
                         <text class='amout_item_time'>{{item.createtime}}</text>
                     </view>
-                    <text class='amout_item_price'>{{item.withdraw_status==0?'未审核':item.withdraw_status==1?'已提现':item.withdraw_status==2?'未通过':''}}</text>
+                    <text class='amout_item_tip ' wx:if="{{item.withdraw_status==0}}">审核中</text>
+                    <text class='amout_item_tip color2' wx:if="{{item.withdraw_status==1}}">已通过</text>
+                    <text class='amout_item_tip color3' wx:if="{{item.withdraw_status==2}}">未通过</text>
+
                 </view>
             </block>
         </view>
     </view>
-    <template is="noDatas" data="{{paddingTop: '302rpx',text1:'暂无提现记录'}}" wx:else />
+    <template is="noDatas" data="{{paddingTop: '302rpx',text1:'暂无提现记录'}}" wx:if="{{infoList.length==0&&infoList!==''}}" />
     <view class="flex_row jc_flex_center bottom_tips" wx:if="{{showBottomTips}}">— 已经到底啦 —</view>
 
 </view>

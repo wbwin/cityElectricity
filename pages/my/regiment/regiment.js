@@ -17,7 +17,7 @@ Page({
     token:'',
     osscdn:'',
     page:1,
-    groupList:[],
+    groupList:'',
     showBottomTips:false,
   },
 
@@ -118,11 +118,13 @@ Page({
   onShareAppMessage: function (res) {
     var that=this
     if (res.from === 'button') {
+      console.log(wx.getStorageSync('loginResult'))
       console.log(res.target)
+      var loginResult=wx.getStorageSync('loginResult')
       var index=res.target.dataset.index
     var orderData=that.data.groupList[index]
       return {
-        title: '一起来拼团吧',
+        title: loginResult.user_name+'邀请你参加拼团—'+orderData.goods_name,
         path: '/pages/goods/goods?shop_id='+orderData.shop_id+'&goods_id='+orderData.goods_id,
         imageUrl:that.data.osscdn+orderData.goods_cover
       }
@@ -171,7 +173,8 @@ Page({
         })
       }else{
         that.setData({
-          showBottomTips:page==1?false:true
+          showBottomTips:page==1?false:true,
+          groupList:groupList,
         })
       }
     })

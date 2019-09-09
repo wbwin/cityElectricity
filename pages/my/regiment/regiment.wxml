@@ -72,7 +72,7 @@
             </view>
           </block>
         </view>
-        <template is="noDatas" data="{{paddingTop:'272rpx',text1:'暂无订单'}}" wx:else/>
+        <template is="noDatas" data="{{paddingTop:'272rpx',text1:'暂无订单'}}" wx:if="{{groupList.length==2&&groupList!==''}}"/>
         <view class="flex_row jc_flex_center bottom_tips" wx:if="{{showBottomTips}}">— 已经到底啦 —</view>
 
       </view>

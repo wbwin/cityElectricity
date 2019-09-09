@@ -5,7 +5,10 @@
   <view class='page_hd'>
     <swiper indicator-dots="{{indicatorDots}}" bindchange="slideImageChange" class="slide_image" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
       <swiper-item wx:if='{{goods_video}}'>
-        <video id="myVideo" bindplay='bindplay' bindpause='bindpause' poster="{{osscdn}}{{goodsDetail.goods_cover}}" bindended='bindended' class="goods_video" src="{{osscdn}}{{goods_video}}"  controls></video>
+        <video id="myVideo" bindplay='bindplay' bindpause='bindpause'  show-center-play-btn="{{false}}" controls="{{false}}" poster="{{osscdn}}{{goodsDetail.goods_cover}}" bindended='bindended' class="goods_video" src="{{osscdn}}{{goods_video}}"  controls></video>
+        <view class='flex_row jc_flex_center shop_video_mask' bindtap="videoPlay" wx:if="{{!videoToPlay}}">
+          <image src='/images/video_play.png' class='shop_videoPlay_image'></image>
+        </view>
       </swiper-item>
       <block wx:for="{{imgUrls}}">
         <swiper-item>
@@ -14,7 +17,7 @@
       </block>
 
     </swiper>
-    <view class='slide_image_indicator'>{{slideImageIndex+1}}/{{goods_video?imgUrls.length+1:imgUrls.length}}</view>
+    <view class='slide_image_indicator' wx:if="{{(!videoToPlay&&slideImageIndex==0)||slideImageIndex==1}}">{{slideImageIndex+1}}/{{goods_video?imgUrls.length+1:imgUrls.length}}</view>
   </view>
   
   <view class='page_bd'>
@@ -27,7 +30,7 @@
         <view class='flex_row'>
           <view class='flex_column ai_flex_center' bindtap='changeCollect' >
             <image class='goods_content_image' src='/images/{{collectType==1?"goods_collect":"goods_collect_pre"}}.png'></image>
-            <view class='goods_button_text'>收藏</view>
+            <view class='goods_button_text'>{{collectType==1?'已收藏':'收藏'}}</view>
           </view>
           <view class='flex_column ai_flex_center ml30' style="position:relative;">
             <button open-type="share" class="share"></button>
@@ -37,7 +40,10 @@
         </view>
       </view>
       <view class='goods_name'>{{goodsDetail.goods_name}}</view>
+      <view class="flex_row jc_flex_sb">
       <view class='flex_row goods_saleNumb'>已售{{goodsDetail.sales_volume}}件</view>
+      <view class='flex_row goods_saleNumb' wx:if="{{goodsDetail.label==2}}">活动结束时间：2019-05-05</view>
+    </view>
     </view>
     <view class='line_border'></view>
     <navigator url='/pages/followNumb/followNumb?goods_id={{goods_id}}&shop_id={{shop_id}}&type=1' class='flex_row goods_fans' hover-class='none'>
@@ -64,7 +70,7 @@
           <view class="weui-navbar__title">评论（{{goodsDetail.comment_info&&goodsDetail.comment_info.length>0?goodsDetail.comment_info.length:0}}）</view>
         </view>
 
-        <view class="weui-navbar__slider" style="width:9.5%;left:{{activeIndex==0?'20.3%':'14.8%'}}!important; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+        <view class="weui-navbar__slider" style="width:9%;left:{{activeIndex==0?'24.5%':'19%'}}!important; bottom: 16rpx !important; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
       </view>
       <view class="weui-tab__panel">
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">

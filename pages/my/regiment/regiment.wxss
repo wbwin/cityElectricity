@@ -19,9 +19,11 @@
 }
 
 .rightIcon {
-  width: 48rpx;
-  height: 48rpx;
+  width: 40rpx;
+  height: 40rpx;
+  margin-left: 8rpx;
 }
+
 .need_num{
   margin-left: 32rpx;
   font-size:26rpx;

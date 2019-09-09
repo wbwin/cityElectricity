@@ -240,10 +240,19 @@ const previewImage=(img_array,img)=>{
   })
 }
 
+//显示地址
+const openLocation=(latitude,longitude,name)=>{
+  wx.openLocation({
+    latitude: latitude,
+    longitude: longitude,
+    name:name
+  })
+}
 module.exports = {
   formatTime: formatTime,
   intervalTime:intervalTime,
   util:util,
   checkCard:checkCard,
   previewImage:previewImage,
+  openLocation:openLocation,
 }

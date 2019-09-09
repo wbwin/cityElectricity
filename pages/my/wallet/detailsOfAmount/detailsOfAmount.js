@@ -8,7 +8,7 @@ Page({
    */
   data: {
     type:1,
-    walletList:[],
+    walletList:'',
   },
 
   /**

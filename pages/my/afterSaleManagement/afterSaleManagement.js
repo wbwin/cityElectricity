@@ -17,7 +17,7 @@ Page({
     token:'',
     osscdn:'',
     page:1,//页数
-    afterSaleList:[],
+    afterSaleList:'',
     showBottomTips:false,
 
   },

@@ -1,6 +1,7 @@
 <import src="../template/noDatas/noDatas.wxml" />
 <!--pages/shop/shop.wxml-->
 <view class='page'>
+  <view class="back_index" wx:if="{{collect}}" bindtap="backIndex">回首页</view>
   <view class='page_hd'>
     <swiper indicator-dots="{{indicatorDots}}" indicator-color="rgba(255,255,255,0.5)" indicator-active-color="#ffffff"
       class="slide_image" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
@@ -62,12 +63,18 @@
           </view>
         </block>
         <view class="weui-navbar__slider"
-          style="width:12.5%;left:10.5%!important; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);">
+          style="width:9%;left:17.5%!important; bottom: 16rpx !important; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);">
         </view>
       </view>
       <view class="weui-tab__panel">
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-          <view class='flex_row goods_classify_list'>
+          <view class='flex_row goods_classify_list' wx:if="{{goodsClassify.length>0}}">
+              <navigator url='./commodityClassification/commodityClassification?shop_id={{shop_id}}'  hover-class='none'>
+                <view class='flex_column ai_flex_center goods_classify_item'>
+                  <image class='classifly_icon' src='/images/shop_all_icon.png'></image>
+                  <view class="weui-navbar__title classifly_icon_text">全部</view>
+                </view>
+                </navigator>
             <block wx:for="{{goodsClassify}}" wx:key='*this'>
             <navigator url='./commodityClassification/commodityClassification?shop_id={{shop_id}}&category_id={{item.id}}' hover-class='none'>
               <view class='flex_column ai_flex_center goods_classify_item'>
@@ -91,6 +98,7 @@
                 </view>
               </view>
               <view class="goodsClass" wx:if="{{item.data.length>0}}">
+                <block wx:if="{{classifly_index!=2}}">
                 <navigator url='/pages/goods/goods?goods_id={{item.data[0].goods_id}}&shop_id={{shop_id}}' class='classifly_goods_bigList' hover-class='none'>
                   <view class='classifly_goods_bigImg'>
                     <image src='{{osscdn}}{{item.data[0].goods_cover}}' class='goods_bigImg_class'
@@ -133,8 +141,8 @@
                     </view>
                   </view>
                 </navigator>
-
-                <view class='classifly_goods_smallWrap' wx:if='{{item.data.length>1}}'>
+              </block>
+                <view class='classifly_goods_smallWrap' wx:if='{{item.data.length>1||classifly_index==2}}'>
                   <block wx:for="{{item.data}}" wx:key='*this' wx:for-item='goods_item' wx:for-index='i'>
                     <navigator url='/pages/goods/goods?goods_id={{goods_item.goods_id}}&shop_id={{shop_id}}' hover-class='none' class='classifly_goods_smallList' wx:if="{{i!=0}}"
                       style='margin-right:{{i%2?"26rpx":"0"}}'>
@@ -177,7 +185,7 @@
               <image src='{{osscdn}}{{shop.wxacode_image}}' bindtap="previewWxacodeImage" class='qr_code_image'></image>
               <view class='qr_code_text'>微信扫码可打开店铺，并自动关注店铺</view>
             </view>
-            <view class="global_cell ">
+            <view class="global_cell " bindtap="openShopLocation">
               <view class="weui-cell__hd">
                 <view class='weui-cell__rt'>店铺地址</view>
               </view>
@@ -217,11 +225,12 @@
             <view class="global_cell border_none">
               <view class="weui-cell__hd">
                 <view class='weui-cell__rt'>店铺介绍</view>
+                <view class="shop_intro">{{shop.shop_intro}}</view>
               </view>
             </view>
           </view>
           <block wx:for='{{imgUrls}}' wx:key='*this'>
-            <image class='shop_introduce_image' bindtap="previewImageNav" data-index="{{index}}" src='{{osscdn}}{{item}}'></image>
+            <image class='shop_introduce_image' bindtap="previewImageNav" mode="widthFix" data-index="{{index}}" src='{{osscdn}}{{item}}'></image>
           </block>
         </view>
       </view>

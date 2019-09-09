@@ -29,7 +29,7 @@ Page({
     osscdn:'',
     categroy_list:[],
     token:wx.getStorageSync('token'),
-    goods_list:[],//商品列表
+    goods_list:'',//商品列表
     search_text:'',//关键词
   },
 

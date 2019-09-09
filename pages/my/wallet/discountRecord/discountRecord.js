@@ -8,7 +8,7 @@ Page({
    */
   data: {
     page:1,
-    infoList:[],
+    infoList:'',
     showBottomTips:false,
   },
 
@@ -113,7 +113,8 @@ Page({
         })
       }else{
         that.setData({
-          showBottomTips:page==1?false:true
+          showBottomTips:page==1?false:true,
+          infoList:infoList,
         })
       }
     })

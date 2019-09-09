@@ -14,7 +14,7 @@ Page({
     token:'',
     osscdn:'',
     count:0,//数量
-    list:[],//列表
+    list:'',//列表
   },
 
   /**

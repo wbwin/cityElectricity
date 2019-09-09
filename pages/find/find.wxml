@@ -13,11 +13,11 @@
     <view class='weui-tab'>
       <view class='weui-navbar'>
         <block wx:for='{{tabs}}' wx:key='*this'>
-          <view id='{{index}}' class='weui-navbar__item {{activeIndex==index?"weui-bar__item_on":""}}' bindtap="tabClick">
+          <view id='{{index}}' class='weui-navbar__item {{activeIndex==index?"weui-bar__item_on":""}}' style="padding-left:{{index==0?'120rpx':'0'}};padding-right:{{index==1?'120rpx':'0'}}" bindtap="tabClick">
             <view class="weui-navbar__title">{{item}}</view>
           </view>
         </block>
-        <view class="weui-navbar__slider" style="width:12.5%;left:19%!important; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+        <view class="weui-navbar__slider" style="width:9%;left:28.5%!important; bottom: 16rpx !important;transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
       </view>
       <view class="weui-tab__panel">
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
@@ -46,7 +46,7 @@
                 <navigator url='/pages/followNumb/followNumb?shop_id={{item.id}}&type=0' class='flex_row fans' hover-class='none' >
                   <view class='flex_column fans_numb'>
                     <view class='fans_numb_text'>{{item.fans_count}}</view>
-                    <view>个粉丝</view>
+                    <view>粉丝</view>
                   </view>
                   <view class='flex_row weui-flex__item fans_numb_img'>
                     <block wx:for="{{item.fans}}" wx:for-item="cell" wx:key="index">
@@ -60,12 +60,12 @@
               </view>
             </block>
           </view>
-          <template is="noDatas" data="{{paddingTop: '102rpx',paddingBottom:'264rpx',text1:'暂无关注的店铺',text2:'点击下方发现，查看更多的店铺的内容'}}" wx:else />
+          <template is="noDatas" data="{{paddingTop: '102rpx',paddingBottom:'264rpx',text1:'暂无关注的店铺',text2:'点击下方发现，查看更多的店铺的内容'}}" wx:if="{{listData.length==0&&listData!==''}}" />
 
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
           <include src="../template/dynamicList/dynamicList.wxml" wx:if='{{dynamicsList.length>0}}'/>
-            <template is="noDatas" data="{{paddingTop: '102rpx',text1:'暂无关注的店铺动态',text2:'点击下方发现，查看更多的店铺的内容'}}" wx:else />
+            <template is="noDatas" data="{{paddingTop: '102rpx',text1:'暂无关注的店铺动态',text2:'点击下方发现，查看更多的店铺的内容'}}" wx:if="{{dynamicsList.length==0&&dynamicsList!==''}}" />
   
         </view>
         <view class="flex_row jc_flex_center bottom_tips" wx:if="{{showBottomTips}}">— 已经到底啦 —</view>

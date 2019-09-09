@@ -21,16 +21,18 @@ Page({
     commentInputShow: false,
     commentValue: '',
     // 动态
-    listData:[],
+    listData:'',
     shopPage:1,
     searchText:'',
     shopSearchText:'',
     dynaSearchText:'',
     osscdn:'',
     dynaPage:1,//动态页数
-    dynamicsList:[],//动态列表
+    dynamicsList:'',//动态列表
     onShowTrue:false,
     showBottomTips:false,
+    latitude:'',//用户当前经纬度
+    longitude:'',//用户当前经纬度
   },
   onLoad: function () {
     var that = this;
@@ -54,8 +56,23 @@ Page({
       shopSearchText:'',
       dynaSearchText:'',
     })
-    that.getPlatformShop();//加载数据
-    that.getDynamicsInfoToPlatform()
+    wx.getLocation({
+      type: 'wgs84',
+      success (res) {
+        console.log(res)
+        const latitude = res.latitude
+        const longitude = res.longitude
+        that.setData({
+          latitude:latitude,
+          longitude:longitude
+        })
+      },
+      complete(res){
+        that.getPlatformShop();//加载数据
+        that.getDynamicsInfoToPlatform();
+      }
+    })
+    
   },
   onShow: function () {
     let that = this;
@@ -66,6 +83,7 @@ Page({
       })
         return false
     }
+    
     that.setData({
       dynaPage:1,//动态页数
       shopPage:1,
@@ -73,8 +91,24 @@ Page({
       shopSearchText:'',
       dynaSearchText:'',
     })
-    that.getPlatformShop();//加载数据
-    that.getDynamicsInfoToPlatform()
+    wx.getLocation({
+      type: 'wgs84',
+      success (res) {
+        const latitude = res.latitude
+        const longitude = res.longitude
+        that.setData({
+          latitude:latitude,
+          longitude:longitude
+        })
+      },
+      fail(res){
+        console.log(res)
+      },
+      complete(res){
+        that.getPlatformShop();//加载数据
+        that.getDynamicsInfoToPlatform()
+      }
+    })
   },
   onReachBottom:function(){
 
@@ -120,7 +154,7 @@ Page({
       console.log(dynamicsData.img_json)
       var imageUrl=dynamicsData.img_json.length>0?dynamicsData.img_json[0]:'/images/logo.png'
       return {
-        title: dynamicsData.content,
+        title: dynamicsData.shop_info.shop_name+'—'+dynamicsData.content,
         path: '/pages/dynamicDetails/dynamicDetails?dynamics_id='+dynamicsData.id,
         imageUrl:imageUrl,
       }
@@ -148,7 +182,7 @@ Page({
       })
     }
     this.setData({
-      sliderOffset: e.currentTarget.offsetLeft,
+      sliderOffset: e.currentTarget.id==0?e.currentTarget.offsetLeft:e.currentTarget.offsetLeft-56,
       activeIndex: e.currentTarget.id,
       showBottomTips:false
     });
@@ -217,6 +251,7 @@ Page({
     // const token = wx.getStorageSync('token');
     var shopPage=that.data.shopPage
     var listData=shopPage==1?[]:that.data.listData
+    console.log(listData)
     if(shopPage==1){
       that.setData({
         showBottomTips:false
@@ -227,6 +262,8 @@ Page({
       limit:10,
       search_text:that.data.searchText,
       unLoading:true,
+      latitude:that.data.latitude,
+      longitude:that.data.longitude
     },res=>{
       var data=res.data.data
       if(data.length>0){
@@ -237,7 +274,8 @@ Page({
       })
     }else{
       that.setData({
-        showBottomTips:shopPage==1?false:true
+        showBottomTips:shopPage==1?false:true,
+        listData:listData,
       })
       
     }
@@ -303,7 +341,8 @@ Page({
       console.log(dynamicsList)
     }else{
       that.setData({
-        showBottomTips:page==1?false:true
+        showBottomTips:page==1?false:true,
+        dynamicsList:dynamicsList,
       })
     }
     })
@@ -377,5 +416,13 @@ Page({
       })
       that.getDynamicsInfoToPlatform()
     }
+  },
+  //动态地址
+  openDynamicLocation:function(e){
+    var that=this
+    var index=e.currentTarget.dataset.index
+    var dynamicsList=that.data.dynamicsList
+    var shop_info=dynamicsList[index].shop_info
+    utils.openLocation(Number(shop_info.address_lat),Number(shop_info.address_lng),shop_info.address_base+shop_info.address_detail)
   }
 })

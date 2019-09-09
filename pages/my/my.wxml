@@ -19,10 +19,11 @@
         </view>
       </block>
     </view>
+    <view class='line_border' wx:if="{{isLogin}}"></view>
     <block wx:if="{{!isLogin}}">
       <!-- is_shop=0表示普通人 is_shop=1表示店主 -->
       <block wx:if="{{userInfo.is_shop == 1}}">
-        <view class='line_border'></view>
+        
         <navigator url='/pages/my/wallet/wallet' hover-class='none'>
           <view class='personal_money flex_row'>
             <view class="flex_colum ai_flex_center personal_money_msg">
@@ -30,11 +31,11 @@
               <view>我的钱包</view>
             </view>
             <view class='flex_column ai_flex_center personal_money_box'>
-              <view class='fs18'>{{userInfo.unsettled_money}}</view>
+              <view class='fs18 money_class'>{{userInfo.unsettled_money}}</view>
               <view>未结算</view>
             </view>
             <view class='flex_column ai_flex_center personal_money_box'>
-              <view class='fs18'>{{userInfo.settled_money}}</view>
+              <view class='fs18 money_class'>{{userInfo.settled_money}}</view>
               <view>已结算</view>
             </view>
             <view class='balance_detail weui-flex__item flex_row'>余额详情</view>
@@ -44,13 +45,22 @@
     </block>
     <view class="global_cell border_none" bindtap="applicationMerchant">
     <!-- <navigator url='/pages/my/applicationMerchant/applicationMerchant' class="global_cell border_none" hover-class="none"> -->
-      <image src="/images/business_portal.png" class='global_cell_image'></image>
+      <image src="/images/admin_shop.png" class='global_cell_image'></image>
       <view class="weui-cell__bd">商家入口</view>
       <image class='more_right' src='/images/content_more_right.png'></image>
     <!-- </navigator> -->
     </view>
     <view class='line_border'></view>
+    <!-- <block wx:if="{{!isLogin}}">
+    <view class="global_cell border_none" bindtap="toMyshop">
+          <image src="/images/business_portal.png" class='global_cell_image'></image>
+          <view class="weui-cell__bd">我的店铺</view>
+          <image class='more_right' src='/images/content_more_right.png'></image>
+        </view>
+      <view class='line_border'></view>
+    </block> -->
     <view>
+      
       <view class="global_cell">
       <!-- <navigator url='./orderManagement/orderManagement' class="global_cell" hover-class="none"> -->
         <image src="/images/my_order.png" class='global_cell_image'></image>
@@ -80,11 +90,16 @@
     </view>
     <view class='line_border'></view>
     <block wx:for="{{lineBorder}}" wx:index="{{item}}" wx:key="index">
-      <view class="global_cell" data-type="{{item.text}}" bindtap="lineBorder">
+      <view class="global_cell" data-type="{{item.text}}" wx:if="{{item.text!='联系客服'}}" bindtap="lineBorder">
         <image src="{{item.src}}" class='global_cell_image'></image>
         <view class="weui-cell__bd">{{item.text}}</view>
         <image class='more_right' src='/images/content_more_right.png'></image>
       </view>
+      <button class="global_cell global_cell_button" open-type="contact" wx:else>
+        <image src="{{item.src}}" class='global_cell_image'></image>
+        <view class="weui-cell__bd">{{item.text}}</view>
+        <image class='more_right' src='/images/content_more_right.png'></image>
+      </button>
     </block>
     <!-- <navigator url='./regiment/regiment' class="global_cell" hover-class="none">
       <image src="/images/my_regiment.png" class='global_cell_image'></image>

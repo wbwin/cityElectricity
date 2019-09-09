@@ -1,12 +1,14 @@
 <!--pages/dynamicDetails/dynamicDetails.wxml-->
 <view class='page'>
-  <view class='page_bd' style="padding-bottom: {{commentInputShow?'100rpx':'0'}}">
+  <view class='page_bd' style="padding-bottom:100rpx">
     <view class='flex_row dynamic'>
+    <navigator url='/pages/shop/shop?id={{dynamicsData.shop_id}}' class="flex_row weui-flex__item" hover-class='none'>
       <image src='{{osscdn}}{{dynamicsData.shop_info.shop_avatar}}' class='dynamic_image'></image>
       <view class='flex_column weui-flex__item dynamic_content'>
         <text class='dynamic_shop_name'>{{dynamicsData.shop_info.shop_name}}</text>
         <text class="textEllipsisTwo">{{dynamicsData.shop_info.shop_intro}}</text>
       </view>
+      </navigator>
       <button class='share_button' open-type="share">分享</button>
     </view>
     <view class='line_border'></view>
@@ -17,7 +19,7 @@
       </block>
     </view>
     <view class='dynamicDetail_content'>
-      <view class='flex_row dynamic_shop_address'>
+      <view class='flex_row dynamic_shop_address' bindtap="openDynamicLocation">
         <image src='../../images/address_icon.png' class='dynamic_shop_address_image'></image>
         <text>{{dynamicsData.shop_info.address_base}}{{dynamicsData.shop_info.address_detail}}</text>
       </view>
@@ -35,7 +37,7 @@
       </block>
       <view class='flex_row jc_flex_sb dynamic_time'>
         <view>{{dynamicsData.createtime}}</view>
-        <view class='dynamic_chat_triangle flex_row' style="transform:{{triangleShow?'scaleX(1)':'scaleX(0)'}}">
+        <!-- <view class='dynamic_chat_triangle flex_row' style="transform:{{triangleShow?'scaleX(1)':'scaleX(0)'}}">
           <view class='chat_triangle_content flex_row'>
             <view class='flex_row chat_triangle_item' data-is_like="{{dynamicsData.is_like}}"  data-dynamics_id='{{dynamicsData.id}}' catchtap='fabulous'>
               <image src='../../images/{{dynamicsData.is_like==1?"collect_red.png":"collect_default.png"}}' class='small_image'></image>
@@ -48,8 +50,9 @@
             </view>
           </view>
           <view class="chat-right_triangle"></view>
-        </view>
-        <image src='../../images/comments.png' catchtap='triangleClick' class='dynamic_more_image'></image>
+        </view> -->
+        <image src='../../images/{{dynamicsData.is_like==0?"collect_default_2":"collect_red"}}.png' data-is_like="{{dynamicsData.is_like}}" data-index="{{index}}" data-dynamics_id='{{dynamicsData.id}}' catchtap='fabulous' class='dynamic_more_image'></image>
+        <!-- <image src='../../images/comments.png' catchtap='triangleClick' class='dynamic_more_image'></image> -->
       </view>
       <view class='flex_row ai_flex_start dynamic_fabulous' wx:if="{{dynamicsData.like_info.length>0}}">
         <view class='flex_column'>
@@ -91,9 +94,9 @@
         </view>
       </view>
     </view>
-    <view class='flex_row comment_input' wx:if="{{commentInputShow}}">
-      <input class='comment_input_class weui-flex__item' focus='{{commentInputShow}}' bindinput='commentInput' placeholder='评论'></input>
-      <view class='comment_input_send {{commentValue.length>0?"comment_input_sendActive":""}}' bindtap='sendComment'>发送</view>
+    <view class='flex_row comment_input' >
+      <input class='comment_input_class weui-flex__item'  bindinput='commentInput' value="{{commentValue}}" placeholder='评论点什么…'></input>
+      <view class='comment_input_send {{commentValue.length>0?"comment_input_sendActive":""}}'  bindtap='sendComment'>发送</view>
     </view>
   </view>
 </view>

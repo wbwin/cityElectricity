@@ -36,9 +36,11 @@
   margin-right: 20rpx;
 }
 .rightIcon {
-  width: 48rpx;
-  height: 48rpx;
+  width: 40rpx;
+  height: 40rpx;
+  margin-left: 8rpx;
 }
+
 .order_goods{
   background: #fff
 }

@@ -62,6 +62,7 @@ Page({
     page:1,//店铺动态页数
     onShowTrue:false,
     showBottomTips:false,
+    collect:'',
   },
 
   /**
@@ -77,7 +78,13 @@ Page({
     that.setData({
       token:wx.getStorageSync('token'),
       page:1,//店铺动态页数
+      collect:options.collect||wx.getLaunchOptionsSync().query.collect
     })
+    if(wx.getLaunchOptionsSync().query.collect){
+      that.setData({
+        collect:wx.getLaunchOptionsSync().query.collect
+      })
+    }
     that.getShopDetail(that.data.shop_id);//获取店铺详情
     // that.getShopDynamics();//获取店铺动态列表
     
@@ -161,22 +168,34 @@ Page({
    */
   onShareAppMessage: function (res) {
     var that=this
+    console.log(wx.getStorageSync('loginResult'))
+    var loginResult=wx.getStorageSync('loginResult')
+    console.log(that.data.imgUrls)
     if(res.from=="button"){
-      var dynamicsList=that.data.dynamicsList
-      var index=res.target.dataset.index
-      var dynamicsData=dynamicsList[index]
-      console.log(res.target)
-      var imageUrl=dynamicsData.img_json.length>0?dynamicsData.img_json[0]:'/images/logo.png'
-      return {
-        title: dynamicsData.content,
-        path: '/pages/dynamicDetails/dynamicDetails?dynamics_id='+dynamicsData.id,
-        imageUrl:imageUrl,
+      if(res.target.dataset.type==1){
+        return {
+          title: loginResult.user_name+'推荐一家好店'+'—'+that.data.shop.shop_name,
+          path: '/pages/index/index?collect=1&shop_id='+that.data.shop.id,
+          imageUrl:that.data.imgUrls.length>0?that.data.osscdn+that.data.imgUrls[0]:'/images/logo.png'
+        }
+      }else{
+        var dynamicsList=that.data.dynamicsList
+        var index=res.target.dataset.index
+        var dynamicsData=dynamicsList[index]
+        console.log(res.target)
+        var imageUrl=dynamicsData.img_json.length>0?dynamicsData.img_json[0]:'/images/logo.png'
+        return {
+          title: dynamicsData.shop_info.shop_name+'—'+dynamicsData.content,
+          path: '/pages/dynamicDetails/dynamicDetails?dynamics_id='+dynamicsData.id,
+          imageUrl:imageUrl,
+        }
       }
+     
     }else{
       return {
-        title: that.data.shop.shop_name+' — — '+that.data.shop.shop_intro,
-        // path: '/pages/dynamicDetails/dynamicDetails?dynamics_id='+dynamics_id
-        imageUrl:that.data.osscdn+that.data.shop.shop_avatar
+        title:loginResult.user_name+'推荐一家好店'+'—'+that.data.shop.shop_name,
+        path: '/pages/index/index?collect=1&shop_id='+that.data.shop.id,
+        imageUrl:that.data.imgUrls.length>0?that.data.osscdn+that.data.imgUrls[0]:'/images/logo.png'
       }
     }
   },
@@ -202,7 +221,7 @@ Page({
     var shop=that.data.shop
     shop.is_dynamics_red=0
   this.setData({
-    sliderOffset: e.currentTarget.offsetLeft,
+    sliderOffset: e.currentTarget.offsetLeft-28,
     activeIndex: e.currentTarget.id,
     shop:shop,
   });
@@ -286,7 +305,7 @@ Page({
         imgUrls:JSON.parse(data.shop.shop_img_json),
         osscdn:res.osscdn
       })
-      if(wx.getLaunchOptionsSync().query.collect==1&&data.shop.is_fans==0){
+      if(that.data.collect&&data.shop.is_fans==0){
         that.shopFollow()
       }
       console.log(that.data.goods_datas)
@@ -536,4 +555,24 @@ Page({
         })
       })
     },
+    openShopLocation:function(){
+      var that=this
+      var shop=that.data.shop
+      utils.openLocation(Number(shop.address_lat),Number(shop.address_lng),shop.address_base+shop.address_detail)
+    },
+    //动态地址
+    openDynamicLocation:function(e){
+      var that=this
+      var index=e.currentTarget.dataset.index
+      var dynamicsList=that.data.dynamicsList
+      var shop_info=dynamicsList[index].shop_info
+      utils.openLocation(Number(shop_info.address_lat),Number(shop_info.address_lng),shop_info.address_base+shop_info.address_detail)
+    },
+    //回到首页
+    backIndex:function(){
+      console.log(12)
+      wx.switchTab({
+        url: '/pages/index/index'
+      })
+    }
 })

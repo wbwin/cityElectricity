@@ -44,6 +44,7 @@ Page({
     goods_video:'',//商品视频
     goods_cover:'',//商品图片
     goods_price:'',//规格商品价格
+    videoToPlay:false,
   },
 
   /**
@@ -203,7 +204,7 @@ Page({
   //切换tab
   tabClick: function (e) {
     this.setData({
-      sliderOffset: e.currentTarget.offsetLeft,
+      sliderOffset: e.currentTarget.offsetLeft-28,
       activeIndex: e.currentTarget.dataset.index
     });
   },
@@ -464,12 +465,14 @@ Page({
     var that=this
     that.setData({
       autoplay:true,
+      videoToPlay:false,
     })
   },
   bindended:function(e){
     var that=this
     that.setData({
       autoplay:true,
+      videoToPlay:false,
     })
   },
   //查看商品图片
@@ -492,5 +495,14 @@ Page({
     console.log(imgUrls[index])
     console.log(imgUrls)
     utils.previewImage(imgUrls,imgUrls[index])
+  },
+  //
+  videoPlay:function(){
+    var that=this
+    var videoplay = wx.createVideoContext('myVideo')
+    videoplay.play()
+    that.setData({
+      videoToPlay:true
+    })
   },
 })

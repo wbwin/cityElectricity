@@ -5,6 +5,10 @@ button{
 .page_hd {
   padding: 10rpx 0;
 }
+.weui-navbar{
+  width: auto;
+  padding: 15rpx 60rpx;
+}
 
 .weui-navbar__item {
   position: relative
@@ -329,4 +333,28 @@ button{
   left: 16rpx;
   bottom: 8rpx;
   width: 560rpx;
+}
+.shop_intro{
+  font-size:28rpx;
+  font-family:PingFangSC;
+  font-weight:400;
+  color:rgba(102,102,102,1);
+  line-height:40rpx;
+  margin-top: 16rpx;
+}
+.back_index{
+  width:120rpx;
+  height:50rpx;
+  background:rgba(0,0,0,0.6);
+  border-radius:0px 200rpx 200rpx 0px;
+  text-align: center;
+  line-height: 50rpx;
+  font-size:24rpx;
+  font-family:PingFangTC;
+  font-weight:400;
+  color:rgba(255,255,255,1);
+  position:fixed;
+  top:70rpx;
+  left: 0;
+  z-index: 999;
 }

@@ -17,6 +17,6 @@
     </view>
 
   </view>
-  <template is="noDatas" data="{{paddingTop: '302rpx',text1:'暂无金额明细'}}" wx:else />
+  <template is="noDatas" data="{{paddingTop: '302rpx',text1:'暂无金额明细'}}" wx:if="{{walletList.length==0&&walletList!==''}}" />
 
 </view>

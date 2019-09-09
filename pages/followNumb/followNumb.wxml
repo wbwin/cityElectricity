@@ -13,7 +13,7 @@
         <image class='open_image' src='../../images/pull_down.png'></image>
       </view>
     </view>
-    <template is="noDatas" data="{{paddingTop: '402rpx',paddingBottom:'264rpx',text1:'暂无人数'}}" wx:else />
+    <template is="noDatas" data="{{paddingTop: '402rpx',paddingBottom:'264rpx',text1:'暂无人数'}}" wx:if="{{list.length==0&&list!==''}}" />
 
   </view>
 </view>

@@ -4,6 +4,7 @@
     <image class="apply-icon" src="{{apply_success}}" lazy-load="true" />
     <view class="apply-success-text">审核通过</view>
   </view>
+  <view class='line_border'></view>
   <block wx:if="{{is_shop}}">
     <view class="apply-return-info">
       <view>1.您提交的信息已通过审核</view>

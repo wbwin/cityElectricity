@@ -150,9 +150,11 @@ color:rgba(51,51,51,1);
   margin-right: 20rpx;
 }
 .rightIcon {
-  width: 48rpx;
-  height: 48rpx;
+  width: 40rpx;
+  height: 40rpx;
+  margin-left: 8rpx;
 }
+
 .refuse{
   font-size:28rpx;
   font-family:PingFangSC;
