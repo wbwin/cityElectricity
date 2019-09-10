@@ -33,6 +33,8 @@ const api = {
   // 第三模块
   getUserInfo:'/public/api/user/getUserInfo',///获取用户信息
   getApplyStatus:'/public/api/apply/getApplyStatus',//获取用户申请商家的状态
+  getPlatformInfo:'/public/api/platform/getPlatformInfo',//关于我们列表
+  getPlatformInfoDetail:'/public/api/platform/getPlatformInfoDetail',//公告详情
   getPlatformProtocol:'/public/api/user/getPlatformProtocol',//关于我们
   getPlatformService:'/public/api/Platform/getPlatformService',//联系客服
   ossUploadImage:'/public/api/index/oss_uploadImage',//上传图片oss文件

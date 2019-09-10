@@ -1,27 +1,17 @@
 <!--index.wxml-->
-<import src="../template/noDatas/noDatas.wxml" />
+<import src="../../template/noDatas/noDatas.wxml" />
 
-<view class='page'>
+<view class='page '>
   <view class='page__hd flex_row'>
-    <view class="flex_row weui-search-bar weui-flex__item" bindtap="inputClick" style="margin-right:32rpx">
+    <view class="flex_row weui-search-bar weui-flex__item" style="margin-right:{{!inputFocus?'32rpx':'0rpx'}}">
       <image src='/images/search_icon.png' class='search_icon'></image>
-      <input type="text" class="search_input weui-flex__item"  disabled="true" bindconfirm='searchConfirm' confirm-type='search'   bindinput="searchInput" placeholder="搜索" value="{{searchText}}"/>
+      <input type="text" class="search_input weui-flex__item"  bindconfirm='searchConfirm' focus="true" confirm-type='search' bindfocus="searchFocus"  bindinput="searchInput" placeholder="搜索" value="{{searchText}}"/>
       
     </view>
-    <!-- <view class="input_cancel " wx:if="{{inputFocus}}" bindtap="inputCancel" >取消</view> -->
+    <view class="input_cancel " wx:if="{{inputFocus}}" bindtap="inputCancel" >取消</view>
   </view>
-  <view class='page__bd' >
+  <view class='page__bd' wx:if="{{!inputFocus}}">
     <view class='weui-tab'>
-      <view class='weui-navbar'>
-        <block wx:for='{{tabs}}' wx:key='*this'>
-          <view id='{{index}}' class='weui-navbar__item {{activeIndex==index?"weui-bar__item_on":""}}' style="padding-left:{{index==0?'120rpx':'0'}};padding-right:{{index==1?'120rpx':'0'}}" bindtap="tabClick">
-            <view class="weui-navbar__title">{{item}}</view>
-          </view>
-        </block>
-        <view class="weui-navbar__slider" style="width:9%;left:28.5%!important; bottom: 16rpx !important;transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
-      </view>
-      <view class="weui-tab__panel">
-        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
           <view wx:if="{{listData.length>0}}">
             <block wx:for="{{listData}}" wx:key='index' wx:for-item="item">
               <view class='shop_poster_item'>
@@ -61,17 +51,11 @@
               </view>
             </block>
           </view>
-          <template is="noDatas" data="{{paddingTop: '102rpx',paddingBottom:'264rpx',text1:'暂无关注的店铺',text2:'点击下方发现，查看更多的店铺的内容'}}" wx:if="{{listData.length==0&&listData!==''}}" />
+          <template is="noDatas" data="{{paddingTop: '102rpx',paddingBottom:'264rpx',text1:'暂未找到搜索的店铺'}}" wx:if="{{listData.length==0&&listData!==''}}" />
 
-        </view>
-        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-          <include src="../template/dynamicList/dynamicList.wxml" wx:if='{{dynamicsList.length>0}}'/>
-            <template is="noDatas" data="{{paddingTop: '102rpx',text1:'暂无关注的店铺动态',text2:'点击下方发现，查看更多的店铺的内容'}}" wx:if="{{dynamicsList.length==0&&dynamicsList!==''}}" />
-  
-        </view>
+        
         <view class="flex_row jc_flex_center bottom_tips" wx:if="{{showBottomTips}}">— 已经到底啦 —</view>
 
-      </view>
     </view>
   </view>
 

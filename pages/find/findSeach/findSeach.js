@@ -1,7 +1,7 @@
 //index.js
-import config from "../../utils/config"
-import api from "../../utils/api"
-import utils from "../../utils/utils"
+import config from "../../../utils/config"
+import api from "../../../utils/api"
+import utils from "../../../utils/utils"
 //获取应用实例
 const app = getApp()
 var sliderWidth = 26;
@@ -33,7 +33,7 @@ Page({
     showBottomTips:false,
     latitude:'',//用户当前经纬度
     longitude:'',//用户当前经纬度
-    inputFocus:false,
+    inputFocus:true,
   },
   onLoad: function () {
     var that = this;
@@ -57,22 +57,22 @@ Page({
       shopSearchText:'',
       dynaSearchText:'',
     })
-    wx.getLocation({
-      type: 'wgs84',
-      success (res) {
-        console.log(res)
-        const latitude = res.latitude
-        const longitude = res.longitude
-        that.setData({
-          latitude:latitude,
-          longitude:longitude
-        })
-      },
-      complete(res){
-        that.getPlatformShop();//加载数据
-        that.getDynamicsInfoToPlatform();
-      }
-    })
+    // wx.getLocation({
+    //   type: 'wgs84',
+    //   success (res) {
+    //     console.log(res)
+    //     const latitude = res.latitude
+    //     const longitude = res.longitude
+    //     that.setData({
+    //       latitude:latitude,
+    //       longitude:longitude
+    //     })
+    //   },
+    //   complete(res){
+    //     that.getPlatformShop();//加载数据
+    //     that.getDynamicsInfoToPlatform();
+    //   }
+    // })
     
   },
   onShow: function () {
@@ -92,24 +92,24 @@ Page({
       shopSearchText:'',
       dynaSearchText:'',
     })
-    wx.getLocation({
-      type: 'wgs84',
-      success (res) {
-        const latitude = res.latitude
-        const longitude = res.longitude
-        that.setData({
-          latitude:latitude,
-          longitude:longitude
-        })
-      },
-      fail(res){
-        console.log(res)
-      },
-      complete(res){
-        that.getPlatformShop();//加载数据
-        that.getDynamicsInfoToPlatform()
-      }
-    })
+    // wx.getLocation({
+    //   type: 'wgs84',
+    //   success (res) {
+    //     const latitude = res.latitude
+    //     const longitude = res.longitude
+    //     that.setData({
+    //       latitude:latitude,
+    //       longitude:longitude
+    //     })
+    //   },
+    //   fail(res){
+    //     console.log(res)
+    //   },
+    //   complete(res){
+    //     that.getPlatformShop();//加载数据
+    //     that.getDynamicsInfoToPlatform()
+    //   }
+    // })
   },
   onReachBottom:function(){
 
@@ -139,12 +139,15 @@ Page({
   },
   onPullDownRefresh:function(){
     var that=this
-    that.setData({
-      dynaPage:1,
-      shopPage:1,
-    })
-    that.getPlatformShop();//加载数据
-    that.getDynamicsInfoToPlatform()
+    if(inputFocus){
+      that.setData({
+        dynaPage:1,
+        shopPage:1,
+      })
+      that.getPlatformShop();//加载数据
+    }
+    
+    // that.getDynamicsInfoToPlatform()
   },
   onShareAppMessage:function(res){
     var that=this
@@ -433,11 +436,6 @@ Page({
     var that=this
     that.setData({
       inputFocus:false,
-    })
-  },
-  inputClick:function(){
-    wx.navigateTo({
-      url:"/pages/find/findSeach/findSeach"
     })
   },
   //动态地址

@@ -1,8 +1,14 @@
 <!--pages/my/aboutUs/aboutUs.wxml-->
 <view class='page'>
   <view class='page_bd'>
-    <view class="global_cell">
-      <rich-text class="weui-cell__bd" nodes="{{content}}"></rich-text>
-    </view>
+    <block wx:for="{{dataList}}" wx:if="{{dataList.length>0}}" >
+      <view class="global_cell" bindtap="toDetail" data-id="{{item.id}}">
+          <!-- <image src="{{item.src}}" class='global_cell_image'></image> -->
+          <view class="weui-cell__bd">{{item.intro_title}}</view>
+          <image class='more_right' src='/images/content_more_right.png'></image>
+        </view>
+    </block>
+    <template is="noDatas" data="{{paddingTop: '102rpx',paddingBottom:'264rpx',text1:'暂无公告'}}" wx:if="{{dataList.length==0&&dataList!==''}}" />
+    <view class="flex_row jc_flex_center bottom_tips" wx:if="{{showBottomTips}}">— 已经到底啦 —</view>
   </view>
 </view>

@@ -1,0 +1,5 @@
+{
+  "navigationBarTitleText": "店铺搜索",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 100
+}

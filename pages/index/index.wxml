@@ -47,7 +47,11 @@
                       </view> -->
                     </view>
                   </view>
-                  <view class='shop_poster_classfly'>新品</view>
+                  <view class='shop_classfly_box flex_row' wx:if="{{item.label!=0}}">
+                    <block wx:for="{{item.label}}" wx:for-item="label" >
+                      <view class="shop_classfly_item">{{label==1?'新品':'新动态'}}</view>
+                    </block>
+                  </view>
                 </navigator>
                 <navigator url='/pages/followNumb/followNumb?shop_id={{item.id}}&type=0' class='flex_row fans' hover-class='none' >
                   <view class='flex_column fans_numb' >

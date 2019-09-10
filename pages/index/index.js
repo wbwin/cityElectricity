@@ -57,6 +57,7 @@ Page({
       shop_id:options.shop_id
     })
     that.getBanner();//banner
+    
     that.getUserShop();//加载数据
   },
   onShow: function () {
@@ -150,6 +151,11 @@ Page({
     },res=>{
       var list=res.data.list
       if(list.length>0){
+        for(var i in list){
+          if(list[i].label!=0){
+            list[i].label=list[i].label.length>1?list[i].label.split(","):list[i].label.split("")
+          }
+        }
         shopList=shopList.concat(list)
       
       that.setData({

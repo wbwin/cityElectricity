@@ -260,7 +260,7 @@ Page({
       const is_supplier = that.data.is_supplier;
       let token = wx.getStorageSync('token');
       let is_apply_supplier = '';
-      if(shop_img_json == ''||shop_name == ''||shop_intro == ''||address_base == ''||address_detail == ''||address_lat == ''||address_lng == ''||leader_name == ''||leader_tel == ''||leader_wechat == ''){
+      if(shop_img_json == ''||shop_name == ''||shop_intro == ''||leader_name == ''||leader_tel == ''||leader_wechat == ''){
         wx.showModal({
           title:'提示',
           content:'请将信息填写完整',
@@ -281,6 +281,16 @@ Page({
         return false
       }
       if(is_supplier){
+        if(address_base==''||address_detail==''||address_lat == ''||address_lng == ''){
+          wx.showModal({
+            title:'提示',
+            content:'同时申请为供应商，需要填写店铺地址和详细地址',
+            showCancel:false,
+            confirmText:'确定',
+            confirmColor:"#646981",
+          })
+          return false
+        }
         is_apply_supplier = 1
       }else{
         is_apply_supplier = 0

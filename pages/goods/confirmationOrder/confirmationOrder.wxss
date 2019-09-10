@@ -2,10 +2,12 @@
 /*订单商品信息*/
 .page{
   height: auto;
+   /* margin-bottom: 98rpx; */
+   padding-bottom: 98rpx;
 }
-page{
+/* page{
   margin-bottom: 98rpx;
-}
+} */
 .shopIcon {
   border-radius: 100%;
   width: 48rpx;

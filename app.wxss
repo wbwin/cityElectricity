@@ -205,7 +205,21 @@ input::-webkit-input-placeholder {
   line-height: 28rpx;
 
 }
-
+.shop_classfly_box{
+  position: absolute;
+  right: 16rpx;
+  top: 16rpx;
+}
+.shop_classfly_item {
+  padding: 6rpx 24rpx;
+  font-size: 24rpx;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+  background: rgba(255, 132, 27, 1);
+  border-radius: 24rpx;
+  margin-left: 16rpx;
+}
 .shop_poster_classfly {
   position: absolute;
   right: 16rpx;
@@ -1004,7 +1018,7 @@ input::-webkit-input-placeholder {
 /*搜索框*/
 
 .weui-search-bar {
-  margin: 16rpx 32rpx;
+  margin: 16rpx 0rpx 16rpx 32rpx;
   padding: 18rpx 32rpx;
   background-color: #f7f7f7;
   border-radius: 38rpx;

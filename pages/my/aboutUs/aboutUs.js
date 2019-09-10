@@ -8,7 +8,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    content:''
+    content:'',
+    page:1,
+    dataList:'',
+    showBottomTips:false,
+    onShowTrue:false,
   },
 
   /**
@@ -16,7 +20,10 @@ Page({
    */
   onLoad: function (options) {
     const that = this;
-    that.getPlatformProtocol();
+    that.setData({
+      page:1
+    })
+    that.getPlatformInfo();
   },
 
   /**
@@ -30,7 +37,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    const that = this;
+    if(!that.data.onShowTrue){
+      that.setData({
+        onShowTrue:true
+      })
+        return false
+    }
+    that.setData({
+      page:1
+    })
+    that.getPlatformInfo();
   },
 
   /**
@@ -51,15 +68,26 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    const that = this;
-    that.getPlatformProtocol();
+    var that=this
+    that.setData({
+      page:1,
+    })
+    that.getPlatformInfo();//banner
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    var that=this
+    if(that.data.showBottomTips||that.data.dataList.length==0){
+      return false
+    }
+    var page=Number(that.data.page)+1
+      that.setData({
+        page:page
+      })
+      that.getPlatformInfo()
   },
 
   /**
@@ -78,18 +106,44 @@ Page({
     }
   },
   //获取关于我们信息
-  getPlatformProtocol () {
+  getPlatformInfo () {
     let that = this;
-    wx.request({
-      url: config.ApiUrl + api.getPlatformProtocol,
-      data: {unLoading:true,},
-      method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-      // header: {}, // 设置请求的 header
-      success: function(res){
+    const token = wx.getStorageSync('token');
+    var page=that.data.page
+    var dataList=page==1?[]:that.data.dataList
+    if(page==1){
+      that.setData({
+        showBottomTips:false
+      })
+    }
+    utils.util.post(api.getPlatformInfo,{
+      page:that.data.page,
+      unLoading:true,
+      limit:10,
+      token:token
+    },res=>{
+      var list=res.data.list
+      if(list.length>0){
+        dataList=dataList.concat(list)
+      
+      that.setData({
+        dataList:dataList,
+        osscdn:res.osscdn
+      })
+      }else{
         that.setData({
-          content:res.data.data.content
+          showBottomTips:page==1?false:true,
+          dataList:dataList,
         })
       }
+    })
+    
+  },
+  toDetail:function(e){
+    var that=this
+    var id=e.currentTarget.dataset.id
+    wx.navigateTo({
+      url:'/pages/my/aboutUs/aboutUsDetail/aboutUsDetail?id='+id
     })
   }
 })
