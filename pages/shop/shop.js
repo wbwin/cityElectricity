@@ -114,7 +114,7 @@ Page({
       page:1,//店铺动态页数
     })
     that.getShopDetail(that.data.shop_id);//获取店铺详情
-    that.getShopDynamics();//获取店铺动态列表
+    // that.getShopDynamics();//获取店铺动态列表
   },
 
   /**
@@ -140,7 +140,7 @@ Page({
       page:1,//店铺动态页数
     })
     that.getShopDetail(that.data.shop_id);//获取店铺详情
-    that.getShopDynamics();//获取店铺动态列表
+    // that.getShopDynamics();//获取店铺动态列表
     
   },
 

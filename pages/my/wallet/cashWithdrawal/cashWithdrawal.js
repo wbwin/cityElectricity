@@ -23,14 +23,21 @@ Page({
     console.log(options.money)
     const that = this
     const money = options.money
+    const type=options.type
+    var title = type == 2 ? '供应商提现': '店主提现'
+    wx.setNavigationBarTitle({
+      title: title
+    })
     if (money > 100) {
       that.setData({
         money: money,
-        if_withdrawal: true
+        if_withdrawal: true,
+        type:type
       })
     } else {
       that.setData({
-        money: money
+        money: money,
+        type:type
       })
     }
 
@@ -98,8 +105,9 @@ Page({
   },
   //提现记录
   record:function(){
+    var that=this
     wx.navigateTo({
-      url: '/pages/my/wallet/discountRecord/discountRecord'
+      url: '/pages/my/wallet/discountRecord/discountRecord?type='+that.data.type
     })
   },
   //提现
@@ -155,6 +163,7 @@ Page({
       bank_name:bankName,
       bank_account:bankNumber,
       token:that.data.token,
+      type:that.data.type,
     },res=>{
       wx.showModal({
         title:'提示',
@@ -165,7 +174,7 @@ Page({
         success (res) {
           if (res.confirm) {
             wx.redirectTo({
-              url: '/pages/my/wallet/discountRecord/discountRecord'
+              url: '/pages/my/wallet/discountRecord/discountRecord?type='+that.data.type
             })
           } else if (res.cancel) {
             console.log('用户点击取消')

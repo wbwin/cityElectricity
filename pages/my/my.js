@@ -323,8 +323,9 @@ Page({
     }
   },
   toMyshop:function(){
+    var that=this
     wx.navigateTo({
-      url: '/pages/shop/shop?id='
+      url: '/pages/shop/shop?id='+that.data.userInfo.shop_id
     })
   },
   //

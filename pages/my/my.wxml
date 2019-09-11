@@ -22,7 +22,7 @@
     <view class='line_border' wx:if="{{isLogin}}"></view>
     <block wx:if="{{!isLogin}}">
       <!-- is_shop=0表示普通人 is_shop=1表示店主 -->
-      <block wx:if="{{userInfo.is_shop == 1}}">
+      <block wx:if="{{userInfo.is_shop == 1||userInfo.is_supplier == 1}}">
         
         <navigator url='/pages/my/wallet/wallet' hover-class='none'>
           <view class='personal_money flex_row'>
@@ -51,14 +51,14 @@
     <!-- </navigator> -->
     </view>
     <view class='line_border'></view>
-    <!-- <block wx:if="{{!isLogin}}">
+    <block wx:if="{{userInfo.is_shop == 1}}">
     <view class="global_cell border_none" bindtap="toMyshop">
           <image src="/images/business_portal.png" class='global_cell_image'></image>
           <view class="weui-cell__bd">我的店铺</view>
           <image class='more_right' src='/images/content_more_right.png'></image>
         </view>
       <view class='line_border'></view>
-    </block> -->
+    </block>
     <view>
       
       <view class="global_cell">

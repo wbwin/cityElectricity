@@ -187,6 +187,10 @@ Page({
         goods_price:goods_price,
         goods_cover:res.data.goods_cover,
       })
+      for(var i in spec_json){
+        that.secSelect(i,0)
+      }
+      
     })
   },
   //图片轮播
@@ -402,6 +406,34 @@ Page({
     const that = this
     const spec_index = e.currentTarget.dataset.spec_index
     const spec_children_index=e.currentTarget.dataset.spec_children_index
+    var spec_stock=that.data.goodsDetail.spec_stock
+    var spec_json=that.data.spec_json
+    spec_json[spec_index].isSelect=spec_children_index
+    var order_goods_spec=that.data.order_goods_spec
+    order_goods_spec[spec_index]=spec_json[spec_index].children[spec_children_index]
+    //不同商品规格显示不同价格和图片
+    var spec=order_goods_spec.join(',')
+    for(var i in spec_stock){
+      if(spec==spec_stock[i].spec){
+        that.setData({
+          goods_price:spec_stock[i].price,
+          goods_cover:spec_stock[i].image,
+          stock:spec_stock[i].stock,
+        })
+        break;
+      }
+    }
+    that.setData({
+      spec_json:spec_json,
+      order_goods_spec:order_goods_spec
+    })
+    console.log(that.data.order_goods_spec)
+  },
+   /*传参数选择不同的规格*/
+   secSelect: function (spec_index,spec_children_index) {
+    const that = this
+    // const spec_index = e.currentTarget.dataset.spec_index
+    // const spec_children_index=e.currentTarget.dataset.spec_children_index
     var spec_stock=that.data.goodsDetail.spec_stock
     var spec_json=that.data.spec_json
     spec_json[spec_index].isSelect=spec_children_index

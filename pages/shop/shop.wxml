@@ -185,7 +185,7 @@
               <image src='{{osscdn}}{{shop.wxacode_image}}' bindtap="previewWxacodeImage" class='qr_code_image'></image>
               <view class='qr_code_text'>微信扫码可打开店铺，并自动关注店铺</view>
             </view>
-            <view class="global_cell " bindtap="openShopLocation">
+            <view class="global_cell " wx:if="{{shop.address_lat&&shop.address_lng}}" bindtap="openShopLocation">
               <view class="weui-cell__hd">
                 <view class='weui-cell__rt'>店铺地址</view>
               </view>

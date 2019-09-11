@@ -69,3 +69,9 @@ color:rgba(153,153,153,1);
 .pd40{
   padding-bottom: 80rpx;
 }
+.title{
+  text-align: center;
+  color: #666;
+  font-size: 32rpx;
+  margin: 32rpx;
+}

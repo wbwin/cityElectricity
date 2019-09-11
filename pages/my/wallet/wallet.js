@@ -82,24 +82,24 @@ Page({
   },
   cashWithdrawal: function (e) {
     var that=this
+    var type=e.currentTarget.dataset.type
+    if(type==2){
+      var settled_money=that.data.userInfo.supplier_settled_money
+    }else{
+      var settled_money=that.data.userInfo.shop_settled_money
+    }
     wx.navigateTo({
-      url: './cashWithdrawal/cashWithdrawal?money='+that.data.userInfo.settled_money,
+      url: './cashWithdrawal/cashWithdrawal?money='+settled_money+'&type='+type,
     })
   },
   //查看明细 已结算金额和未结算金额
   record: function (e) {
     console.log(e)
-    const id = e.currentTarget.dataset.id
-    if (id == 1) {
+    const toggle = e.currentTarget.dataset.toggle
+    const type=e.currentTarget.dataset.type
       wx.navigateTo({
-        url: '/pages/my/wallet/detailsOfAmount/detailsOfAmount?type=1'
+        url: '/pages/my/wallet/detailsOfAmount/detailsOfAmount?toggle='+toggle+'&type='+type
       })
-    }
-    if (id == 2) {
-      wx.navigateTo({
-        url: '/pages/my/wallet/detailsOfAmount/detailsOfAmount?type=2'
-      })
-    }
 
   },
   getUserInfo:function(){

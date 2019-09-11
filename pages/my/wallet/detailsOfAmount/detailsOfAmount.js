@@ -7,24 +7,34 @@ Page({
    * 页面的初始数据
    */
   data: {
-    type:1,
-    walletList:'',
+    type: '',
+    walletList: '',
+    toggle: 1,
+    page: 1,
+    onShowTrue: false,
+    showBottomTips: false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that=this
+    var that = this
     console.log(options)
+    const toggle = options.toggle
     const type = options.type
-    var title=type==1?'已结算金额明细':'未结算金额明细';
+    var title = toggle == 1 ? '已结算金额明细' : '未结算金额明细';
+    title = type == 2 ? '供应商' + title : '店主' + title
     wx.setNavigationBarTitle({
       title: title
     })
     that.setData({
-      type:type,
+      toggle: toggle,
+      type: type,
+      page: 1,
+      token: wx.getStorageSync('token')
     })
+    that.getAdminWallet()
   },
 
   /**
@@ -38,11 +48,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var that=this
+    var that = this
     that.setData({
-      token:wx.getStorageSync('token')
+      token: wx.getStorageSync('token')
     })
-      that.getAdminWallet()
+    if (!that.data.onShowTrue) {
+      that.setData({
+        onShowTrue: true
+      })
+      return false
+    }
+    that.getAdminWallet()
   },
 
   /**
@@ -63,45 +79,77 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    var that = this
+    that.setData({
+      page: 1,
+    })
+    that.getAdminWallet(); //加载数据
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    var that = this
+    if (that.data.showBottomTips || that.data.walletList.length == 0) {
+      return false
+    }
+    var page = Number(that.data.page) + 1
+    that.setData({
+      page: page
+    })
+    that.getAdminWallet()
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function (res) {
-    var that=this
-    if(res.from=="button"){
-      
-    }else{
+    var that = this
+    if (res.from == "button") {
+
+    } else {
       return {
         title: '同橙电商',
         path: '/pages/my/my',
-        imageUrl:'/images/logo.png',
+        imageUrl: '/images/logo.png',
       }
     }
   },
   //获取钱包明细
-  getAdminWallet:function(){
-    var that=this
-    var type=that.data.type
-    var is_settle=type==1?'1':'0'
-    utils.util.post(api.getAdminWallet,{
-      is_settle:is_settle,
-      token:that.data.token,
-      unLoading:true
-    },res=>{
+  getAdminWallet: function () {
+    var that = this
+    var toggle = that.data.toggle
+    var type = that.data.type
+    var is_settle = toggle == 1 ? '1' : '0'
+    var page = that.data.page
+    var walletList = page == 1 ? [] : that.data.walletList
+    if (page == 1) {
       that.setData({
-        walletList:res.data.list,
-        osscdn:res.osscdn
+        showBottomTips: false
       })
+    }
+    utils.util.post(api.getAdminWallet, {
+      is_settle: is_settle,
+      token: that.data.token,
+      unLoading: true,
+      type: type,
+      page: page,
+      limit: 10
+    }, res => {
+      var list = res.data.list
+      if (list.length > 0) {
+        walletList = walletList.concat(list)
+        that.setData({
+          walletList: walletList,
+          osscdn: res.osscdn
+        })
+      } else {
+        that.setData({
+          showBottomTips: page == 1 ? false : true,
+          walletList: walletList,
+        })
+      }
     })
   },
 

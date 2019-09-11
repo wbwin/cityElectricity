@@ -19,7 +19,7 @@
       </block>
     </view>
     <view class='dynamicDetail_content'>
-      <view class='flex_row dynamic_shop_address' bindtap="openDynamicLocation">
+      <view class='flex_row dynamic_shop_address' wx:if="{{dynamicsData.shop_info.address_lat&&dynamicsData.shop_info.address_lng}}" bindtap="openDynamicLocation">
         <image src='../../images/address_icon.png' class='dynamic_shop_address_image'></image>
         <text>{{dynamicsData.shop_info.address_base}}{{dynamicsData.shop_info.address_detail}}</text>
       </view>

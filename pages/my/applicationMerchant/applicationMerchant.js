@@ -118,12 +118,12 @@ Page({
           break;
         case 1:
           wx.navigateTo({
-            url: './shopApplication/shopApplication'
+            url: '../applicationMerchant/auditResults/auditResults?status=success&type=shop'
           })
           break;
         case 2:
           wx.navigateTo({
-            url: './shopApplication/shopApplication'
+            url: '../applicationMerchant/auditResults/auditResults?status=fail&type=shop'
           })
           break;
         default:

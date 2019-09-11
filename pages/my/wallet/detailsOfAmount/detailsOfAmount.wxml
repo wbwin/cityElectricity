@@ -9,14 +9,14 @@
             <text class='amout_item_name'>{{item.description}}</text>
             <text class='amout_item_time'>{{item.createtime}}</text>
           </view>
-          <text class='amout_item_price unsettled_color' wx:if="{{item.status==1}}">-{{item.price}}</text>
+          <text class='amout_item_price unsettled_color' wx:if="{{item.status==2}}">-{{item.price}}</text>
           <text class='amout_item_price' wx:else>+{{item.price}}</text>
 
         </view>
       </block>
     </view>
-
+    <view class="flex_row jc_flex_center bottom_tips" wx:if="{{showBottomTips}}">— 已经到底啦 —</view>
   </view>
   <template is="noDatas" data="{{paddingTop: '302rpx',text1:'暂无金额明细'}}" wx:if="{{walletList.length==0&&walletList!==''}}" />
-
+  
 </view>

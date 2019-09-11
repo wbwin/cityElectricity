@@ -10,13 +10,22 @@ Page({
     page:1,
     infoList:'',
     showBottomTips:false,
+    type:'',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    const that = this
+    const type=options.type
+    var title = type == 2 ? '供应商提现记录': '店主提现记录'
+    wx.setNavigationBarTitle({
+      title: title
+    })
+    that.setData({
+      type:type,
+    })
   },
 
   /**
@@ -103,7 +112,8 @@ Page({
       page:that.data.page,
       limit:10,
       token:that.data.token,
-      unLoading:true
+      unLoading:true,
+      type:that.data.type
     },res=>{
       var list=res.data.list
       if(list.length>0){

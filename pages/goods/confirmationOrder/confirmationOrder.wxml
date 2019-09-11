@@ -115,5 +115,24 @@
       </view>
 <button class='need_pay_button' bindtap='sure_pay'>确认支付</button>
   </view>
-  
+  <view class="mobile_mask" wx:if="{{mobileMask}}">
+    <view class="mobile_box">
+      <view class="mobile_title">绑定手机号</view>
+      <view class="flex_row mobile_input_box mobile_input_bobtm">
+        <view class="mobile_input_asterisk">*</view>
+        <view class="mobile_input_title">联系电话</view>
+        <input class="mobile_input" type="number" bindinput="phoneInput" placeholder="请输入手机号码" />
+      </view>
+      <view class="flex_row mobile_input_box ">
+          <view class="mobile_input_asterisk">*</view>
+          <view class="mobile_input_title">验证码</view>
+          <input class="mobile_input" type="number" bindinput="vcInput" placeholder="请输入验证码" />
+          <view class="mobile_input_getvc" style="color:{{countDownText=='获取验证码'?'rgba(255,132,27,1)':'#999'}}" bindtap="getVC">{{countDownText}}</view>
+        </view>
+        <view class="mobile_button_box flex_row">
+            <view class="mobile_button_cancel" bindtap="mobileMaskHide">取消</view>
+            <view class="mobile_button_sure" bindtap="bindPhoneSure">确定</view>
+          </view>
+    </view>
+  </view>
 </view>

@@ -123,11 +123,13 @@ Page({
       method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
       success: function(res){
-        for(var i=0;i<res.data.data.length;i++){
-          imgUrls.push(res.data.osscdn+'/'+res.data.data[i].banner_img)
+        var data=res.data.data
+        var osscdn=res.data.osscdn
+        for(var i=0;i<data.length;i++){
+          data[i].banner_img=osscdn+'/'+data[i].banner_img
         }
         that.setData({
-          imgUrls:imgUrls
+          imgUrls:data
         })
       }
     })
@@ -286,6 +288,16 @@ Page({
     var index=e.currentTarget.dataset.index
     console.log(imgUrls,imgUrls[index])
     utils.previewImage(imgUrls,imgUrls[index])
+  },
+  toDetail:function(e){
+    const that = this
+    var index=e.currentTarget.dataset.index
+    var imgUrls=that.data.imgUrls
+    if(imgUrls[index].url){
+      wx.navigateTo({
+        url:imgUrls[index].url
+      })
+    }
   },
   //获取用户关注的动态
   getDynamicsInfo(){

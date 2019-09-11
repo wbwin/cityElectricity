@@ -54,14 +54,14 @@
 					"id": 0,
 					"name": "店铺",
 					"pathName": "pages/shop/shop",
-					"query": "id=12",
+					"query": "id=14",
 					"scene": null
 				},
 				{
 					"id": 1,
 					"name": "商品详情",
 					"pathName": "pages/goods/goods",
-					"query": "goods_id=80&shop_id=13",
+					"query": "goods_id=80&shop_id=14",
 					"scene": null
 				},
 				{
@@ -124,7 +124,7 @@
 					"id": 10,
 					"name": "订单确认",
 					"pathName": "pages/goods/confirmationOrder/confirmationOrder",
-					"query": "orderMsg={\"shop_id\":\"4\",\"goods_id\":\"42\",\"spec\":\"翡翠绿,36\",\"num\":\"2\",\"order_type\":2}",
+					"query": "orderMsg=%7B%22shop_id%22%3A%2214%22%2C%22goods_id%22%3A%2280%22%2C%22spec%22%3A%22%E5%A4%A7%2C%E9%93%81%E7%9B%92%22%2C%22num%22%3A%221%22%2C%22order_type%22%3A%222%22%7D",
 					"scene": null
 				},
 				{
@@ -237,6 +237,13 @@
 					"name": "pages/my/wallet/detailsOfAmount/detailsOfAmount",
 					"pathName": "pages/my/wallet/cashWithdrawal/cashWithdrawal",
 					"query": "money=200",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/my/wallet/wallet",
+					"pathName": "pages/my/wallet/wallet",
+					"query": "goods_id=80&shop_id=13",
 					"scene": null
 				}
 			]
