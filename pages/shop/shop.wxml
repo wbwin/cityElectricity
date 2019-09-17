@@ -16,7 +16,7 @@
       </block>
     </swiper>
   </view>
-  <view class='line_border'></view>
+  <!-- <view class='line_border'></view> -->
   <view class='page_bd'>
     <view class='flex_row jc_flex_sb shop_introduction'>
       <view class='flex_row weui-flex__item mr10'>

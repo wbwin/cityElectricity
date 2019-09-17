@@ -3,7 +3,7 @@ button{
   line-height:normal;
 }
 .page_hd {
-  padding: 10rpx 0;
+  /* padding: 10rpx 0; */
 }
 .weui-navbar{
   width: auto;

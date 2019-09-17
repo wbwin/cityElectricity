@@ -1,4 +1,5 @@
 // pages/dynamicDetails/dynamicDetails.js
+import config from "../../utils/config"
 import api from "../../utils/api"
 import utils from "../../utils/utils"
 Page({
@@ -20,6 +21,7 @@ Page({
     onShowTrue:false,
     videoToPlay:false,
     videoHeight:'',
+    collect:'',
   },
 
   /**
@@ -30,7 +32,8 @@ Page({
     var dynamics_id=options.dynamics_id
     that.setData({
       dynamics_id:dynamics_id,
-      token:wx.getStorageSync('token')
+      token:wx.getStorageSync('token'),
+      collect:options.collect
     })
     that.getDynamicsDetail()
   },
@@ -97,13 +100,13 @@ Page({
       console.log(res.target)
       return {
         title: dynamicsData.shop_info.shop_name+dynamicsData.content,
-        path: '/pages/dynamicDetails/dynamicDetails?dynamics_id='+dynamics_id,
+        path: '/pages/dynamicDetails/dynamicDetails?collect=1&dynamics_id='+dynamics_id,
         imageUrl:imageUrl
       }
     }else{
       return {
         title: '同橙电商',
-        path: '/pages/my/my',
+        path: '/pages/index/index',
         imageUrl:'/images/logo.png',
       }
     }
@@ -151,6 +154,9 @@ Page({
         dynamicsData:dynamicsData,
         osscdn:res.osscdn
       })
+      if(that.data.collect==1){
+        that.shopFollow()
+      }
     })
   },
   openOtherTap:function(){
@@ -280,5 +286,34 @@ Page({
     that.setData({
       videoHeight:height
     })
-  }
+  },
+   //用户关注店铺
+   shopFollow:function(){
+    const that = this;
+    const shop_id = that.data.dynamicsData.shop_id;
+    const token=wx.getStorageSync('token')
+    wx.request({
+      url: config.ApiUrl + api.setGoodsFans,
+      data: {
+        token:token,
+          fans_status:1,
+          shop_id:shop_id,
+      },
+      method: 'POST',
+      success(res) {
+        console.log(res)
+      },
+      complete(data){
+        console.log(data)
+        // that.getUserShop()
+      }
+    })
+  },
+  //回到首页
+  backIndex:function(){
+    console.log(12)
+    wx.switchTab({
+      url: '/pages/index/index'
+    })
+  },
 })

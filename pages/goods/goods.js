@@ -1,4 +1,5 @@
 // pages/goods/goods.js
+import config from "../../utils/config"
 import api from "../../utils/api"
 import utils from "../../utils/utils"
 var sliderWidth = 26;
@@ -45,6 +46,7 @@ Page({
     goods_cover:'',//商品图片
     goods_price:'',//规格商品价格
     videoToPlay:false,
+    collect:'',
   },
 
   /**
@@ -54,11 +56,15 @@ Page({
     const that = this;
     const goods_id = options.goods_id;//商品id
     const shop_id=options.shop_id
+    var collect=options.collect
     that.setData({
       goods_id: goods_id,
       shop_id:shop_id,
+      collect:collect,
     });
-    
+    if(collect==1){
+      that.shopFollow()
+    }
     
     /*切换*/
     wx.getSystemInfo({
@@ -135,7 +141,7 @@ Page({
     var that=this
     return {
       title: that.data.goodsDetail.goods_name,
-      path: '/pages/goods/goods?goods_id='+that.data.goods_id+'&shop_id='+that.data.shop_id,
+      path: '/pages/goods/goods?collect=1&goods_id='+that.data.goods_id+'&shop_id='+that.data.shop_id,
       imageUrl:that.data.osscdn+that.data.goodsDetail.goods_cover
     }
   },
@@ -540,6 +546,35 @@ Page({
     videoplay.play()
     that.setData({
       videoToPlay:true
+    })
+  },
+  //用户关注店铺
+  shopFollow:function(){
+    const that = this;
+    const shop_id = that.data.shop_id;
+    const token=wx.getStorageSync('token')
+    wx.request({
+      url: config.ApiUrl + api.setGoodsFans,
+      data: {
+        token:token,
+          fans_status:1,
+          shop_id:shop_id,
+      },
+      method: 'POST',
+      success(res) {
+        console.log(res)
+      },
+      complete(data){
+        console.log(data)
+        // that.getUserShop()
+      }
+    })
+  },
+  //回到首页
+  backIndex:function(){
+    console.log(12)
+    wx.switchTab({
+      url: '/pages/index/index'
     })
   },
 })

@@ -99,7 +99,7 @@ Page({
     }else{
       return {
         title: '同橙电商',
-        path: '/pages/my/my',
+        path: '/pages/index/index',
         imageUrl:'/images/logo.png',
       }
     }

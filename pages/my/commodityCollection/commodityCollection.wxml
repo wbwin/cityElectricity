@@ -17,7 +17,7 @@
         </navigator>
         
         <view class='flex_row collection_goods' bindtap="toOrderDetail" data-shop_id="{{item.shop_id}}" data-goods_id="{{item.goods_id}}">
-          <image class='goods_image' src='{{osscdn}}{{item.goods_cover}}'></image>
+          <image class='goods_image' mode="aspectFill" src='{{osscdn}}{{item.goods_cover}}'></image>
           <view class='flex_column jc_flex_sb weui-flex__item goods_content'>
             <text class='goods_name'>{{item.goods_name}}</text>
             <view class='flex_row jc_flex_sb'>

@@ -125,13 +125,13 @@ Page({
     var orderData=that.data.groupList[index]
       return {
         title: loginResult.user_name+'邀请你参加拼团—'+orderData.goods_name,
-        path: '/pages/goods/goods?shop_id='+orderData.shop_id+'&goods_id='+orderData.goods_id,
+        path: '/pages/goods/goods?collect=1&shop_id='+orderData.shop_id+'&goods_id='+orderData.goods_id,
         imageUrl:that.data.osscdn+orderData.goods_cover
       }
     }else{
       return {
         title: '同橙电商',
-        path: '/pages/my/my',
+        path: '/pages/index/index',
         imageUrl:'/images/logo.png',
       }
     }

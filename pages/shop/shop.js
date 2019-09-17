@@ -189,7 +189,7 @@ Page({
       if(res.target.dataset.type==1){
         return {
           title: loginResult.user_name+'推荐一家好店'+'—'+that.data.shop.shop_name,
-          path: '/pages/index/index?collect=1&shop_id='+that.data.shop.id,
+          path: '/pages/shop/shop?collect=1&id='+that.data.shop.id,
           imageUrl:that.data.imgUrls.length>0?that.data.osscdn+that.data.imgUrls[0]:'/images/logo.png'
         }
       }else{
@@ -200,7 +200,7 @@ Page({
         var imageUrl=dynamicsData.img_json.length>0?dynamicsData.img_json[0]:'/images/logo.png'
         return {
           title: dynamicsData.shop_info.shop_name+'—'+dynamicsData.content,
-          path: '/pages/dynamicDetails/dynamicDetails?dynamics_id='+dynamicsData.id,
+          path: '/pages/dynamicDetails/dynamicDetails?collect=1&dynamics_id='+dynamicsData.id,
           imageUrl:imageUrl,
         }
       }
@@ -208,7 +208,7 @@ Page({
     }else{
       return {
         title:loginResult.user_name+'推荐一家好店'+'—'+that.data.shop.shop_name,
-        path: '/pages/index/index?collect=1&shop_id='+that.data.shop.id,
+        path: '/pages/shop/shop?collect=1&id='+that.data.shop.id,
         imageUrl:that.data.imgUrls.length>0?that.data.osscdn+that.data.imgUrls[0]:'/images/logo.png'
       }
     }

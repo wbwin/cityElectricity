@@ -1,7 +1,7 @@
 <!--pages/goods/goods.wxml-->
 <import src="../template/noDatas/noDatas.wxml" />
 <view class='page'>
-
+    <view class="back_index" wx:if="{{collect}}" bindtap="backIndex">回首页</view>
   <view class='page_hd'>
     <swiper indicator-dots="{{indicatorDots}}" bindchange="slideImageChange" class="slide_image" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
       
