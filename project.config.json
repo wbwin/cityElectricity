@@ -48,20 +48,20 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
 					"name": "店铺",
 					"pathName": "pages/shop/shop",
-					"query": "id=14",
+					"query": "id=22",
 					"scene": null
 				},
 				{
 					"id": 1,
 					"name": "商品详情",
 					"pathName": "pages/goods/goods",
-					"query": "goods_id=80&shop_id=14",
+					"query": "goods_id=131&shop_id=22",
 					"scene": null
 				},
 				{
@@ -244,6 +244,13 @@
 					"name": "pages/my/wallet/wallet",
 					"pathName": "pages/my/wallet/wallet",
 					"query": "goods_id=80&shop_id=13",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/index/index",
+					"pathName": "pages/index/index",
+					"query": "collect=1&shop_id=13",
 					"scene": null
 				}
 			]

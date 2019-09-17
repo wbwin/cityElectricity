@@ -22,7 +22,7 @@ Page({
     }
     console.log(res.detail.userInfo)
     that.setData({
-      show:true,
+      // show:true,
       userInfo:res.detail.userInfo
     })
     wx.login({
@@ -45,6 +45,44 @@ Page({
             })
             wx.setStorageSync('openId', openId);
             wx.setStorageSync('session_key', session_key)
+            utils.util.post(api.addUserInfo, {
+              code: res.code,
+              user_name: that.data.userInfo.nickName,
+              avatar: that.data.userInfo.avatarUrl,
+              // encryptedData: encryptedData,
+              // iv: iv,
+              openid:that.data.openId,
+              session_key:that.data.session_key,
+              city:that.data.userInfo.city
+            }, res => {
+              if (res.code==1) {
+                console.log('手机授权:', res)
+                wx.setStorageSync('token', res.data.token)
+                wx.setStorageSync('userId', res.data.id)
+                wx.setStorageSync('mobile', res.data.tel)
+                wx.setStorageSync('osscdn', res.osscdn)
+                // wx.setStorageSync('roleCode', res.result.roleCode)
+                // 写入图片和名字
+                // wx.setStorageSync('avatarWeiXinUrl', res.result.avatar)
+                // wx.setStorageSync('nickName', res.result.nickName)
+                // wx.setStorageSync('accountId', res.result.accountId)
+                var loginResult = JSON.stringify(res.data)
+                wx.setStorageSync('loginResult', res.data)
+                let options = that.data.options;
+                let router = that.data.router;
+                let str = '';
+                for (let k in options) {
+                  str += `${k}=${options[k]}&` //拼接参数
+                }
+                str = (str.substring(str.length - 1) == '&') ? str.substring(0, str.length - 1) : str; //去除最后一个&符号
+                wx.navigateBack({
+                  url: `${router}?${str}`
+                })
+              }
+            }, {
+              loading: true,
+              formData: false
+            })
           }
         })
       }

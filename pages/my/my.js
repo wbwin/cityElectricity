@@ -148,7 +148,7 @@ Page({
       username:res.detail.userInfo.nickName,
       avatar:res.detail.userInfo.avatarUrl,
       city:res.detail.userInfo.city,
-      show:true,
+      // show:true,
     })
     wx.login({
       success: function(res){
@@ -170,6 +170,35 @@ Page({
             })
             wx.setStorageSync('openId', openId);
             wx.setStorageSync('session_key', session_key)
+            wx.request({
+              url: config.ApiUrl + api.addUserInfo,
+              data: {
+                user_name:that.data.username,
+                city:that.data.city,
+                avatar:that.data.avatar,
+                openid:that.data.openId,
+                session_key:that.data.session_key,
+                // iv:e.detail.iv,
+                // encryptedData:e.detail.encryptedData
+              },
+              method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+              // header: {}, // 设置请求的 header
+              success: function(res){
+                that.setData({
+                  userInfo:res.data.data,
+                  isLogin:false,
+                  osscdn:res.data.osscdn,
+                })
+                const token = res.data.data.token;
+                const loginResult = res.data.data;
+                wx.setStorageSync('token', token);
+                console.log(res)
+                wx.setStorageSync('loginResult', loginResult);
+                wx.setStorageSync('osscdn', res.data.osscdn);
+                wx.setStorageSync('userId', res.data.data.id)
+                wx.setStorageSync('mobile', res.data.data.tel)
+              }
+            })
           }
         })
       }
@@ -229,7 +258,7 @@ Page({
             wx.setStorageSync('loginResult', loginResult);
             wx.setStorageSync('osscdn', res.data.osscdn);
             wx.setStorageSync('userId', res.data.data.id)
-            wx.setStorageSync('mobile', res.data.data.mobile)
+            wx.setStorageSync('mobile', res.data.data.tel)
           }
         })
       }

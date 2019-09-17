@@ -54,11 +54,12 @@ page{
   margin-bottom: 24rpx;
   position: relative;
 }
-
-.goods_item_tip {
+.goods_item_tip_box{
   position: absolute;
-  top: 16rpx;
-  left: 124rpx;
+  top: 0rpx;
+  left: 108rpx;
+}
+.goods_item_tip {
   width: 96rpx;
   height: 46rpx;
   background: rgba(255, 132, 27, 1);
@@ -69,8 +70,9 @@ page{
   color: rgba(255, 255, 255, 1);
   text-align: center;
   line-height: 46rpx;
+  margin-left: 16rpx;
+  margin-top: 16rpx;
 }
-
 .goods_content {
   height: 100%;
   margin-left: 24rpx;

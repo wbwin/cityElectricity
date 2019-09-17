@@ -29,7 +29,12 @@
           <navigator url='/pages/goods/goods?goods_id={{item.goods_id}}&shop_id={{shop_id}}' >
           <view class='flex_row goods_item'>
           <image class='goods_image' mode="aspectFill" src='{{osscdn}}{{item.goods_cover}}'></image>
-          <view class='goods_item_tip' wx:if='{{item.label!=1}}'>{{item.label==2?'拼团':'折扣'}}</view>
+          <view class='goods_item_tip_box flex_column' wx:if="{{item.label}}">
+              <block wx:for="{{item.label}}" wx:for-item="label" >
+                <view class="goods_item_tip">{{label==2?'拼团':label==3?'折扣':label==4?'新品':''}}</view>
+              </block>
+          </view>
+          <!-- <view class='goods_item_tip' wx:if='{{item.label!=1}}'>{{item.label==2?'拼团':'折扣'}}</view> -->
           <view class='flex_column weui-flex__item jc_flex_sb goods_content'>
             <view class='goods_name textEllipsisTwo'>{{item.goods_name}}</view>
             <view class='flex_column'>

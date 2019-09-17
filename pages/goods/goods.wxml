@@ -4,15 +4,17 @@
 
   <view class='page_hd'>
     <swiper indicator-dots="{{indicatorDots}}" bindchange="slideImageChange" class="slide_image" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-      <swiper-item wx:if='{{goods_video}}'>
-        <video id="myVideo" bindplay='bindplay' bindpause='bindpause'  show-center-play-btn="{{false}}" controls="{{false}}" poster="{{osscdn}}{{goodsDetail.goods_cover}}" bindended='bindended' class="goods_video" src="{{osscdn}}{{goods_video}}"  controls></video>
-        <view class='flex_row jc_flex_center shop_video_mask' bindtap="videoPlay" wx:if="{{!videoToPlay}}">
-          <image src='/images/video_play.png' class='shop_videoPlay_image'></image>
-        </view>
-      </swiper-item>
-      <block wx:for="{{imgUrls}}">
-        <swiper-item>
-          <image src="{{osscdn}}{{item}}" bindtap="previewImageNav" data-index="{{index}}" class="slide_image" mode="aspectFill" />
+      
+      <block wx:for="{{goodsDetail.banner_image}}">
+        <swiper-item wx:if="{{item.is_video==1}}">
+              <image src="{{osscdn}}{{item.image}}"  wx:if="{{!videoToPlay}}" data-index="{{index}}" class="slide_image_sb" mode="aspectFill" />
+              <video id="myVideo" bindplay='bindplay' bindpause='bindpause'  show-center-play-btn="{{false}}" controls="{{false}}" poster="{{osscdn}}{{item.image}}" bindended='bindended' class="goods_video" src="{{osscdn}}{{item.video}}"  controls></video>
+              <view class='flex_row jc_flex_center shop_video_mask' bindtap="videoPlay" wx:if="{{!videoToPlay}}">
+                <image src='/images/video_play.png' class='shop_videoPlay_image'></image>
+              </view>
+          </swiper-item>
+        <swiper-item wx:else>
+          <image src="{{osscdn}}{{item.image}}" bindtap="previewImageNav" data-index="{{index}}" class="slide_image" mode="aspectFill" />
         </swiper-item>
       </block>
 
@@ -42,7 +44,7 @@
       <view class='goods_name'>{{goodsDetail.goods_name}}</view>
       <view class="flex_row jc_flex_sb">
       <view class='flex_row goods_saleNumb'>已售{{goodsDetail.sales_volume}}件</view>
-      <view class='flex_row goods_saleNumb' wx:if="{{goodsDetail.label==2}}">活动结束时间：2019-05-05</view>
+      <view class='flex_row goods_saleNumb' wx:if="{{goodsDetail.label==2}}">活动结束时间：{{goodsDetail.activity_endtime}}</view>
     </view>
     </view>
     <view class='line_border'></view>
@@ -129,6 +131,7 @@
     <view class='buy_frame_sure' bindtap='sure'>确定</view>
     <image class='hide_frame_image' src='/images/mask_close.png' bindtap='hideBuyFram'></image>
   </view>
+  
 </view>
 <view class='flex_column show_shop_contact' style="display:{{showShopContact!=0?'flex':'none'}}">
     <image bindtap="phoneCall" class='shop_phone {{showShopContact!==0?showShopContact?"shop_phone_animation":"hide_phone_animation":""}}' src='/images/shop_phone.png'></image>

@@ -15,7 +15,15 @@
     <view class='dynamicDetail_shop_content'>{{dynamicsData.content}}</view>
     <view class='dynamic_shop_image flex_column' wx:if="dynamicsData.img_json.length>0">
       <block wx:for="{{dynamicsData.img_json}}" wx:key="*this">
-        <image src='{{osscdn}}{{item}}' bindtap="previewImage" mode="widthFix" data-index="{{index}}" class='dynamic_shop_image_item'></image>
+        <view class="my_video_box" wx:if="{{dynamicsData.type==2&&index==0}}">
+            <image src='{{osscdn}}{{item}}' bindload="imageLoad"  mode="widthFix"  class='dynamic_shop_image_item_ab'  wx:if="{{!videoToPlay}}"></image>
+          <video id="myVideo" bindplay='bindplay' bindpause='bindpause' style="height:{{videoHeight}}px"  show-center-play-btn="{{false}}" controls="{{false}}"  bindended='bindended' class="goods_video" src="{{osscdn}}{{dynamicsData.video_json[0]}}"  controls></video>
+          
+          <view class='flex_row jc_flex_center shop_video_mask' style="bottom:10rpx;" bindtap="videoPlay" wx:if="{{!videoToPlay}}">
+            <image src='/images/video_play.png' class='shop_videoPlay_image'></image>
+          </view>
+        </view>
+        <image src='{{osscdn}}{{item}}' wx:else bindtap="previewImage" mode="widthFix" data-index="{{index}}" class='dynamic_shop_image_item'></image>
       </block>
     </view>
     <view class='dynamicDetail_content'>

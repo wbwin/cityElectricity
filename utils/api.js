@@ -4,6 +4,7 @@ const api = {
   getUserShop:'/public/api/shop/getUserShop',//获取用户关注店铺列表
   getPlatformShop:'/public/api/shop/getPlatformShop',//获取平台店铺
   getShopDetail:'/public/api/shop/getShopDetail',//获取店铺详情
+  getShopNewGoods:'/public/api/Shop/getShopNewGoods',//获取店铺新品栏目商品
   goodsDetail:'/public/api/goods/getGoodsDetail',//商品详情
   setGoodsFans:'/public/api/shop/setGoodsFans',//修改用户关注状态
   getMoreGoodsToCategory:'/public/api/shop/getMoreGoodsToCategory',//获取店铺更多商品--分类
@@ -44,6 +45,8 @@ const api = {
   getAdminWallet:'/public/api/user/getAdminWallet',//获取钱包明细
   addWithdrawInfo:'/public/api/User/addWithdrawInfo',//新增提现发起记录
   getWithdrawInfo:'/public/api/User/getWithdrawInfo',//获取提现发起记录
+  checkPhoneToSms:'/public/api/index/checkPhoneToSms',//手机号短信验证
+  addUserPhone:'/public/api/user/addUserPhone',//绑定用户手机
   // 登录模块
   wechatLogin:'/public/api/wechat/wechatLogin',//登录获取openid
   addUserInfo:'/public/api/wechat/addUserInfo',//用户注册接口

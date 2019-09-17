@@ -26,10 +26,10 @@
                         <view class='poster_item_shopName'>{{item.shop_name}}</view>
                         <view class='poster_item_shopMsg'>{{item.shop_intro}}</view>
                       </view>
-                      <!-- <view class='flex_column ai_flex_end shop_poster_tip'>
-                        <view>越秀区先烈中路000号</view>
-                        <view>距离：550m</view>
-                      </view> -->
+                      <view class='flex_column ai_flex_end shop_poster_tip' wx:if="{{item.length}}">
+                        <!-- <view>越秀区先烈中路000号</view> -->
+                        <view>距离：{{item.length}}km</view>
+                      </view>
                     </view>
                   </view>
                   <!-- <view class='shop_poster_classfly'>新品</view> -->

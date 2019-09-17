@@ -263,8 +263,8 @@ Page({
       limit:10,
       search_text:that.data.searchText,
       unLoading:true,
-      latitude:that.data.latitude,
-      longitude:that.data.longitude
+      lat:that.data.latitude,
+      lng:that.data.longitude
     },res=>{
       var data=res.data.data
       if(data.length>0){

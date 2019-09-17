@@ -5,9 +5,9 @@
   <view class='page_hd'>
     <swiper indicator-dots="{{indicatorDots}}" indicator-color="rgba(255,255,255,0.5)" indicator-active-color="#ffffff"
       class="slide_image" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-      <block wx:for="{{imgUrls}}" wx:key='*this'>
+      <block wx:for="{{banner_image}}" wx:key='*this'>
         <swiper-item>
-          <image src="{{osscdn}}{{item}}" bindtap="previewImageNav" data-index="{{index}}" mode="aspectFill" class="slide_image" />
+          <image src="{{osscdn}}{{item.image}}" bindtap="previewImageNav" data-url="{{item.url}}" data-index="{{index}}" mode="aspectFill" class="slide_image" />
           <!-- <view class='flex_column slide_tip_content'>
             <text class='textEllipsis'>动态文字动态文字动动态文字动态文字动态文…</text>
             <text class='fs11'>05月28日 20:34</text>
@@ -101,15 +101,26 @@
                 <block wx:if="{{classifly_index!=2}}">
                 <navigator url='/pages/goods/goods?goods_id={{item.data[0].goods_id}}&shop_id={{shop_id}}' class='classifly_goods_bigList' hover-class='none'>
                   <view class='classifly_goods_bigImg'>
-                    <image src='{{osscdn}}{{item.data[0].goods_cover}}' class='goods_bigImg_class'
+                    <image src='{{osscdn}}{{item.data[0].goods_cover}}' wx:if="{{item.data[0].is_video==0}}" class='goods_bigImg_class'
                       mode="aspectFill"></image>
+                      <view wx:if="{{item.data[0].is_video==1}}">
+                          <image src="{{osscdn}}{{item.data[0].banner_video_json[0].image}}"  wx:if="{{videoToPlay!==classifly_index}}" data-index="{{classifly_index}}" class="slide_image_sb" mode="aspectFill" />
+                          <video id="myVideo{{classifly_index}}" catchtap="videoUn" bindplay='bindplay' bindpause='bindpause'  show-center-play-btn="{{false}}" controls="{{false}}"  bindended='bindended' class="goods_video" src="{{osscdn}}{{item.data[0].goods_video}}"  controls></video>
+                          <view class='flex_row jc_flex_center shop_video_mask' catchtap="videoPlay" data-index="{{classifly_index}}" wx:if="{{videoToPlay!==classifly_index}}">
+                            <image src='/images/video_play.png' class='shop_videoPlay_image'></image>
+                          </view>
+                      </view>
                     <!-- <view class='flex_row jc_flex_center shop_video_mask'>
                       <image src='../../images/video_play.png' class='shop_videoPlay_image'></image>
                     </view> -->
-                    
-                    <view class='classifly_goods_tip' wx:if='{{item.data[0].label!=1}}'>{{item.data[0].label==2?'拼团':'折扣'}}</view>
-                    <view class='classifly_goods_tip' wx:if='{{goods_item.label==1&&classifly_index==2}}'>新品</view>
-                    <view class='flex_column jc_flex_end goods_bigImg_content' wx:if='{{item.data[0].label!=1}}'>
+                    <view class='shop_classfly_box flex_row' wx:if="{{item.data[0].label!=0}}">
+                        <block wx:for="{{item.data[0].label}}" wx:for-item="label" >
+                          <view class="shop_classfly_item">{{label==2?'拼团':label==3?'折扣':label==4?'新品':''}}</view>
+                        </block>
+                      </view>
+                    <!-- <view class='classifly_goods_tip' wx:if='{{item.data[0].label!=1}}'>{{item.data[0].label==2?'拼团':'折扣'}}</view>
+                    <view class='classifly_goods_tip' wx:if='{{goods_item.label==1&&classifly_index==2}}'>新品</view> -->
+                    <view class='flex_column jc_flex_end goods_bigImg_content' wx:if='{{item.data[0].activity_endtime}}'>
                       <view class='flex_row jc_flex_end activity_endTime'>活动结束时间：{{item.data[0].activity_endtime}}</view>
 
                     </view>
@@ -149,10 +160,15 @@
                       <view class='classifly_goods_smallImg'>
                         <image src='{{osscdn}}{{goods_item.goods_cover}}'
                           class='goods_bigImg_class' mode="aspectFill"></image>
-                          <view class='classifly_goods_tip' wx:if='{{goods_item.label!=1}}'>{{goods_item.label==2?'拼团':'折扣'}}</view>
-                          <view class='classifly_goods_tip' wx:if='{{goods_item.label==1&&classifly_index==2}}'>新品</view>
-                          <view class='flex_column jc_flex_end goods_bigImg_content'  wx:if='{{goods_item.label!=1}}'>
-                          <!-- <view class='flex_row jc_flex_end activity_endTime'>活动结束时间：{{goods_item.activity_time}}</view> -->
+                          <view class='shop_classfly_box flex_column' wx:if="{{goods_item.label!=0}}">
+                              <block wx:for="{{goods_item.label}}" wx:for-item="label" >
+                                <view class="shop_classfly_item">{{label==2?'拼团':label==3?'折扣':label==4?'新品':''}}</view>
+                              </block>
+                            </view>
+                          <!-- <view class='classifly_goods_tip' wx:if='{{goods_item.label!=1}}'>{{goods_item.label==2?'拼团':'折扣'}}</view>
+                          <view class='classifly_goods_tip' wx:if='{{goods_item.label==1&&classifly_index==2}}'>新品</view> -->
+                          <view class='flex_column jc_flex_end goods_bigImg_content'  wx:if='{{goods_item.activity_endtime}}'>
+                          <view class='flex_row jc_flex_end activity_endTime'>活动结束时间：{{goods_item.activity_endtime}}</view>
                         </view>
                       </view>
                       <view class='flex_column classifly_goods_content'>
@@ -172,6 +188,7 @@
               <template is="noDatas" data="{{paddingTop:'32rpx',paddingBottom:'48rpx',text1:'暂无商品'}}" wx:else />
             </view>
           </block>
+          <view class="flex_row jc_flex_center bottom_tips" wx:if="{{showBottomTips}}">— 已经到底啦 —</view>
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
             <include src="../template/dynamicList/dynamicList.wxml" wx:if='{{dynamicsList.length>0}}'/>

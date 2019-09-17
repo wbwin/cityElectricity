@@ -208,7 +208,7 @@ input::-webkit-input-placeholder {
 .shop_classfly_box{
   position: absolute;
   right: 16rpx;
-  top: 16rpx;
+  top: 0rpx;
 }
 .shop_classfly_item {
   padding: 6rpx 24rpx;
@@ -219,6 +219,7 @@ input::-webkit-input-placeholder {
   background: rgba(255, 132, 27, 1);
   border-radius: 24rpx;
   margin-left: 16rpx;
+  margin-top: 16rpx;
 }
 .shop_poster_classfly {
   position: absolute;
@@ -331,7 +332,18 @@ input::-webkit-input-placeholder {
   width: 100%;
   height: 100%
 }
-
+.dynamic_shop_video_mask{
+  position: absolute;
+  left: 0;
+  right: 16rpx;
+  top: 16rpx;
+  bottom: 16rpx;
+  background: rgba(0, 0, 0, 0.3);
+}
+.dynamic_shop_videoPlay_image {
+  width: 50rpx;
+  height: 50rpx;
+}
 .shop_video_mask {
   position: absolute;
   left: 0;
@@ -339,6 +351,7 @@ input::-webkit-input-placeholder {
   top: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.3);
+  z-index: 9;
 }
 
 .shop_videoPlay_image {
@@ -411,7 +424,9 @@ input::-webkit-input-placeholder {
   height: 30rpx;
   margin-right: 10rpx;
 }
-
+.dynamic_shop_image_item_box{
+  position: relative;
+}
 .dynamic_shop_image_item {
   width: 192rpx;
   height: 192rpx;

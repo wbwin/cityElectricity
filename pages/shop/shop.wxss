@@ -358,3 +358,23 @@ button{
   left: 0;
   z-index: 999;
 }
+.slide_image_sb{
+  width: 100%;
+  height: 750rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+}
+.slide_image {
+  width: 100%;
+  height: 750rpx;
+  position: relative;
+}
+.goods_video{
+  width: 100%;
+  height: 750rpx;
+  position: relative;
+}

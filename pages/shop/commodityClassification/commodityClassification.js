@@ -221,6 +221,14 @@ Page({
       unLoading:true,
     },res=>{
       var goods_list=res.data.goods
+      if(goods_list.length>0){
+        for(var i in goods_list){
+          if(goods_list[i].label!=0){
+            goods_list[i].label=goods_list[i].label.length>1?goods_list[i].label.split(","):goods_list[i].label.split("")
+          }
+        }
+      }
+      
       that.setData({
         goods_list:goods_list
       })

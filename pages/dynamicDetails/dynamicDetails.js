@@ -18,6 +18,8 @@ Page({
     dynamicsData:'',//动态数据
     openOther:false,//展开点赞人数
     onShowTrue:false,
+    videoToPlay:false,
+    videoHeight:'',
   },
 
   /**
@@ -144,6 +146,7 @@ Page({
     },res=>{
       var dynamicsData=res.data
       dynamicsData.img_json=JSON.parse(dynamicsData.img_json)
+      dynamicsData.video_json=JSON.parse(dynamicsData.video_json)
       that.setData({
         dynamicsData:dynamicsData,
         osscdn:res.osscdn
@@ -244,5 +247,38 @@ Page({
     var dynamicsData=that.data.dynamicsData
     var shop_info=dynamicsData.shop_info
     utils.openLocation(Number(shop_info.address_lat),Number(shop_info.address_lng),shop_info.address_base+shop_info.address_detail)
+  },
+  //视频处理
+  bindplay:function(e){
+    var that=this
+  },
+  bindpause:function(e){
+    var that=this
+    that.setData({
+      videoToPlay:false,
+    })
+  },
+  bindended:function(e){
+    var that=this
+    that.setData({
+      videoToPlay:false,
+    })
+  },
+  //
+  videoPlay:function(){
+    var that=this
+    var videoplay = wx.createVideoContext('myVideo')
+    videoplay.play()
+    that.setData({
+      videoToPlay:true
+    })
+  },
+  imageLoad:function(e){
+    var that=this
+    console.log(e)
+    var height=375/e.detail.width*e.detail.height
+    that.setData({
+      videoHeight:height
+    })
   }
 })

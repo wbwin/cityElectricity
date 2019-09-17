@@ -63,6 +63,10 @@ Page({
     onShowTrue:false,
     showBottomTips:false,
     collect:'',
+    // newGoodsList:[],//新品列表
+    newGoodsPage:1,//新品列表页数
+    banner_image:[],
+    videoToPlay:3,
   },
 
   /**
@@ -78,13 +82,15 @@ Page({
     that.setData({
       token:wx.getStorageSync('token'),
       page:1,//店铺动态页数
-      collect:options.collect||wx.getLaunchOptionsSync().query.collect
+      newGoodsPage:1,
+      collect:options.collect
     })
-    if(wx.getLaunchOptionsSync().query.collect){
-      that.setData({
-        collect:wx.getLaunchOptionsSync().query.collect
-      })
-    }
+    // console.log(wx.getLaunchOptionsSync().query.collect)
+    // if(wx.getLaunchOptionsSync().query.collect){
+    //   that.setData({
+    //     collect:wx.getLaunchOptionsSync().query.collect
+    //   })
+    // }
     that.getShopDetail(that.data.shop_id);//获取店铺详情
     // that.getShopDynamics();//获取店铺动态列表
     
@@ -112,6 +118,7 @@ Page({
     that.setData({
       token:wx.getStorageSync('token'),
       page:1,//店铺动态页数
+      newGoodsPage:1,
     })
     that.getShopDetail(that.data.shop_id);//获取店铺详情
     // that.getShopDynamics();//获取店铺动态列表
@@ -138,6 +145,7 @@ Page({
     var that=this
     that.setData({
       page:1,//店铺动态页数
+      newGoodsPage:1,
     })
     that.getShopDetail(that.data.shop_id);//获取店铺详情
     // that.getShopDynamics();//获取店铺动态列表
@@ -160,6 +168,12 @@ Page({
       })
       that.getShopDynamics();//获取店铺动态列表
 
+    }else if(that.data.activeIndex==0&&that.data.goods_datas[2].data.length!=0){
+      var page=Number(that.data.newGoodsPage)+1
+      that.setData({
+        newGoodsPage:page
+      })
+      that.getShopNewGoods();//获取店铺新品列表
     }
   },
 
@@ -224,6 +238,7 @@ Page({
     sliderOffset: e.currentTarget.offsetLeft-28,
     activeIndex: e.currentTarget.id,
     shop:shop,
+    showBottomTips:false,
   });
   },
   // 动态
@@ -293,9 +308,22 @@ Page({
       console.log(data)
       console.log(res.data)
       var goods_datas = that.data.goods_datas;
+      
+      for(var i in data.goods_recommend){
+        data.goods_recommend[i].banner_video_json=JSON.parse(data.goods_recommend[i].banner_video_json)
+        if(data.goods_recommend[i].label!=0){
+          data.goods_recommend[i].label=data.goods_recommend[i].label.length>1?data.goods_recommend[i].label.split(","):data.goods_recommend[i].label.split("")
+        }
+      }
+      for(var j in data.goods_hot){
+        data.goods_hot[j].banner_video_json=JSON.parse(data.goods_hot[j].banner_video_json)
+        if(data.goods_hot[j].label!=0){
+          data.goods_hot[j].label=data.goods_hot[j].label.length>1?data.goods_hot[j].label.split(","):data.goods_hot[j].label.split("")
+        }
+      }
       goods_datas[0].data = data.goods_recommend
       goods_datas[1].data = data.goods_hot
-      goods_datas[2].data = data.goods_new
+      // goods_datas[2].data = data.goods_new
       that.setData({
         shop:data.shop,
         is_fans:data.shop.is_fans,
@@ -303,13 +331,15 @@ Page({
         categroy:data.categroy,
         goods_datas: goods_datas,
         imgUrls:JSON.parse(data.shop.shop_img_json),
-        osscdn:res.osscdn
+        osscdn:res.osscdn,
+        banner_image:data.banner_image
       })
       if(that.data.collect&&data.shop.is_fans==0){
         that.shopFollow()
       }
       console.log(that.data.goods_datas)
       that.getShopDynamics();//获取店铺动态列表
+      that.getShopNewGoods();//获取店铺新品商品
     })
    
     // utils.util.post(api.getShopDetail,{
@@ -317,6 +347,45 @@ Page({
     // },res =>{
       
     // })
+  },
+  //获取店铺新品商品
+  getShopNewGoods(){
+    var that=this
+    const token=wx.getStorageSync('token')
+    var page=that.data.newGoodsPage
+    var goods_datas=that.data.goods_datas
+    var newGoodsList=page==1?[]:goods_datas[2].data
+    if(page==1){
+      that.setData({
+        showBottomTips:false
+      })
+    }
+    utils.util.post(api.getShopNewGoods,{
+      page:page,
+      limit:10,
+      token:token,
+      shop_id:that.data.shop_id
+    },res=>{
+      var list=res.data.list
+      if(list.length>0){
+        for(var i in list){
+          if(list[i].label!=0){
+            list[i].label=list[i].label.length>1?list[i].label.split(","):list[i].label.split("")
+          }
+        }
+        newGoodsList=newGoodsList.concat(list)
+        goods_datas[2].data=newGoodsList  
+      that.setData({
+        goods_datas:goods_datas,
+        osscdn:res.osscdn,
+      })
+      console.log(newGoodsList)
+    }else{
+      that.setData({
+        showBottomTips:page==1?false:true
+      })
+    }
+    })
   },
   //用户关注店铺
   shopFollow:function(){
@@ -335,6 +404,9 @@ Page({
       },res=>{
           console.log(res)
           if(res.code==1){
+            if(res.msg=="您对该店铺已关注"&&that.collect==1){
+              return false
+            }
             console.log(is_follow)
             if(is_follow==0){
               shop.fans_count=shop.fans_count-1
@@ -468,17 +540,25 @@ Page({
   },
   previewImageNav:function(e){
     const that = this
+    var url=e.currentTarget.dataset.url
     that.setData({
       onShowTrue:false
     })
-    var imgUrls=JSON.parse(JSON.stringify(that.data.imgUrls))
-    var index=e.currentTarget.dataset.index
-    var osscdn=that.data.osscdn
-    for(var i in imgUrls){
-      imgUrls[i]=osscdn+imgUrls[i]
+    if(url){
+      wx.navigateTo({
+        url:url
+      })
+    }else{
+      var imgUrls=JSON.parse(JSON.stringify(that.data.imgUrls))
+      var index=e.currentTarget.dataset.index
+      var osscdn=that.data.osscdn
+      for(var i in imgUrls){
+        imgUrls[i]=osscdn+imgUrls[i]
+      }
+      
+      utils.previewImage(imgUrls,imgUrls[index])
     }
     
-    utils.previewImage(imgUrls,imgUrls[index])
   },
     //获取店铺动态列表
     getShopDynamics(){
@@ -574,5 +654,47 @@ Page({
       wx.switchTab({
         url: '/pages/index/index'
       })
+    },
+     //视频处理
+  bindplay:function(e){
+    var that=this
+    that.setData({
+    })
+  },
+  bindpause:function(e){
+    var that=this
+    // that.setData({
+    //   videoToPlay:3,
+    // })
+  },
+  bindended:function(e){
+    var that=this
+    that.setData({
+      videoToPlay:3,
+    })
+  },
+  //
+  videoPlay:function(e){
+    var that=this
+    var index=e.currentTarget.dataset.index
+    if(index!=that.data.videoToPlay){
+      console.log(that.data.videoToPlay)
+      // var videoContext = wx.createVideoContext('myVideo0')
+      // videoContext.pause()
+      var videoContext = wx.createVideoContext('myVideo'+that.data.videoToPlay)
+      videoContext.pause()
     }
+    console.log(index)
+    var videoplay = wx.createVideoContext('myVideo'+index)
+    
+    videoplay.play()
+    console.log(index)
+    that.setData({
+      videoToPlay:index
+    })
+    console.log(that.data.videoToPlay)
+  },
+  videoUn:function(){
+
+  },
 })

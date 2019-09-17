@@ -56,9 +56,14 @@ Page({
       collect:options.collect,
       shop_id:options.shop_id
     })
+    if(options.collect==1){
+      that.shopFollow()
+    }else{
+      that.getUserShop();//加载数据
+    }
     that.getBanner();//banner
     
-    that.getUserShop();//加载数据
+    
   },
   onShow: function () {
     let that = this;
@@ -391,6 +396,28 @@ Page({
     var dynamicsList=that.data.dynamicsList
     var shop_info=dynamicsList[index].shop_info
     utils.openLocation(Number(shop_info.address_lat),Number(shop_info.address_lng),shop_info.address_base+shop_info.address_detail)
-  }
+  },
+  //用户关注店铺
+  shopFollow:function(){
+    const that = this;
+    const shop_id = that.data.shop_id;
+    const token=wx.getStorageSync('token')
+    wx.request({
+      url: config.ApiUrl + api.setGoodsFans,
+      data: {
+        token:token,
+          fans_status:1,
+          shop_id:shop_id,
+      },
+      method: 'POST',
+      success(res) {
+        console.log(res)
+      },
+      complete(data){
+        console.log(data)
+        that.getUserShop()
+      }
+    })
+  },
 
 })

@@ -280,8 +280,10 @@ Page({
         that.getCoder(that.data.addressTransformation)
       }
       //判断是否绑定过手机号
-      if (res.data.is_retic == 0) {
-
+      if (res.data.is_tel == 0) {
+        that.setData({
+          mobileMask:true
+        })
       }
     })
   },
@@ -422,19 +424,29 @@ Page({
       })
       return false
     }
-    var codeTime = setInterval(() => {
-      if (counts <= 1) {
-        clearInterval(codeTime)
-        that.setData({
-          countDownText:'获取验证码'
-        })
-      } else {
-        counts--
-        that.setData({
-          countDownText:counts + 's'
-        })
-      }
-    }, 1000)
+    utils.util.post(api.checkPhoneToSms,{
+      tel:vcPhone,
+      token:that.data.token
+    },res=>{
+      wx.showToast({
+        icon:'none',
+        title:'验证码发送成功'
+      })
+      var codeTime = setInterval(() => {
+        if (counts <= 1) {
+          clearInterval(codeTime)
+          that.setData({
+            countDownText:'获取验证码'
+          })
+        } else {
+          counts--
+          that.setData({
+            countDownText:counts + 's'
+          })
+        }
+      }, 1000)
+    })
+    
   },
   phoneInput:function(e){
     var that=this
@@ -457,6 +469,21 @@ Page({
   },
   //确认绑定手机
   bindPhoneSure:function(){
-
+    var that=this
+    var vcPhone = that.data.vcPhone
+    var verificationCode=that.data.verificationCode
+    utils.util.post(api.addUserPhone,{
+      tel:vcPhone,
+      number:verificationCode,
+      token:that.data.token
+    },res=>{
+      wx.showToast({
+        icon:'none',
+        title:'手机号码绑定成功'
+      })
+      that.setData({
+        mobileMask:false
+      })
+    })
   }
 })

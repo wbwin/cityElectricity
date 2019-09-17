@@ -518,7 +518,12 @@ Page({
     that.setData({
       onShowTrue:false
     })
-    var imgUrls=JSON.parse(JSON.stringify(that.data.imgUrls))
+    // var imgUrls=JSON.parse(JSON.stringify(that.data.imgUrls))
+    var banner_image=that.data.goodsDetail.banner_image
+    var imgUrls=[]
+    for(var i in banner_image){
+      imgUrls.push(banner_image[i].image)
+    }
     var index=e.currentTarget.dataset.index
     var osscdn=that.data.osscdn
     for(var i in imgUrls){
