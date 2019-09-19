@@ -234,12 +234,12 @@ Page({
     var that=this
     var shop=that.data.shop
     shop.is_dynamics_red=0
-  this.setData({
-    sliderOffset: e.currentTarget.offsetLeft-28,
-    activeIndex: e.currentTarget.id,
-    shop:shop,
-    showBottomTips:false,
-  });
+    this.setData({
+      sliderOffset: e.currentTarget.id==0?0:e.currentTarget.id==1?212:422,
+      activeIndex: e.currentTarget.id,
+      shop:shop,
+      showBottomTips:false,
+    });
   },
   // 动态
   triangleClick: function () {

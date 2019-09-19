@@ -478,7 +478,10 @@ input::-webkit-input-placeholder {
   font-weight: 400;
   color: rgba(255, 132, 27, 1);
 }
-
+.address_class{
+  font-weight: bold;
+  color: #666;
+}
 .fabulous_comment {
   padding: 24rpx 24rpx 0 16rpx;
   background-color: #f7f7f7;
@@ -1149,4 +1152,7 @@ input::-webkit-input-placeholder {
   top:70rpx;
   left: 0;
   z-index: 999;
+}
+.font_weight{
+  font-weight: bold;
 }

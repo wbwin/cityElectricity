@@ -104,7 +104,7 @@
     <view class='flex_row shop_address' bindtap='openLocation' wx:else>
       <view class='flex_row weui-flex__item ai_flex_start'>
         <text>店家地址：</text>
-        <text class='weui-flex__item'>{{orderData.get_address_text}}</text>
+        <text class='weui-flex__item address_class'>{{orderData.get_address_text}}</text>
       </view>
       <image class='shop_address_image ml21' src='../../../../images/city.png'></image>
     </view>

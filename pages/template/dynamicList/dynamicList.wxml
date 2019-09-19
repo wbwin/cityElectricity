@@ -31,7 +31,7 @@
     </view> -->
     <view class='flex_row dynamic_shop_address' wx:if="{{item.shop_info.address_lat&&item.shop_info.address_lng}}" data-index="{{index}}" bindtap="openDynamicLocation">
       <image src='../../images/address_icon.png' class='dynamic_shop_address_image'></image>
-      <text>{{item.shop_info.address_base}}{{item.shop_info.address_detail}}</text>
+      <text class="address_class">{{item.shop_info.address_base}}{{item.shop_info.address_detail}}</text>
     </view>
     <block wx:for="{{item.goods_info}}" wx:for-item='goods_item' wx:for-index='goods_index' wx:key="*this">
       <navigator url='/pages/goods/goods?goods_id={{goods_item.id}}&shop_id={{item.shop_id}}' hover-class='none'>

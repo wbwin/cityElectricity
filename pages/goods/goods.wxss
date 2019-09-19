@@ -63,12 +63,15 @@ color:rgba(255,255,255,1);
 .goods_content {
   
 }
-
+.flex_wrap{
+  flex-wrap: wrap
+}
 .goods_price {
   font-size:48rpx;
 font-family:PingFangSC-Medium;
 font-weight:500;
 color:rgba(255,132,27,1);
+margin-right: 32rpx;
 }
 
 .goods_originalPrice {
@@ -76,7 +79,7 @@ color:rgba(255,132,27,1);
 font-family:PingFangSC-Regular;
 font-weight:400;
 color:rgba(153,153,153,1);
-margin-left: 32rpx;
+
 text-decoration: line-through;
 }
 

@@ -183,7 +183,7 @@ Page({
     //   })
     // }
     this.setData({
-      sliderOffset: e.currentTarget.id==0?e.currentTarget.offsetLeft:e.currentTarget.offsetLeft-56,
+      sliderOffset: e.currentTarget.id==0?e.currentTarget.offsetLeft:256,
       activeIndex: e.currentTarget.id,
       showBottomTips:false
     });

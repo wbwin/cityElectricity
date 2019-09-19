@@ -189,8 +189,9 @@ Page({
     // }else{
     //   that.getDynamicsInfo()
     // }
+    // sliderOffset: e.currentTarget.id==0?e.currentTarget.offsetLeft:e.currentTarget.offsetLeft-57,
     this.setData({
-      sliderOffset: e.currentTarget.id==0?e.currentTarget.offsetLeft:e.currentTarget.offsetLeft-56,
+      sliderOffset: e.currentTarget.id==0?0:256,
       activeIndex: e.currentTarget.id
     });
   },

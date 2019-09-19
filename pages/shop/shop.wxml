@@ -63,7 +63,7 @@
           </view>
         </block>
         <view class="weui-navbar__slider"
-          style="width:9%;left:17.5%!important; bottom: 16rpx !important; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);">
+          style="width:9%;left:17.5%!important; bottom: 16rpx !important; transform: translateX({{sliderOffset}}rpx); -webkit-transform: translateX({{sliderOffset}}rpx);">
         </view>
       </view>
       <view class="weui-tab__panel">
@@ -153,10 +153,10 @@
                   </view>
                 </navigator>
               </block>
-                <view class='classifly_goods_smallWrap' wx:if='{{item.data.length>1||classifly_index==2}}'>
+                <view class='classifly_goods_smallWrap' wx:if='{{item.data.length>1}}'>
                   <block wx:for="{{item.data}}" wx:key='*this' wx:for-item='goods_item' wx:for-index='i'>
-                    <navigator url='/pages/goods/goods?goods_id={{goods_item.goods_id}}&shop_id={{shop_id}}' hover-class='none' class='classifly_goods_smallList' wx:if="{{i!=0}}"
-                      style='margin-right:{{i%2?"26rpx":"0"}}'>
+                    <navigator url='/pages/goods/goods?goods_id={{goods_item.goods_id}}&shop_id={{shop_id}}' hover-class='none' class='classifly_goods_smallList' wx:if="{{i!=0||classifly_index==2}}"
+                      style='margin-right:{{(classifly_index!=2&&i%2)||(classifly_index==2&&(i+1)%2)?"26rpx":"0"}}'>
                       <view class='classifly_goods_smallImg'>
                         <image src='{{osscdn}}{{goods_item.goods_cover}}'
                           class='goods_bigImg_class' mode="aspectFill"></image>
@@ -207,7 +207,7 @@
                 <view class='weui-cell__rt'>店铺地址</view>
               </view>
               <view class="weui-cell__bd color6">{{shop.address_base}}{{shop.address_detail}}</view>
-              <!-- <image class='more_right' src='../../images/content_more_right.png'></image> -->
+              <image class='more_right' src='../../images/content_more_right.png'></image>
             </view>
             <view class="global_cell ">
               <view class="weui-cell__hd">

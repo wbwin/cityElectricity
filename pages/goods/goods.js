@@ -45,6 +45,7 @@ Page({
     goods_video:'',//商品视频
     goods_cover:'',//商品图片
     goods_price:'',//规格商品价格
+    goodsDetailPrice:'',
     videoToPlay:false,
     collect:'',
   },
@@ -139,8 +140,16 @@ Page({
    */
   onShareAppMessage: function () {
     var that=this
+    var goodsDetail=that.data.goodsDetail
+    var loginResult=wx.getStorageSync('loginResult')
+    
+    if(goodsDetail.label==2){
+      var title=loginResult.user_name+'邀请你参加拼团—'+goodsDetail.goods_name
+    }else{
+      var title=that.data.goodsDetail.goods_name
+    }
     return {
-      title: that.data.goodsDetail.goods_name,
+      title: title,
       path: '/pages/goods/goods?collect=1&goods_id='+that.data.goods_id+'&shop_id='+that.data.shop_id,
       imageUrl:that.data.osscdn+that.data.goodsDetail.goods_cover
     }
@@ -170,6 +179,7 @@ Page({
       }
       var spec_stock_price=[]
       var goods_price=''
+      var goodsDetailPrice=''
       if(spec_json){
         for(var i in res.data.spec_stock){
           spec_stock_price.push(res.data.spec_stock[i].price)
@@ -177,11 +187,14 @@ Page({
         spec_stock_price.sort();
         if(spec_stock_price[0]==spec_stock_price[spec_stock_price.length-1]){
           goods_price=spec_stock_price[0]
+          goodsDetailPrice=res.data.price
         }else{
           goods_price=spec_stock_price[0]+'-'+spec_stock_price[spec_stock_price.length-1]
+          goodsDetailPrice=spec_stock_price[0]+'-'+spec_stock_price[spec_stock_price.length-1]
         }
       }else{
         goods_price=res.data.price
+        goodsDetailPrice=res.data.price
       }
       that.setData({
         goodsDetail:res.data,
@@ -192,6 +205,7 @@ Page({
         collectType:res.data.is_collect,
         goods_price:goods_price,
         goods_cover:res.data.goods_cover,
+        goodsDetailPrice:goodsDetailPrice,
       })
       for(var i in spec_json){
         that.secSelect(i,0)
@@ -214,7 +228,7 @@ Page({
   //切换tab
   tabClick: function (e) {
     this.setData({
-      sliderOffset: e.currentTarget.offsetLeft-28,
+      sliderOffset: e.currentTarget.dataset.index==0?0:315,
       activeIndex: e.currentTarget.dataset.index
     });
   },

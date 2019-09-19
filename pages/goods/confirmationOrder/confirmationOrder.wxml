@@ -76,7 +76,7 @@
           <view class='flex_row shop_address' bindtap='openLocation'>
             <view class='flex_row ai_flex_start weui-flex__item'>
               <text class='shop_address_title'>店家地址</text>
-              <text class='weui-flex__item shop_address_msg'>{{orderData.address_base}}{{orderData.address_detail}}</text>
+              <text class='weui-flex__item shop_address_msg address_class'>{{orderData.address_base}}{{orderData.address_detail}}</text>
             </view>
             <image class='address_icon_main' src='../../../images/address_icon_main.png'></image>
           </view>

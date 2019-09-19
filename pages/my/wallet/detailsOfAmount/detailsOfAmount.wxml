@@ -9,8 +9,8 @@
             <text class='amout_item_name'>{{item.description}}</text>
             <text class='amout_item_time'>{{item.createtime}}</text>
           </view>
-          <text class='amout_item_price unsettled_color' wx:if="{{item.status==2}}">-{{item.price}}</text>
-          <text class='amout_item_price' wx:else>+{{item.price}}</text>
+          <text class='amout_item_price unsettled_color' wx:if="{{item.status==2}}">+{{item.price}}</text>
+          <text class='amout_item_price' wx:else>-{{item.price}}</text>
 
         </view>
       </block>

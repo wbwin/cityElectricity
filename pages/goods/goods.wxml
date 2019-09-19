@@ -25,8 +25,8 @@
   <view class='page_bd'>
     <view class='goods_top_content'>
       <view class='flex_row jc_flex_sb goods_content'>
-        <view class='flex_row '>
-          <view class='goods_price'>{{goodsDetail.label==2?'拼团价:':''}}￥{{goodsDetail.price}}</view>
+        <view class='flex_row flex_wrap'>
+          <view class='goods_price'>{{goodsDetail.label==2?'拼团价:':''}}￥{{goodsDetailPrice}}</view>
           <view class='goods_originalPrice'>{{goodsDetail.label==2?'原价:':''}}￥{{goodsDetail.mart_price}}</view>
         </view>
         <view class='flex_row'>
@@ -72,7 +72,7 @@
           <view class="weui-navbar__title">评论（{{goodsDetail.comment_info&&goodsDetail.comment_info.length>0?goodsDetail.comment_info.length:0}}）</view>
         </view>
 
-        <view class="weui-navbar__slider" style="width:9%;left:{{activeIndex==0?'24.5%':'19%'}}!important; bottom: 16rpx !important; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+        <view class="weui-navbar__slider" style="width:9%;left:{{activeIndex==0?'24.5%':'19%'}}!important; bottom: 16rpx !important; transform: translateX({{sliderOffset}}rpx); -webkit-transform: translateX({{sliderOffset}}rpx);"></view>
       </view>
       <view class="weui-tab__panel">
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">

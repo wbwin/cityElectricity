@@ -148,7 +148,7 @@ color:rgba(51,51,51,1);
   margin-right: 48rpx;
 }
 .shop_address_msg{
-  
+  font-weight: bold;
 }
 .address_icon_main{
   width: 40rpx;
