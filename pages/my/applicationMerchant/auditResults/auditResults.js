@@ -152,5 +152,23 @@ Page({
         })
       }
     })
-  }
+  },
+  //复制文本
+  copy:function(){
+    var that=this
+    var copyText=''
+    if(that.data.is_shop){
+      copyText=that.data.shop.url
+    }else{
+      copyText=that.data.supplier.url
+    }
+    wx.setClipboardData({
+      data:copyText,
+      success(res){
+        wx.showToast({
+          title:'复制成功'
+        })
+      }
+    })
+  },
 })

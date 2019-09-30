@@ -326,6 +326,8 @@ Page({
       limit:10,
       token:token,
       search_text:that.data.searchText,
+      lat:that.data.latitude,
+      lng:that.data.longitude,
       unLoading:true,
     },res=>{
       var list=res.data.list
